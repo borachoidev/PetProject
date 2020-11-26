@@ -40,16 +40,16 @@ font-size:17px;}
 	<div class="nav__title">
 		<span>Pet&Me</span>
 		<ul class="menu__list">
-			<li>펫앤미소개</li>
-			<li>예약</li>
-			<li>후기</li>
-			<li>커뮤니티</li>
-			<li>분양</li>
+			<a href="index.jsp?main=Intro/intro.jsp"><li>펫앤미소개</li></a>
+			<a href="index.jsp?main=Book/bookMain.jsp"><li>예약</li></a>
+			<a href="index.jsp?main=Review/reviewMain.jsp"><li>후기</li></a>
+			<a href="index.jsp?main=Mung/mungMain.jsp"><li>커뮤니티</li></a>
+			<a href="index.jsp?main=Adopt/adoptMain.jsp"><li>분양</li></a>
 		</ul>
 		<ul class="menu__login">
-			<li class="menu__login-btn" id="loginBtn">로그인</li>
-			<li class="menu__logout-btn" id="logoutBtn">로그아웃</li>
-			<li class="menu__logout-btn" id="myPageBtn">마이페이지</li>
+			<a href="index.jsp?main=Login/loginForm.jsp"><li class="menu__login-btn" id="loginBtn">로그인</li></a>
+			<a href="index.jsp?main=Logout/logout.jsp"><li class="menu__logout-btn" id="logoutBtn">로그아웃</li></a>
+			<a href="index.jsp?main=Mypage/mypageMain.jsp"><li class="menu__logout-btn" id="myPageBtn">마이페이지</li></a>
 		</ul>
 	</div>
 </body>

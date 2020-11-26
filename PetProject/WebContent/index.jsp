@@ -28,7 +28,7 @@
 	font-family: 'Noto Sans KR';
 }
 </style>
-<title>Pet & Me | 반려견과 내가 소통하는 공간 - 제가 수정했습니다 (다미)</title>
+<title>Pet & Me | 반려견과 내가 소통하는 공간</title>
 </head> 
 <body>
 <jsp:include page="Layout/menu.jsp"/>
