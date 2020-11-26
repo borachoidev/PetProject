@@ -30,8 +30,17 @@
 </style>
 <title>Pet & Me | 반려견과 내가 소통하는 공간</title>
 </head> 
+<%
+	//메인페이지에 들어갈 파일 읽기
+String mainPage = "Layout/main.jsp";
+if (request.getParameter("main") != null)
+{
+
+	mainPage = request.getParameter("main");
+}
+%>
 <body>
 <jsp:include page="Layout/menu.jsp"/>
-<jsp:include page="Layout/main.jsp"/>
+<jsp:include page="<%=mainPage %>"/>
 </body>
 </html>
