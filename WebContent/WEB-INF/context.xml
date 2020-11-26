@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<Context>
+<Resource 
+	name="jdbc/AWS-RDS"
+	auth="Container"
+	type="javax.sql.DataSource"
+	driverClassName="com.mysql.jdbc.Driver"
+	factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+	url="jdbc:mysql://semidb.cvlqexbehcqg.ap-northeast-2.rds.amazonaws.com:3306/semidb"
+	username="amdin"
+	password="bit301301" >
+</Resource>
+</Context>
