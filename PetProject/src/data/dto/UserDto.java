@@ -7,9 +7,11 @@ public class UserDto {
 	private String pass;
 	private String email;
 	private int lvl;
-	private String address;
-	private String detailaddr;
 	private String hp;
+	private String jibun_addr;
+	private String road_addr;
+	private String detail_addr;
+	private String zipcode;
 	private int agree;
 	public String getUser_num() {
 		return user_num;
@@ -47,23 +49,35 @@ public class UserDto {
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getDetailaddr() {
-		return detailaddr;
-	}
-	public void setDetailaddr(String detailaddr) {
-		this.detailaddr = detailaddr;
-	}
 	public String getHp() {
 		return hp;
 	}
 	public void setHp(String hp) {
 		this.hp = hp;
+	}
+	public String getJibun_addr() {
+		return jibun_addr;
+	}
+	public void setJibun_addr(String jibun_addr) {
+		this.jibun_addr = jibun_addr;
+	}
+	public String getRoad_addr() {
+		return road_addr;
+	}
+	public void setRoad_addr(String road_addr) {
+		this.road_addr = road_addr;
+	}
+	public String getDetail_addr() {
+		return detail_addr;
+	}
+	public void setDetail_addr(String detail_addr) {
+		this.detail_addr = detail_addr;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 	public int getAgree() {
 		return agree;
@@ -71,5 +85,6 @@ public class UserDto {
 	public void setAgree(int agree) {
 		this.agree = agree;
 	}
+		
 	
 }
