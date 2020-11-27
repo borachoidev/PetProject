@@ -12,7 +12,7 @@ public class AdoptDto {
 	private String commt;
 	private String photo;
 	private String content;
-	private String likes;
+	private int likes;
 	private Timestamp wrteday;
 	private String id;
 	private String user_name;
@@ -70,10 +70,10 @@ public class AdoptDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getLikes() {
+	public int getLikes() {
 		return likes;
 	}
-	public void setLikes(String likes) {
+	public void setLikes(int likes) {
 		this.likes = likes;
 	}
 	public Timestamp getWrteday() {

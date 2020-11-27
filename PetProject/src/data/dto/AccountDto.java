@@ -10,6 +10,14 @@ public class AccountDto {
 	private String photo;
 	private String memo;
 	private String user_num;
+	private int sel_acc;
+	
+	public int getSel_acc() {
+		return sel_acc;
+	}
+	public void setSel_acc(int sel_acc) {
+		this.sel_acc = sel_acc;
+	}
 	public String getDog_num() {
 		return dog_num;
 	}
