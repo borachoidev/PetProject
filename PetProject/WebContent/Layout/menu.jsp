@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.nav__title {
+.main-menu {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -37,7 +37,7 @@ font-size:17px;}
 </style>
 </head>
 <body>
-	<div class="nav__title">
+	<div class="main-menu">
 		<span>Pet&Me</span>
 		<ul class="menu__list">
 			<a href="index.jsp?main=Intro/intro.jsp"><li>펫앤미소개</li></a>
@@ -50,6 +50,25 @@ font-size:17px;}
 			<a href="index.jsp?main=Login/loginForm.jsp"><li class="menu__login-btn" id="loginBtn">로그인</li></a>
 			<a href="index.jsp?main=Logout/logout.jsp"><li class="menu__logout-btn" id="logoutBtn">로그아웃</li></a>
 			<a href="index.jsp?main=Mypage/mypageMain.jsp"><li class="menu__logout-btn" id="myPageBtn">마이페이지</li></a>
+		</ul>
+	</div>
+	<div class="submenu">
+		<ul class="menu__intro">
+			<a href="index.jsp?main=Intro/intro.jsp"><li>위치안내</li></a>
+			<a href="index.jsp?main=Intro/intro.jsp"><li>강사소개</li></a>
+		</ul>
+		<ul class="menu__book">
+			<a href="index.jsp?main=Book/bookMain.jsp"><li>소형견과정</li></a>
+			<a href="index.jsp?main=Book/bookMain.jsp"><li>중형견과정</li></a>
+			<a href="index.jsp?main=Book/bookMain.jsp"><li>대형견과정</li></a>
+		</ul>
+		<ul class="menu__community">
+			<a href="index.jsp?main=Mung/mungMain.jsp"><li>멍스타그램</li></a>
+			<a href="index.jsp?main=Walk/walkMain.jsp"><li>산책친구</li></a>
+		</ul>
+		<ul class="menu__adopt">
+			<a href="index.jsp?main=Adopt/adoptMain.jsp"><li>가정분양</li></a>
+			<a href="index.jsp?main=Adopt/adoptMain.jsp"><li>유기견분양</li></a>
 		</ul>
 	</div>
 </body>
