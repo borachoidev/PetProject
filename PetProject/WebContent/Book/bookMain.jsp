@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-예약
+예약 
+첫번째 push 두번째
 </body>
 </html>
