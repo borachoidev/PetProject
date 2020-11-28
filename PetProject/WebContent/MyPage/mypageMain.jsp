@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 인덱스를 통해 아직 들어갈 수 없어서 테스트겸 붙혀놓았으니 나중에 뺌 -->
 <!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
@@ -31,15 +32,15 @@
 <title>펫앤미 - 마이페이지</title>
 </head>
 <div class="myPage jumbotron">
-  <h1>[로그인한 사람의 이름]님의 마이페이지</h1>
+  <h1>마이페이지</h1>
 </div>
 
 <div class="list-group">
   <a href="#" class="myAdd list-group-item">반려동물 등록</a>
-  <a href="#" class="myAdj list-group-item">반려동물 정보 수정</a>
+  <a href="#" class="myAdj list-group-item">반려동물 정보수정 및 삭제</a>
   <a href="#" class="myBook list-group-item">예약현황</a>
   <a href="#" class="myReco list-group-item">수강내역</a>
-  <a href="#" class="myReview list-group-item">후기관리</a>
+  <a href="#" class="myReview list-group-item">내 글관리</a>
   <a href="#" class="myUserInfo list-group-item">회원정보수정 및 탈퇴</a>
 </div>
 

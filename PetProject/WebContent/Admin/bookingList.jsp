@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예약관리</title>
 </head>
 <body>
-예약관리 (삭제가능함)
+예약리스트 뽑아서 삭제버튼과 경고창추가
 </body>
 </html>

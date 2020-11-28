@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 인덱스를 통해 아직 들어갈 수 없어서 테스트겸 붙혀놓았으니 나중에 뺌 -->
 <!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
@@ -28,12 +29,17 @@
 	font-family: 'Noto Sans KR';
 }
 </style>
-<title>펫앤미 - 마이페이지</title>
+<title>펫앤미 - 관리자 페이지</title>
 </head>
 <div class="jumbotron">
-  <h1>Hello, world!</h1>
-  <p>...</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  <h1>관리자용 페이지</h1>
+  <br><br>
+  <p>보안을 위하여 비밀번호 노출 및 로그아웃 유무에 유의 부탁드립니다.</p>
+ 	 <div class="list-group">
+ 		 <a href="#" class="myAdd list-group-item">회원관리</a>
+  		 <a href="#" class="myAdj list-group-item">예약관리</a>
+  		 <a href="#" class="myBook list-group-item">후기글 관리</a>
+	</div>
 </div>
 </body>
 </html>
