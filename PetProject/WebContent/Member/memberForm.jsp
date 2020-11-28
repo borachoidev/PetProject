@@ -265,13 +265,13 @@ button {
 						<input type="text" name="email1" class="m_form" placeholder="이메일주소" required /> 
 						<span>@</span>
 						<input type="text" class="m_form" id="email2" placeholder="이메일주소" required /> 
-						<select>
+						<select id="email3">
 							<option disabled selected>선택하세요</option>
-							<option>google.com</option>
-							<option>naver.com</option>
-							<option>hanmail.net</option>
-							<option>nate.com</option>
-							<option>직접 입력하기</option>
+							<option value="google.com">google.com</option>
+							<option value="naver.com">naver.com</option>
+							<option value="hanmail.net">hanmail.net</option>
+							<option value="nate.com">nate.com</option>
+							<option value="-">직접 입력하기</option>
 					</select>
 					</label>
 					<!-- 주소 -->
@@ -296,14 +296,34 @@ button {
 						<input type="checkbox" id="chk_agree"/> 위치정보동의(선택) 
 						<input type="hidden" name="agree" id="agree" value="0"/>
 						<script type="text/javascript">
-                $("#chk_agree").click(function () {
+               //위치정보동의 파라미터
+				$("#chk_agree").click(function () {
                   if ($(this).prop("checked")) {
                     $("#agree").val("1");
                   } else {
                     $("#agree").val("0");
                   }
                 });
+                
+              //1.핸드폰 4자리 입력시 다음 번호칸으로 이동
+            	$("#hp2").keyup(function(){
+            		if($(this).val().length==4)
+            			$("#hp3").focus();
+            	})
+            	//2. 이메일 선택시 앞칸에 이메일 주소 출력
+            	$("#email3").change(function(){
+            		var mail =$(this).val();
+            		if(mail=="-"){
+            			$("#email2").val("");
+            			$("#email2").focus();
+            		}else{
+            			$("#email2").val(mail);
+            		}
+            		
+            	})
+            	
               </script>
+              
 					</div>
 					<button type="submit">회원가입</button>
 				</div>
