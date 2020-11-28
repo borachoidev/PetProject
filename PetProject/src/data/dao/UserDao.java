@@ -84,5 +84,59 @@ public class UserDao {
 		}
 
 	}
+	
+	public int loginProcess(String id, String pass) {
+		int ans=0;
+		if(this.isIdSearch(id)) {
+			//아이디가 존재하는 경우
+			//비번이 맞는지 확인
+			if(this.isIdPassCheck(id, pass)) {
+				//맞는경우
+				ans=3;
+			}else {
+				//틀린경우
+				ans=2;
+			}
+			
+		}else {
+			//아이디가 존재하지 않는경우
+			ans=1;
+		}
+		return  ans;
+	}
+	
+	//아이디에 해당하는 비번이 맞으면 true ,틀리면 false
+		public boolean isIdPassCheck(String id, String pass)
+		{
+			boolean find = false;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "select * from user_tb where id=? and pass=?";
+
+			conn = db.getMyConnection();
+			try
+			{
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, id);
+				pstmt.setString(2, pass);
+				rs = pstmt.executeQuery();
+				if (rs.next())
+				{
+					find = true;
+				}
+
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				db.dbClose(conn, pstmt, rs);
+			}
+
+			return find;
+		}
 
 }
