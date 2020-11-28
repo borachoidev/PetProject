@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 인덱스를 통해 아직 들어갈 수 없어서 테스트겸 붙혀놓았으니 나중에 뺌 -->
 <!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
@@ -31,7 +32,7 @@
 <title>강아지 등록하기</title>
 </head>
 <body>
-<div class="dogAddform">
+<div class="accAddform">
 	<form action="databoard/datawriteaction.jsp" method="post" enctype="multipart/form-data"
 	class="form-inline">
 	<!-- hidden -->
@@ -39,21 +40,23 @@
 	
 	<table class="table table-bordered" style="width: 600px;">
 		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
-			<b>견종</b></td>
-			<td><span class="breeds">
-      		<input type="radio" name="poodle" value="poodle">poodle
-      		<input type="radio" name="pome" value="pomeranian">pomeranian
-      		<input type="radio" name="golden" value="goldenretriever">goldenretriever
-      		<input type="radio" name="Mixed" value="Mixed" checked>Mixed
-  			</span></td>
-		</tr>
-		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
+			<td style="width: 80px;background-color:#66cdaa;">
 			<b>애견이름</b></td>
 			<td><input type="text" name="dogName" class="form-control" style="width: 400px;">
 			</td>
 		</tr>
+		<tr>
+			<td style="width: 150px;background-color:#66cdaa;">
+			<b>견종</b></td>
+			<td><span class="breeds">
+      		<input type="radio" name="poodle" value="poodle">푸들
+      		<input type="radio" name="pome" value="pomeranian">포메
+      		<input type="radio" name="golden" value="goldenretriever">골든리트리버
+      		<input type="radio" name="golden" value="goldenretriever">진돗개
+      		<input type="radio" name="Mixed" value="Mixed" checked>믹스견
+  			</span></td>
+		</tr>
+		
 		
 		
 		<tr>
