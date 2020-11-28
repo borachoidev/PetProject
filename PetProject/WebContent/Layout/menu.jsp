@@ -32,7 +32,7 @@ $(function(){
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-ul.menu__list, .menu__login {
+ul.menu__list, .menu__login, .menu__logout {
 	display: flex;
 	flex-direction: row;
 	list-style: none;
@@ -40,15 +40,12 @@ ul.menu__list, .menu__login {
 ul.menu__list li{
 padding:0px 25px ;
 }
-.menu__login li , menu__logout li{
+.menu__login li , .menu__logout li{
 padding:0px .3em ;
 }
-.menu__login, menu__logout{
+.menu__login, .menu__logout{
 font-size:17px;}
 
-.menu__logout {
-	display: none;
-}
 .submenu {
 	display: flex;
 	flex-direction: row;
@@ -56,6 +53,7 @@ font-size:17px;}
 }
 </style>
 </head>
+
 <body>
 	<div class="main-menu">
 		<span>Pet&Me</span>
@@ -71,10 +69,24 @@ font-size:17px;}
 			<li id="signinBtn"><a href="index.jsp?main=Member/memberForm.jsp">회원가입 </a></li>
 		</ul>
 		<ul class="menu__logout">	
-			<li id="logoutBtn"><a href="index.jsp?main=Logout/logout.jsp">로그아웃 </a></li>
-			<li id="myPageBtn"><a href="index.jsp?main=Mypage/mypageMain.jsp">>마이페이지 </a></li>
+			<li id="logoutBtn"><a href="Login/logoutAction.jsp" >로그아웃 </a></li>
+			<li id="myPageBtn"><a href="index.jsp?main=Mypage/mypageMain.jsp">마이페이지 </a></li>
 		</ul>
 	</div>
+<%
+	//세션에서 로그인상태를 알수 잇는 loginok 얻기
+String loginok=(String)session.getAttribute("loginOk");	
+	if(loginok==null){%>
+	<script type="text/javascript">
+	$(".menu__login").show();
+	$(".menu__logout").hide();
+	</script>
+<%}else{%>
+	<script type="text/javascript">
+	$(".menu__login").hide();
+	$(".menu__logout").show();
+	</script>
+<%}%>
 	<div class="submenu">
 		<ul class="menu__intro">
 			<li><a href="index.jsp?main=Intro/intro.jsp"> 위치안내 </a></li>
