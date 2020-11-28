@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원정보 수정 삭제</title>
-</head>
+<meta charset="UTF-8" />
+<title>회원정보 수정 및 삭제</title>
 <body>
-수정삭제수정삭제
+회원정보 수정 및 삭제
 </body>
 </html>
