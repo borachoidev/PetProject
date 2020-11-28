@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class MungCommentDto {
 	private String idx;
 	private String comm_num;
-	private String acc_name;
 	private String content;
 	private Timestamp writeday;
 	private String dog_num;
@@ -20,12 +19,6 @@ public class MungCommentDto {
 	}
 	public void setComm_num(String comm_num) {
 		this.comm_num = comm_num;
-	}
-	public String getAcc_num() {
-		return acc_name;
-	}
-	public void setAcc_num(String acc_num) {
-		this.acc_name = acc_num;
 	}
 	public String getContent() {
 		return content;
