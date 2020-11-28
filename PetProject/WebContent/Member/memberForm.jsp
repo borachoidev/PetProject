@@ -264,7 +264,7 @@ button {
 					<label>이메일 *
 						<input type="text" name="email1" class="m_form" placeholder="이메일주소" required /> 
 						<span>@</span>
-						<input type="text" class="m_form" id="email2" placeholder="이메일주소" required /> 
+						<input type="text" class="m_form" name="email2" id="email2" placeholder="이메일주소" required /> 
 						<select id="email3">
 							<option disabled selected>선택하세요</option>
 							<option value="google.com">google.com</option>
