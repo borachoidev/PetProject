@@ -7,9 +7,10 @@ public class UserDto2 {
 	private String pass;
 	private String email1;
 	private String email2;
-	private int lvl;
-	private String address;
-	private String detailaddr;
+	private String jibun_addr;
+	private String road_addr;
+	private String detail_addr;
+	private String zipcode;
 	private String hp1;
 	private String hp2;
 	private String hp3;
@@ -50,23 +51,29 @@ public class UserDto2 {
 	public void setEmail2(String email2) {
 		this.email2 = email2;
 	}
-	public int getLvl() {
-		return lvl;
+	public String getJibun_addr() {
+		return jibun_addr;
 	}
-	public void setLvl(int lvl) {
-		this.lvl = lvl;
+	public void setJibun_addr(String jibun_addr) {
+		this.jibun_addr = jibun_addr;
 	}
-	public String getAddress() {
-		return address;
+	public String getRoad_addr() {
+		return road_addr;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setRoad_addr(String road_addr) {
+		this.road_addr = road_addr;
 	}
-	public String getDetailaddr() {
-		return detailaddr;
+	public String getDetail_addr() {
+		return detail_addr;
 	}
-	public void setDetailaddr(String detailaddr) {
-		this.detailaddr = detailaddr;
+	public void setDetail_addr(String detail_addr) {
+		this.detail_addr = detail_addr;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 	public String getHp1() {
 		return hp1;
