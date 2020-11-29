@@ -138,5 +138,30 @@ public class UserDao {
 
 			return find;
 		}
-
+		
+		public String getNum(String id)
+		{
+			
+			String num="";
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="select user_num from user_tb where id=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				if(rs.next())
+					num=rs.getString("user_num");
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt,rs);
+			}
+			return num;
+		}
 }

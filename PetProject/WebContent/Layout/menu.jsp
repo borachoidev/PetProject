@@ -70,7 +70,7 @@ font-size:17px;}
 		</ul>
 		<ul class="menu__logout">	
 			<li id="logoutBtn"><a href="Login/logoutAction.jsp" >로그아웃 </a></li>
-			<li id="myPageBtn"><a href="index.jsp?main=Mypage/mypageMain.jsp">마이페이지 </a></li>
+			<li id="myPageBtn"><a href="index.jsp?main=MyPage/mypageMain.jsp">마이페이지 </a></li>
 		</ul>
 	</div>
 <%
