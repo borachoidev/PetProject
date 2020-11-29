@@ -1,7 +1,5 @@
 package data.dao;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +39,8 @@ public class AccountDao {
 		return accName;
 	}
 	
+	
+	
 	public void deleteAcc(String dog_num)
 	{
 		String sql="delete from account_tb where dog_num=?";
@@ -65,7 +65,7 @@ public class AccountDao {
 
 public void insertAcc(AccountDto dto)
 	{
-		String sql="insert into account_tb (acc_name,breed,weight,age,gender,photo,memo,user_num,sel_acc) values (?,?,?,?,?,?,?,?))";
+		String sql="insert into account_tb (acc_name,breed,weight,age,gender,photo,memo,user_num,sel_acc) values (?,?,?,?,?,?,?,?,?)";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		conn=db.getMyConnection();
@@ -78,9 +78,10 @@ public void insertAcc(AccountDto dto)
 			pstmt.setString(3, dto.getWeight());
 			pstmt.setString(4, dto.getAge());
 			pstmt.setString(5, dto.getGender());
-			pstmt.setString(6, dto.getMemo());
-			pstmt.setString(7, dto.getUser_num());
-			pstmt.setInt(8, dto.getSel_acc());
+			pstmt.setString(6, dto.getPhoto());
+			pstmt.setString(7, dto.getMemo());
+			pstmt.setString(8, dto.getUser_num());
+			pstmt.setInt(9, dto.getSel_acc());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -99,7 +100,7 @@ public void insertAcc(AccountDto dto)
 	
 		String sql="update account_tb set weight=?, age=?, gender=?, photo=?,"
 				+ "memo=? sel_acc=?, where dog_num=?";
-		//conn=db.getMyConnection();
+	
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -120,4 +121,6 @@ public void insertAcc(AccountDto dto)
 			db.dbClose(conn, pstmt);
 		}
 	}
+	
+	
 }
