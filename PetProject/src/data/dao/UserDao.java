@@ -164,4 +164,40 @@ public class UserDao {
 			}
 			return num;
 		}
+		
+		public UserDto getData(String id) {
+			UserDto dto = new UserDto();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "select * from user_tb where id=?";
+			conn = db.getMyConnection();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					dto.setUser_num(rs.getString("user_num"));
+					dto.setUser_name(rs.getString("user_name"));
+					dto.setId(rs.getString("id"));
+					dto.setPass(rs.getString("pass"));
+					dto.setEmail(rs.getString("email"));
+					dto.setLvl(rs.getInt("lvl"));
+					dto.setRoad_addr(rs.getString("road_addr"));
+					dto.setDetail_addr(rs.getString("detail_addr"));
+					dto.setHp(rs.getString("hp"));
+					dto.setAgree(rs.getInt("agree"));
+					dto.setZipcode(rs.getString("zipcode"));
+					dto.setJibun_addr(rs.getString("jibun_addr"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			
+			
+			return dto;
+		}
 }
