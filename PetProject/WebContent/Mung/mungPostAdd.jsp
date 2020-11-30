@@ -79,7 +79,7 @@ function readUrl(input,idx) {
 		</li>
 	</ul>
 	
-	<form action="Mung/mungInsertAction.jsp" method="post" enctype="multipart/form-data">
+	<form action="Mung/mungPostAddAction.jsp" method="post" enctype="multipart/form-data">
 		<ul class="mung__img">
 			<li>
 				<input type="file" name="photo1" onchange="readUrl(this,1)">

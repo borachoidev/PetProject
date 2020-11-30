@@ -56,7 +56,7 @@
 		dao.insertPost(dto);
 		
 		//계정 페이지로 이동
-		response.sendRedirect("../index.jsp?main=Mung/mungAccount.jsp");
+		response.sendRedirect("../index.jsp?main=Mung/mungAccount.jsp?acc_name='"+accId+"'");
 		
 	} catch(Exception e) {
 		System.out.println("업로드 오류: "+e.getMessage());
