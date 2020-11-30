@@ -1,12 +1,10 @@
 package data.dto;
 
-import java.sql.Timestamp;
-
 public class MungCommentDto {
 	private String idx;
 	private String comm_num;
 	private String content;
-	private Timestamp writeday;
+	private String writeday;
 	private String dog_num;
 	public String getIdx() {
 		return idx;
@@ -26,10 +24,10 @@ public class MungCommentDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getWriteday() {
+	public String getWriteday() {
 		return writeday;
 	}
-	public void setWriteday(Timestamp writeday) {
+	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
 	public String getDog_num() {

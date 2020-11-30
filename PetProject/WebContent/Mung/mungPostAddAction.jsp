@@ -16,8 +16,8 @@
 	//업로드할 경로 (mongSave 폴더)
 	String uploadPath=getServletContext().getRealPath("/mungSave");
 	
-	//업로드할 이미지파일 사이즈(2mb)
-	int uploadSize=1024*1024*10;
+	//업로드할 이미지파일 사이즈(20mb)
+	int uploadSize=1024*1024*20;
 	
 	//데이터 읽어오기
 	MultipartRequest multi=null;
@@ -39,8 +39,6 @@
 		}
 		String content=multi.getParameter("content");		
 		String tag=multi.getParameter("tag");	
-		
-		System.out.println(content+tag);
 		
 		//데이터 DB에 추가
 		MungDao dao=new MungDao();

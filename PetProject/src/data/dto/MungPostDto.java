@@ -1,14 +1,12 @@
 package data.dto;
 
-import java.sql.Timestamp;
-
 public class MungPostDto {
 	private String post_num;
 	private String photo;
 	private String content;
 	private String tag;
 	private int likes;
-	private Timestamp writeday;
+	private String writeday;
 	private String dog_num;
 	private String user_num;
 	public String getPost_num() {
@@ -41,10 +39,10 @@ public class MungPostDto {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public Timestamp getWriteday() {
+	public String getWriteday() {
 		return writeday;
 	}
-	public void setWriteday(Timestamp writeday) {
+	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
 	public String getDog_num() {

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class MungDao {
 	//전체게시글 출력
 	public List<MungPostDto> getAllPost() {
 		List<MungPostDto> list=new ArrayList<MungPostDto>();
-		String sql="select * from mung_post order by num desc";
+		String sql="select * from mung_post order by post_num desc";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -37,7 +38,8 @@ public class MungDao {
 				dto.setContent(rs.getString("content"));
 				dto.setTag(rs.getString("tag"));
 				dto.setLikes(rs.getInt("likes"));
-				dto.setWriteday(rs.getTimestamp("writeday"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일");
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
 				dto.setDog_num(rs.getString("dog_num"));
 				dto.setUser_num(rs.getString("user_num"));
 				list.add(dto);
@@ -51,10 +53,10 @@ public class MungDao {
 		return list;
 	}
 	
-	//계정별 게시글 출력
-	public List<MungPostDto> getAccountPost(String acc_name) {
-		List<MungPostDto> list=new ArrayList<MungPostDto>();
-		String sql="select * from mung_post where acc_name=? order by num desc";
+	//개별 개시글 데이터 출력
+	public MungPostDto getPostData(String post_num) {
+		MungPostDto dto=new MungPostDto();
+		String sql="select * from mung_post where post_num=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -63,7 +65,41 @@ public class MungDao {
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, acc_name);
+			pstmt.setString(1, post_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setPost_num(rs.getString("post_num"));
+				dto.setPhoto(rs.getString("photo"));
+				dto.setContent(rs.getString("content"));
+				dto.setTag(rs.getString("tag"));
+				dto.setLikes(rs.getInt("likes"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일");
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
+				dto.setDog_num(rs.getString("dog_num"));
+				dto.setUser_num(rs.getString("user_num"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return dto;
+	}
+	
+	//계정별 게시글 출력
+	public List<MungPostDto> getAccountPost(String dog_num) {
+		List<MungPostDto> list=new ArrayList<MungPostDto>();
+		String sql="select * from mung_post where dog_num=? order by post_num desc";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dog_num);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MungPostDto dto=new MungPostDto();
@@ -73,7 +109,8 @@ public class MungDao {
 				dto.setContent(rs.getString("content"));
 				dto.setTag(rs.getString("tag"));
 				dto.setLikes(rs.getInt("likes"));
-				dto.setWriteday(rs.getTimestamp("writeday"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일");
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
 				dto.setDog_num(rs.getString("dog_num"));
 				dto.setUser_num(rs.getString("user_num"));
 				list.add(dto);
@@ -100,7 +137,7 @@ public class MungDao {
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "accId");
+			pstmt.setString(1, accId);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setDog_num(rs.getString("dog_num"));
@@ -169,9 +206,9 @@ public class MungDao {
 	
 	
 	//게시글별 댓글 리스트 출력
-	public List<MungCommentDto> getCommentList(String comm_num) {
+	public List<MungCommentDto> getCommentList(String post_num) {
 		List<MungCommentDto> list=new ArrayList<MungCommentDto>();
-		String sql="select from mung_comment where comm_num=? order by idx desc";
+		String sql="select * from mung_comment where comm_num=? order by idx desc";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -180,7 +217,7 @@ public class MungDao {
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, comm_num);
+			pstmt.setString(1, post_num);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MungCommentDto dto=new MungCommentDto();
@@ -188,8 +225,9 @@ public class MungDao {
 				dto.setIdx(rs.getString("idx"));
 				dto.setComm_num(rs.getString("comm_num"));
 				dto.setContent(rs.getString("content"));
-				dto.setWriteday(rs.getTimestamp("writeday"));
-				dto.setWriteday(rs.getTimestamp("writeday"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일"); 
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
+				dto.setDog_num(rs.getString("dog_num"));
 				list.add(dto);
 			}
 			
@@ -201,7 +239,7 @@ public class MungDao {
 		
 		return list;
 	}
-	
+
 	
 	//댓글 추가
 	public void insertComment(MungCommentDto dto) {
@@ -244,7 +282,7 @@ public class MungDao {
 		}
 	}
 	
-	//user_num 값 얻기
+	//user user_num 값 얻기
 	public String getUser(String myId) {
 		String sql="select user_num from user_tb where id=?";
 		String user_num="";
@@ -270,7 +308,7 @@ public class MungDao {
 		return user_num;
 	}
 	
-	//acc_num 값 얻기
+	//account dog_num 값 얻기
 	public String getAccount(String accId) {
 		String sql="select dog_num from account_tb where acc_name=?";
 		String dog_num="";
@@ -294,6 +332,110 @@ public class MungDao {
 		}
 		
 		return dog_num;
+	}
+	
+	//user id 값 얻기
+	public String getUserId(String user_num) {
+		String sql="select id from user_tb where user_num=?";
+		String id="";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				id=rs.getString("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return id;
+	}
+	
+	//account photo 값 얻기
+	public String getAccProfile(String dog_num) {
+		String sql="select photo from account_tb where dog_num=?";
+		String profile="";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dog_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				profile=rs.getString("photo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return profile;
+	}
+	
+	//account acc_name 값 얻기
+	public String getAccountId(String dog_num) {
+		String sql="select acc_name from account_tb where dog_num=?";
+		String acc_name="";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dog_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				acc_name=rs.getString("acc_name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return acc_name;
+	}
+	
+	//개별 게시글 댓글 갯수 얻기
+	public int getCommentSize(String comm_num) {
+		int cnt=0;
+		String sql="select count(*) from mung_comment where comm_num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, comm_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				cnt=Integer.parseInt(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return cnt;
 	}
 	
 }
