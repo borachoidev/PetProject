@@ -105,9 +105,6 @@
     }
 	
 	<%
-	// 임의 입력
-	session.setAttribute("myId", "smin9408");
-	session.setAttribute("loginOk", "success");
 	//session으로 userid와 loginok를 받아옵니다
 	String myId = (String)session.getAttribute("myId");
 	String loginOk = (String)session.getAttribute("loginOk");
