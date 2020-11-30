@@ -36,10 +36,17 @@ img.mung__post {
 }
 
 .mung__profile {
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 	border-radius: 50px;
 	margin: 0 20px;
+}
+     
+.mung__profile-sm {
+	width: 20px;
+	height: 20px;
+	border-radius: 50px;
+	margin: 0 10px;
 }     
 
 div.mung__post__modal {
@@ -50,7 +57,6 @@ div.mung__post__modal {
 div.mung__modal__img {
 	max-width: 600px;
 }
-
 
 </style>
 <script type="text/javascript">
@@ -84,6 +90,7 @@ $(function() {
 				var postUserId=json.postUserId;
 				var postAccId=json.postAccId;
 				var postProfile=json.postProfile;
+				var commList=json.commList;
 				
 				/* 사진 캐러셀 */
 				//게시글 당 불러올 사진 개수
@@ -123,7 +130,7 @@ $(function() {
 				
 				/* 텍스트 */
 	        	//게시글 작성한 계정정보
-	        	$("#mung__post__profile").attr("src",postProfile);
+	        	$("#mung__post__profile").attr("src","AccSave/"+postProfile);
 	        	$("#mung__post__id").text(postAccId+' ('+postUserId+')');
 				
 	        	//게시글 내용
@@ -131,19 +138,23 @@ $(function() {
 	        	
 	        	var tagList="";
 	        	var tag_len=tag.length;
-	        	for(var i=0; i<tag_len; i++) {
-	        		tagList+="<span>#'"+tag[i]+"'</span>";
+	        	for(var i=1; i<tag_len; i++) {
+	        		tagList+="<span>#"+tag[i]+"</span>";
 	        	}
 	        	$("#mung__modal__tag").html(tagList);
 	        	
 	        	//댓글 목록
-	        	
-	        	$("#mung__modal__comment")
+	        	var comm="";
+	        	$.each(commList,function(i,item) {
+	        		comm="<li><img class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><span>"+item.content+"</span><span>"+item.writeday+"</span></li>";
+		        	$("#mung__modal__comment").append(comm);
+				});
 	        	
 	        	//게시글 좋아요
+	        	$("#mung__modal__likes").html("좋아요&nbsp;"+likes+"개");
 	        	
 	        	//게시글 댓글
-	        	
+	        	$("#mung__comm__commNum").val(post_num);
 				
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -156,23 +167,30 @@ $(function() {
 		location.href="index.jsp?main=Mung/mungCommAddAction.jsp";
 	});
 	
+	//댓글 추가후 댓글 목록 다시 출력
+	$("form.mung__modal__add-comment").submit(function(e) {
+		
+	});
+	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		$("#slideImg").html("");
 		$("#slideIdx").html("");
+		$("#mung__modal__content").val("");
+		$("#mung__modal__tag").html("");
+		$("#mung__modal__comment").html("");
 	});
 });
 
 </script>
 </head>
 <%	
-	String postnum="";
 	String myId=(String)session.getAttribute("myId");
 	String accId=(String)session.getAttribute("accId");
 	String loginOk=(String)session.getAttribute("loginOk");
 	MungDao dao=new MungDao();
-	String acc_num=dao.getAccount(accId);
-	List<MungPostDto> postList=dao.getAccountPost(acc_num);
+	String dog_num=dao.getAccount(accId);
+	List<MungPostDto> postList=dao.getAccountPost(dog_num);
 	AccountDto accDto=dao.getAccountData(accId);
 %>
 <body>
@@ -184,7 +202,7 @@ $(function() {
 		if(loginOk!=null) {
 %>		
 		<li class="mung__nav__acc">
-			<a href="index.jsp?main=">
+			<a href="index.jsp?main=Mung/mungAccount.jsp?acc_name='<%=accId%>'">
 				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
@@ -213,6 +231,12 @@ $(function() {
 			  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
 			</svg>
 		</li>
+<%
+		}else {
+%>
+<script>
+			location.href="index.jsp?main=Mung/mungMain.jsp";
+</script>
 <%
 		}
 %>
@@ -258,8 +282,8 @@ $(function() {
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered modal-xl">
 		<!-- close 버튼 -->	  
-	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	      <span id="mung__modal__closeBtn" aria-hidden="true">&times;</span>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
+	      <span aria-hidden="true">&times;</span>
 	    </button>
 	    <!-- 모달창 컨텐츠 -->
 	    <div class="modal-content">
@@ -279,14 +303,14 @@ $(function() {
 						<%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
 					  </div>
 					  <!-- Controls -->
-					  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
+					  <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
@@ -295,7 +319,7 @@ $(function() {
 		        	<ul class="mung__modal__acc">
 		        		<!-- 프로필 -->
 		        		<li class="mung__modal__moveAcc">
-		        		 	<img id="mung__post__profile" src="">
+		        		 	<img id="mung__post__profile" class="mung__profile" src="">
 							<b id="mung__post__id"></b>
 		        		</li>
 		        		<!-- 삭제버튼 -->
@@ -310,7 +334,7 @@ $(function() {
 			        	<textarea id="mung__modal__content"><%-- 게시글 내용 출력 --%></textarea>
 			        	<div id="mung__modal__tag"><%-- 게시글 태그 출력 --%></div>
 			        	<!-- 게시글 댓글 목록 -->
-			        	<ul class="mung__modal__comment">
+			        	<ul id="mung__modal__comment">
 			        		<%-- 댓글 리스트 출력 --%>
 			        	</ul>
 			        	<!-- 게시글 좋아요 -->
@@ -319,12 +343,14 @@ $(function() {
 							  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 							</svg>
 			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
-			        	</div>
+			        	</div> 
 			        </div>		
 		        	<!-- 게시글 댓글추가 -->
 		        	<form action="Mung/mungCommentAdd.jsp" class="mung__modal__add-comment">
-		        		<input type="text" class="mung__modal__input-comment">
-		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
+		        		<input type="hidden" id="mung__comm__commNum" name="comm_num" value="">
+		        		<input type="hidden" id="mung__comm__dogNum" name="dog_num" value="<%=dog_num%>">
+		        		<input type="text" name="comment" class="mung__modal__input-comment">
+		        		<button type="submit" id="mung__modal__sbmitBtn">등록</button>
 		        	</form>
 		        </div>
 		      </div>
