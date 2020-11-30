@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import data.dto.UserDto;
 import data.dto.UserDto2;
 import mysql.db.MysqlConnect;
@@ -14,7 +17,6 @@ public class UserDao {
 	MysqlConnect db=new MysqlConnect();
 
 	// 아이디가 있으면 true 반환 ,없으면 false반환
-
 	public boolean isIdSearch(String id)
 	{
 		boolean find = false;
@@ -48,6 +50,8 @@ public class UserDao {
 		return find;
 	}
 	
+	
+	//회원가입
 	public void insertUser(UserDto2 dto)
 	{
 		String sql = " insert into user_tb (user_name,id,pass,road_addr,jibun_addr,zipcode,detail_addr,agree,email,hp) values (?,?,?,?,?,?,?,?,?,?)";
@@ -84,7 +88,7 @@ public class UserDao {
 		}
 
 	}
-	
+	//로그인 아이디 비밀번호 확인
 	public int loginProcess(String id, String pass) {
 		int ans=0;
 		if(this.isIdSearch(id)) {
@@ -138,10 +142,9 @@ public class UserDao {
 
 			return find;
 		}
-		
+		//아이디에 따른 user_num가져오기
 		public String getNum(String id)
 		{
-			
 			String num="";
 			Connection conn=null;
 			PreparedStatement pstmt=null;
@@ -164,4 +167,157 @@ public class UserDao {
 			}
 			return num;
 		}
+		
+		
+		//userNum에 따른 User정보 가져오기	
+		public UserDto getInfo(String userNum)
+		{
+			UserDto dto = new UserDto();
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="select * from user_tb where user_num=?";
+			conn=db.getMyConnection();
+			 
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				pstmt.setString(1, userNum);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					dto.setUser_num(rs.getString("user_num"));
+					dto.setUser_name(rs.getString("user_name"));
+					dto.setId(rs.getString("id"));
+					dto.setPass(rs.getString("pass"));
+					dto.setEmail(rs.getString("email"));
+					dto.setHp(rs.getString("hp"));
+					dto.setZipcode(rs.getString("zipcode"));
+					dto.setRoad_addr(rs.getString("road_addr"));
+					dto.setJibun_addr(rs.getString("jibun_addr"));
+					dto.setDetail_addr(rs.getString("detail_addr"));
+					
+					dto.setAgree(rs.getInt("agree"));
+					dto.setLvl(rs.getInt("lvl"));
+					
+				
+					
+				}
+						
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			return dto;		
+		}
+		
+		//이메일애 따른 아이디 확인
+		public UserDto findID(String email)
+		{
+			UserDto dto = new UserDto();
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="select * from user_tb where email=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, email);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					dto.setUser_num(rs.getString("user_num"));
+					dto.setUser_name(rs.getString("user_name"));
+					dto.setId(rs.getString("id"));
+					dto.setPass(rs.getString("pass"));
+					dto.setEmail(rs.getString("email"));
+					dto.setHp(rs.getString("hp"));
+					dto.setZipcode(rs.getString("zipcode"));
+					dto.setRoad_addr(rs.getString("road_addr"));
+					dto.setJibun_addr(rs.getString("jibun_addr"));
+					dto.setDetail_addr(rs.getString("detail_addr"));
+					
+					dto.setAgree(rs.getInt("agree"));
+					dto.setLvl(rs.getInt("lvl"));
+					
+				}
+					
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt,rs);
+			}
+			return dto;
+		}
+		
+		//비밀번호 변경
+		public void changePass(String pass, String id)
+		{
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="update user_tb set pass=? where id=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, pass);
+				pstmt.setString(2, id);
+				pstmt.execute();
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt,rs);
+			}
+			
+		}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

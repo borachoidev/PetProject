@@ -13,7 +13,7 @@
 			비밀번호<input type="password" name="pass">
 			<button type="submit">로그인</button>
 		</form>
-		<a href="">아이디/비밀번호찾기</a> 
+		<a href="index.jsp?main=Login/findIdPass.jsp">아이디/비밀번호찾기</a> 
 		<a href="index.jsp?main=Member/memberForm.jsp">회원가입</a>
 	</div>
 </body>
