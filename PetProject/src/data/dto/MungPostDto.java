@@ -1,15 +1,12 @@
 package data.dto;
 
-import java.sql.Timestamp;
-
 public class MungPostDto {
 	private String post_num;
-	private String id;
-	private String acc_name;
 	private String photo;
 	private String content;
+	private String tag;
 	private int likes;
-	private Timestamp wirteday;
+	private String writeday;
 	private String dog_num;
 	private String user_num;
 	public String getPost_num() {
@@ -17,18 +14,6 @@ public class MungPostDto {
 	}
 	public void setPost_num(String post_num) {
 		this.post_num = post_num;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getAcc_name() {
-		return acc_name;
-	}
-	public void setAcc_name(String acc_name) {
-		this.acc_name = acc_name;
 	}
 	public String getPhoto() {
 		return photo;
@@ -42,17 +27,23 @@ public class MungPostDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	public int getLikes() {
 		return likes;
 	}
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public Timestamp getWirteday() {
-		return wirteday;
+	public String getWriteday() {
+		return writeday;
 	}
-	public void setWirteday(Timestamp wirteday) {
-		this.wirteday = wirteday;
+	public void setWriteday(String writeday) {
+		this.writeday = writeday;
 	}
 	public String getDog_num() {
 		return dog_num;
@@ -66,7 +57,6 @@ public class MungPostDto {
 	public void setUser_num(String user_num) {
 		this.user_num = user_num;
 	}
-	
-	
+
 	
 }
