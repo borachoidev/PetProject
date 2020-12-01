@@ -43,13 +43,17 @@
 a {
 	all: unset;
 }
-
+.layout__nav{
+position: sticky;
+	top:0;
+}
 .layout__main {
 	width: 100%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
 }
 /* 기본 링크 스타일 */
 a:link, a:visited, a:hover, a:focus, a:active { 
@@ -67,6 +71,12 @@ if (request.getParameter("main") != null) {
 
 	mainPage = request.getParameter("main");
 }
+
+String id=(String)session.getAttribute("myId");
+String log=(String)session.getAttribute("loginOk");
+String add=(String)session.getAttribute("accId");
+
+System.out.println(id+log+add);
 %>
 <body>
 	<div class="layout__nav">

@@ -214,18 +214,71 @@ public class UserDao {
 		}
 		
 		//이메일애 따른 아이디 확인
-		public UserDto findID(String email)
+		public String findID(String email)
 		{
-			UserDto dto = new UserDto();
+			String id="";
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			String sql="select * from user_tb where email=?";
+			String sql="select id from user_tb where email=?";
 			conn=db.getMyConnection();
 			
 			try {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1, email);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					id=rs.getString("id");		
+				}
+					
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt,rs);
+			}
+			return id;
+		}
+		
+		//비밀번호 변경
+		public void changePass(String pass, String id)
+		{
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="update user_tb set pass=? where id=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, pass);
+				pstmt.setString(2, id);
+				pstmt.execute();
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt,rs);
+			}
+			
+		}
+		
+		//id에 따른 User정보 가져오기
+		public UserDto getData(String myId)
+		{
+			UserDto dto = new UserDto();
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="select * from user_tb where id=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, myId);
 				rs=pstmt.executeQuery();
 				if(rs.next()) {
 					dto.setUser_num(rs.getString("user_num"));
@@ -254,30 +307,57 @@ public class UserDao {
 			return dto;
 		}
 		
-		//비밀번호 변경
-		public void changePass(String pass, String id)
-		{
-			
+		//회원정보 수정
+		public void updateUser(UserDto2 dto) {
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			String sql="update user_tb set pass=? where id=?";
+			String sql="update user_tb set hp=?,email=?,zipcode=?,road_addr=?,jibun_addr=?,detail_addr=?,agree=? where user_num=?";
 			conn=db.getMyConnection();
 			
 			try {
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, pass);
-				pstmt.setString(2, id);
+				String hp = dto.getHp1() + "-" + dto.getHp2() + "-" + dto.getHp3();
+				pstmt.setString(1, hp);
+				String email = dto.getEmail1() + "@" + dto.getEmail2();
+				pstmt.setString(2, email);
+				pstmt.setString(3, dto.getZipcode());
+				pstmt.setString(4, dto.getRoad_addr());
+				pstmt.setString(5, dto.getJibun_addr());
+				pstmt.setString(6, dto.getDetail_addr());
+				pstmt.setInt(7, dto.getAgree());
+				pstmt.setString(8, dto.getUser_num());
 				pstmt.execute();
-					
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				db.dbClose(conn, pstmt,rs);
+			}finally {
+				db.dbClose(conn, pstmt);
 			}
-			
 		}
+		
+		//회원탈퇴
+		public void deleteUser(String num){
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="delete from user_tb where user_num=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				pstmt.setString(1,num);
+				
+				pstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt);
+			}
+		}
+		
 }
 
 

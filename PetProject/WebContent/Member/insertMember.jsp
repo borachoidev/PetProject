@@ -11,5 +11,5 @@ request.setCharacterEncoding("utf-8");
 //메서드 호출
 dao.insertUser(dto);
 //de
-response.sendRedirect("../index.jsp?main=Home/homeMain.jsp");
+response.sendRedirect("../index.jsp?main=Intro/intro.jsp");
 %>

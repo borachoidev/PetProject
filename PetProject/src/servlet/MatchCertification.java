@@ -28,9 +28,7 @@ public class MatchCertification extends HttpServlet {
         if(!AuthenticationKey.equals(AuthenticationUser))
         {
             System.out.println("인증번호 일치하지 않음");
-            request.setAttribute("msg", "인증번호가 일치하지 않습니다");
-            request.setAttribute("loc", "/member/searchPw");
-            request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+            response.sendRedirect("index.jsp?main=Login/searchFailed.jsp");
             return;
         }
         
