@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.AccountDto"%>
 <%@page import="java.util.List"%>
 <%@page import="data.dao.MungDao"%>
@@ -66,7 +67,7 @@ div.mung__modal__img {
 // 1.11.1 버전의 JQuery 라이브러리에만 정의된 함수나 속성을 사용하려면 $ 대신  lowJQuery 를 사용
 var lowJquery = $.noConflict(true);
 
-$(function() {
+window.onload=function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
 	$("#exampleModal").on("show.bs.modal",function(e) {
@@ -180,29 +181,34 @@ $(function() {
 		$("#mung__modal__tag").html("");
 		$("#mung__modal__comment").html("");
 	});
-});
+};
 
 </script>
 </head>
 <%	
+	//로그인 상태 및 아이디 세션값
 	String myId=(String)session.getAttribute("myId");
 	String accId=(String)session.getAttribute("accId");
 	String loginOk=(String)session.getAttribute("loginOk");
+	
 	MungDao dao=new MungDao();
-	String dog_num=dao.getAccount(accId);
-	List<MungPostDto> postList=dao.getAccountPost(dog_num);
+	// (로그인 상태일 경우)계정정보
 	AccountDto accDto=dao.getAccountData(accId);
+	String dog_num=dao.getAccount(accId);
+	//전체 게시글목록 출력
+	List<MungPostDto> postList=dao.getAllPost();
+	
 %>
 <body>
 <div id="mumg__container">
 	<!-- 멍스타그램 네비바 -->
+<%
+	if(loginOk!=null) {
+%>		
 	<ul id="mung__nav">
 		<!-- 로그인한 계정 정보 -->
-<%
-		if(loginOk!=null) {
-%>		
 		<li class="mung__nav__acc">
-			<a href="index.jsp?main=Mung/mungAccount.jsp?acc_name='<%=accId%>'">
+			<a href="index.jsp?main=Mung/mungAccount.jsp">
 				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
@@ -231,10 +237,10 @@ $(function() {
 			  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
 			</svg>
 		</li>
-<%
-		}
-%>
 	</ul>
+<%
+	}
+%>
 	
 	<!-- 게시글 목록 카드이미지 -->
 	<div class="mung__post-list">
@@ -242,7 +248,7 @@ $(function() {
 <%
 		//전체 게시글리스트에서 데이터 꺼내기
 		for(MungPostDto dto:postList) {
-			//계정별 게시글 전체 목록에서 필요한 데이터 변수
+			//계정별 게시글 전체 목록에서 필요한 데이터 변수(로그인 여부 상관 없이)
 			int idx=dto.getPhoto().split(",").length-1;
 			String photo=dto.getPhoto().split(",")[idx];
 			int likes=dto.getLikes();
@@ -298,13 +304,13 @@ $(function() {
 					  </div>
 					  <!-- Controls -->
 					  <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
@@ -325,7 +331,7 @@ $(function() {
 		        	</ul>
 		        	<div class="mung__modal__textBox">
 			        	<!-- 게시글 내용 -->
-			        	<textarea id="mung__modal__content"><%-- 게시글 내용 출력 --%></textarea>
+			        	<textarea id="mung__modal__content" disabled><%-- 게시글 내용 출력 --%></textarea>
 			        	<div id="mung__modal__tag"><%-- 게시글 태그 출력 --%></div>
 			        	<!-- 게시글 댓글 목록 -->
 			        	<ul id="mung__modal__comment">

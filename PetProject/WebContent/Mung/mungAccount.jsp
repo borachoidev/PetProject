@@ -1,3 +1,5 @@
+<%@page import="java.net.URLDecoder"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.AccountDto"%>
 <%@page import="java.util.List"%>
 <%@page import="data.dao.MungDao"%>
@@ -185,13 +187,17 @@ $(function() {
 </script>
 </head>
 <%	
+	//로그인 상태 및 아이디 세션값
 	String myId=(String)session.getAttribute("myId");
 	String accId=(String)session.getAttribute("accId");
 	String loginOk=(String)session.getAttribute("loginOk");
+	
 	MungDao dao=new MungDao();
-	String dog_num=dao.getAccount(accId);
-	List<MungPostDto> postList=dao.getAccountPost(dog_num);
+	//계정 정보 출력
 	AccountDto accDto=dao.getAccountData(accId);
+	String dog_num=dao.getAccount(accId);
+	//해당계정 게시글목록 출력
+	List<MungPostDto> postList=dao.getAccountPost(dog_num);
 %>
 <body>
 <div id="mumg__container">
@@ -202,7 +208,7 @@ $(function() {
 		if(loginOk!=null) {
 %>		
 		<li class="mung__nav__acc">
-			<a href="index.jsp?main=Mung/mungAccount.jsp?acc_name='<%=accId%>'">
+			<a href="index.jsp?main=Mung/mungAccount.jsp">
 				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
@@ -304,13 +310,13 @@ $(function() {
 					  </div>
 					  <!-- Controls -->
 					  <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->

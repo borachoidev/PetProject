@@ -1,3 +1,5 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="data.dto.MungPostDto"%>
 <%@page import="data.dao.MungDao"%>
 <%@page import="java.util.Enumeration"%>
@@ -19,6 +21,10 @@
 	//업로드할 이미지파일 사이즈(20mb)
 	int uploadSize=1024*1024*20;
 	
+	//이미지파일 담을 리스트
+	ArrayList<String> imgArr=new ArrayList<String>();
+	
+	
 	//데이터 읽어오기
 	MultipartRequest multi=null;
 	try {
@@ -37,7 +43,7 @@
 				}
 			}	
 		}
-		String content=multi.getParameter("content");		
+		String content=multi.getParameter("content").replaceAll("\\p{Z}", "");;		
 		String tag=multi.getParameter("tag");	
 		
 		//데이터 DB에 추가
@@ -56,7 +62,9 @@
 		dao.insertPost(dto);
 		
 		//계정 페이지로 이동
-		response.sendRedirect("../index.jsp?main=Mung/mungAccount.jsp?acc_name='"+accId+"'");
+		String accPram=  URLEncoder.encode(accId, "UTF-8");
+		String url="../index.jsp?main=Mung/mungAccount.jsp?acc_name="+accPram;
+		response.sendRedirect(url);
 		
 	} catch(Exception e) {
 		System.out.println("업로드 오류: "+e.getMessage());
