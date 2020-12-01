@@ -327,7 +327,29 @@ public class UserDao {
 				pstmt.setString(6, dto.getDetail_addr());
 				pstmt.setInt(7, dto.getAgree());
 				pstmt.setString(8, dto.getUser_num());
-				pstmt.executeQuery();
+				pstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt);
+			}
+		}
+		
+		//회원탈퇴
+		public void deleteUser(String num){
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="delete from user_tb where user_num=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				pstmt.setString(1,num);
+				
+				pstmt.execute();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
