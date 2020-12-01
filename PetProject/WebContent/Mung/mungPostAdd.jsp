@@ -56,6 +56,12 @@ $(function() {
 		}
 	}
 	
+	//추가한이미지 삭제버튼 이벤트
+	$(".mung__del-btn").click(function() {
+		$(this).prev().find("img").attr("src","");
+		$(this).hide();
+	});
+	
 	//제출시 이미지파일 누락 또는 태그에 #이 빠진 경우
 	$('#mung__addForm').submit(function() {
         if($('.mung__preview').attr("src")=='') {
@@ -67,7 +73,7 @@ $(function() {
         	alert("태그에 #을 붙여주세요.");
             return false;
         }
-    }); // end submit()
+    });
 	
 });
 

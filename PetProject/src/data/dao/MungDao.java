@@ -208,7 +208,7 @@ public class MungDao {
 	//게시글별 댓글 리스트 출력
 	public List<MungCommentDto> getCommentList(String post_num) {
 		List<MungCommentDto> list=new ArrayList<MungCommentDto>();
-		String sql="select * from mung_comment where comm_num=? order by idx desc";
+		String sql="select * from mung_comment where comm_num=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -243,7 +243,7 @@ public class MungDao {
 	
 	//댓글 추가
 	public void insertComment(MungCommentDto dto) {
-		String sql="insert into mung_comment (comm_num, content, writeday, dog_num) values (?,?,?,now(),?)";
+		String sql="insert into mung_comment (comm_num, content, writeday, dog_num) values (?,?,now(),?)";
 			
 		Connection conn=null;
 		PreparedStatement pstmt=null;
