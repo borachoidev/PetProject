@@ -13,10 +13,12 @@
 	String post_num=request.getParameter("post_num");
 	
 	MungDao dao=new MungDao();
+	
+	//해당 게시글 정보 출력
 	MungPostDto dto=dao.getPostData(post_num);
+	String postProfile=dao.getAccProfile(dto.getDog_num());
 	String postAccId=dao.getAccountId(dto.getDog_num());
 	String postUserId=dao.getUserId(dto.getUser_num());
-	String postProfile=dao.getAccProfile(dto.getDog_num());
 	List<MungCommentDto> commList=dao.getCommentList(post_num);
 	
 	JSONObject ob=new JSONObject();
