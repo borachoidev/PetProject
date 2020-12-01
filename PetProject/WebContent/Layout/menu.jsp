@@ -66,7 +66,7 @@ font-size:17px;}
 <body>
 <!-- 메인메뉴 -->
 	<div class="main-menu">
-		<span>Pet&Me</span>
+		<span><a href="home.jsp">Pet&Me</a></span>
 		<ul class="menu__list">
 			<li><a href="index.jsp?main=Intro/intro.jsp">펫앤미소개</a> </li>
 			<li><a href="index.jsp?main=Book/bookMain.jsp"> 예약 </a> </li>
@@ -102,7 +102,7 @@ font-size:17px;}
 			
 		
 		 }%> 
-	</div>
+	</div> 
 <!-- 슬라이드 다운 서브메뉴 -->
 	<div class="submenu">
 		<ul class="menu__intro">
