@@ -15,6 +15,13 @@ public class AdoptDto {
 	private Timestamp writeday;
 	private String id;
 	private String user_name;
+	private String user_num;
+	public String getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(String user_num) {
+		this.user_num = user_num;
+	}
 	public String getAdopt_num() {
 		return adopt_num;
 	}
@@ -24,7 +31,7 @@ public class AdoptDto {
 	public String getContent() {
 		return content;
 	}
-	public void setTitle(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public String getAge() {

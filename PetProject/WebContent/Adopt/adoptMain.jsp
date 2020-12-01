@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-분양
-수정 수정 수정
+<button type="button" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정분양</button>
 </body>
 </html>

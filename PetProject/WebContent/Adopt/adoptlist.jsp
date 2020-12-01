@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="data.dto.AdoptDto"%>
 <%@page import="java.util.List"%>
@@ -37,7 +38,7 @@ AdoptDao dao=new AdoptDao();
 
 int totalCount=dao.getTotalCount();
 int perPage=8;//한페이지당 보여질 글의 갯수
-int perBlock=10;//한블럭당 출력할 페이지의 갯수
+int perBlock=3;//한블럭당 출력할 페이지의 갯수
 int totalPage;//총 페이지의 갯수
 int startPage;//각 블럭당 시작페이지 번호
 int endPage;//각 블럭당 끝페이지 번호
@@ -76,15 +77,13 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 
 %>
 <body>
-<div>
-	<caption>가정 분양 게시판</caption>
+	<h2>가정 분양 게시판</h2>
+	<div class="board">
    <table class="adopttable table table-bordered" style="width: 800px;">
-         <td>
-          <button type="button" class="btn btn-info"style="width: 150px;"
-          onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp'">강아지 등록</button>
-         </td>
+     
       <tr>
       <%
+      SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
       NumberFormat nf=NumberFormat.getCurrencyInstance();
       int e=0;
       for(AdoptDto dto:list)
@@ -98,7 +97,8 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
             style="cursor:pointer;" class="godetail">
             <img src="adoptsave/<%=photo%>" class="photo">
 
-            <%=dto.getBreed()%> <%=dto.getAge()%>개월 분양
+            <br><%=dto.getBreed()%> <%=dto.getAge()%>개월 분양          
+            <br><%=sdf.format(dto.getWriteday()) %>
             
          </a>
          </div>
@@ -114,8 +114,7 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
       }
       %>   
       </tr>
-   </table>
-</div>
+    </table>
 <!-- 페이징 처리 -->
 <%
 if(totalCount>0)
@@ -150,10 +149,33 @@ if(totalCount>0)
 			다음</a></li>
 		<%}
 	%>
-	
-	</ul>
-</div>	
+	</ul>	
+	</div>
 <%}
 %>
+
+  <td>
+  <button type="button" class="btn btn-info"style="width: 150px;" id="btn_add"
+  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp'">강아지 등록</button>
+   <%String loginOk=(String)session.getAttribute("loginOk");	
+	String myId=(String)session.getAttribute("myId"); 
+	if(loginOk==null){%>
+	<script>
+		$("#btn_add").hide();
+		</script>
+	 
+	<%}else{
+		if(loginOk.equals("success")){%>
+		<script>
+		$("#btn_add").show();
+		</script>
+		<%}
+	}
+%>
+
+  </td>
+
+
+</div>
 </body>
 </html>

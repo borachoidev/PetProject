@@ -23,7 +23,7 @@
       String vaccine=multi.getParameter("vaccine");
       String title=multi.getParameter("title");
       String content=multi.getParameter("content");
-      
+      String user_num=multi.getParameter("user_num");
       String photo="";
       
       Enumeration en=multi.getFileNames();
@@ -50,9 +50,9 @@
       dto.setBreed(breed);
       dto.setGender(gender);
       dto.setVaccine(vaccine);
-      dto.setTitle(title);
       dto.setPhoto(photo);
       dto.setContent(content);
+      dto.setUser_num(user_num);
       
       //db에 추가
       dao.insertAdopt(dto);

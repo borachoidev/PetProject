@@ -1,3 +1,4 @@
+<%@page import="data.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,10 +9,18 @@
 <style type="text/css">
    
 </style>
-<script type="text/javascript">
-
-</script>
 </head>
+<%
+String myId=(String)session.getAttribute("myId"); 
+String id=request.getParameter("id");
+String pass=request.getParameter("pass");
+
+
+UserDao dao=new UserDao();
+String user_num=dao.getNum(myId);
+
+%>
+
 <body>
    <div class="">
    <form action="Adopt/addaction.jsp" method="post"
@@ -32,7 +41,7 @@
          </tr>
          <tr>
             <td>
-               <span>나이</span>
+               <span>나이(개월)</span>
                <input type="text" name="age" style="width: 25px;" required="required">
             </td>
          </tr>
@@ -54,15 +63,19 @@
             <tr>
             <td>
                <span>예방접종</span>
-               <input type="checkbox" name="vaccine" class="form-control">
+               <input type="checkbox" id="check">
+               <input type="hidden" name="vaccine" id="vaccine" value="0" />
+                  <script type="text/javascript">
+      $("#check").click(function(){
+    	 if($(this).prop("checked")){
+    		 $("#vaccine").val("예방접종 완료"); 
+    	 } else{
+    		 $("#vaccine").val("예방접종 X");
+    	 }
+      });
+      </script>
             </td>
          </tr>
-         <tr>
-            <td>
-               <input type="text" name="title" class="form-control"
-               style="width: 400px;"required="required">
-            </td>
-         </tr>   
          <tr>
             <td>
                <div class="form-group">
@@ -84,13 +97,18 @@
             </td>
          </tr>   
          <tr>
+         <td>
+         	<input type="text" name="user_num" id="user_num" value="<%=user_num%>">  
+         </td>
+         </tr>
+         <tr>
             <td colspan="2" align="center">
                <button type="submit" class="btn btn-info"
                style="width: 100px;">등록</button>
             </td>
          </tr>   
       </table>
-      
+
    </form>
 </div>
 </body>
