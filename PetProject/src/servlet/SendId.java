@@ -38,7 +38,8 @@ public class SendId extends HttpServlet {
 		UserDao dao =new UserDao();
 		UserDto dto=dao.findID(email);
 		String id =dto.getId();
-		if(id==""){
+		System.out.println(id);
+		if(id==null){
 			response.sendRedirect("index.jsp?main=Login/searchFailed.jsp");
 			return;
 		}
