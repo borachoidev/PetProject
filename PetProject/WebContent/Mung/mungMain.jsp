@@ -20,11 +20,11 @@ ul li {
 	color: white;
 }
 
-img.mung__post {
-	max-width: 300px;
+.mung__img-box img{
+	min-height: 300px;
 }
 
-.mung__post {
+.mung__img-box {
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -53,9 +53,28 @@ div.mung__post__modal {
 }
 
 div.mung__modal__img {
-	max-width: 600px;
+	background-color: #121212;
+	max-width: 300px;
+	min-width: 200px;
+	height: 450px;
+	display: felx;
+    align-items: center;
+    justify-content: center;
 }
 
+.modal-size {
+	width: 80%; 
+	min-width: 80%;
+	height: 90%;
+	min-height: 70%;
+}
+
+.modalImg {
+	max-width: 300px;
+	min-width: 200px;
+	height: 100%;
+	min-height: 100%; 
+}
 </style>
 <script type="text/javascript">
 window.onload=function() {
@@ -275,7 +294,7 @@ function insertComm(comm_num,content,dog_num) {
 			
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
-			    <div class="card mung__post">
+			    <div class="card mung__img-box">
 			      <img src="mungSave/<%=photo %>" class="card-img-top mung__post-img">
 			      <div class="card-img-overlay">
 				    <p class="card-text mung__post-text">
@@ -299,13 +318,13 @@ function insertComm(comm_num,content,dog_num) {
 			
 	<!-- 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" style="width: 80%; min-height:700px;">
+	  <div class="modal-dialog modal-size modal-dialog-centered">
 		<!-- close 버튼 -->	  
 	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
 	      <span aria-hidden="true">&times;</span>
 	    </button>
 	    <!-- 모달창 컨텐츠 -->
-	    <div class="modal-content">
+	    <div class="modal-content modal-size">
 	      <div class="modal-body mung__post__modal">
 	       <div class="row">
      		 <div class="col">

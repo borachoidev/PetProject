@@ -22,7 +22,6 @@ ul li {
 }
 
 .mung__img-box img{
-	
 	min-height: 300px;
 }
 
@@ -55,14 +54,27 @@ div.mung__post__modal {
 }
 
 div.mung__modal__img {
-	width: 100%;
+	background-color: #121212;
+	max-width: 300px;
+	min-width: 200px;
+	height: 450px;
+	display: felx;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-size {
 	width: 80%; 
 	min-width: 80%;
 	height: 90%;
-	min-height: 70%
+	min-height: 70%;
+}
+
+.modalImg {
+	max-width: 300px;
+	min-width: 200px;
+	height: 100%;
+	min-height: 100%; 
 }
 
 </style>
@@ -311,19 +323,19 @@ function insertComm(comm_num,content,dog_num) {
 			
 	<!-- 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-size modal-dialog-centered modal-xl">
+	  <div class="modal-dialog modal-size modal-dialog-centered">
 		<!-- close 버튼 -->	  
 	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
 	      <span aria-hidden="true">&times;</span>
 	    </button>
 	    <!-- 모달창 컨텐츠 -->
 	    <div class="modal-content modal-size">
-	      <div class="modal-body mung__post__modal modal-size">
+	      <div class="modal-body mung__post__modal">
 	       <div class="row">
      		 <div class="col">
 		      	<!-- 이미지영역 -->
 		      	<div class="row">
-	        	<div class="mung__modal__img col-6">
+	        	<div class="mung__modal__img">
 	        		<%-- 캐러셀 --%>
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <!-- Indicators -->
@@ -346,7 +358,7 @@ function insertComm(comm_num,content,dog_num) {
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
-		        <div class="mung__modal__text col-6">
+		        <div class="mung__modal__text">
 		        	<!-- 게시글 작성한 계정 -->
 		        	<ul class="mung__modal__acc">
 		        		<!-- 프로필 -->
