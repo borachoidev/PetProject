@@ -80,6 +80,7 @@ display:none;
 
 </style>
 <script type="text/javascript">
+/* 이메일 입력시 이벤트 */
 $(function(){
 	$(".email3").change(function(){
 		var mail =$(this).val();
@@ -91,6 +92,7 @@ $(function(){
 		}	
 	});
 	
+/* 폼이동 버튼이벤트	 */
 	$("#findIdBtn").click(function(){
 		$("#findId").show();
 		$("#findPass").hide();
@@ -109,9 +111,10 @@ $(function(){
 <body>
 	<div class="find__container">
 	<div class="find__btn">
+	<!-- 아이디 비밀번호 찾기폼 출력 버튼 -->
 	<button type="button" id="findIdBtn"> 아이디 찾기</button> <button type="button" id="findPassBtn"> 비밀번호 찾기</button>
 	</div>
-	
+	<!-- 아이디 찾기 -->
 		<div id="findId">
 			아이디 찾기
 			<form action="SendId">
@@ -130,6 +133,7 @@ $(function(){
 				<button type="submit">아이디찾기</button>
 			</form>
 		</div>
+		<!-- 비밀번호 찾기 -->
 		<div id="findPass" >
 			비밀번호 찾기
 			<form action="SendCertification">
