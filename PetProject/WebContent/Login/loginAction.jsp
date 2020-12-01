@@ -20,12 +20,12 @@ String pass=request.getParameter("pass");
 UserDao dao=new UserDao();
 AccountDao adao=new AccountDao();
 String accId=adao.getDefault(id);
+
 if(accId.equals(""))
 {
 	accId="no";
 }
 
-System.out.println(accId+id+pass);
 //loginProcess호출
 int log = dao.loginProcess(id, pass);
 //아이디가 DB명단에 없을 경우 1반환
