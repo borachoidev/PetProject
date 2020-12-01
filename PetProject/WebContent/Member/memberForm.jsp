@@ -9,24 +9,23 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- stylesheet -->
 <style type="text/css">
-.memeber__main {
-	height: 100%;
-}
 
 .memeber__container {
+margin-top:3em;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	width:100%;
 }
 
 .member__form {
 	display: flex;
 	flex-direction: column;
+	width:100%;
 }
 
 input {
-	-webkit-writing-mode: horizontal-tb !important;
 	text-rendering: auto;
 	color: -internal-light-dark(black, white);
 	letter-spacing: normal;
@@ -34,7 +33,6 @@ input {
 	text-transform: none;
 	text-indent: 0px;
 	text-shadow: none;
-	display: inline-block;
 	text-align: start;
 	appearance: textfield;
 	background-color: -internal-light-dark(rgb(255, 255, 255),
@@ -90,6 +88,18 @@ select {
 
 .readonly {
 	background-color: #ebebeb;
+}
+
+.small{
+width:5em;
+}
+
+.large{
+width:16em;
+}
+
+.medium{
+width:10em;
 }
 </style>
 <script type="text/javascript">
@@ -224,54 +234,58 @@ select {
     </script>
 </head>
 <body>
-	<!-- 반응형을 위한 div 만들기 -->
-	<div class="memeber__main">
+	
 		<form action="Member/insertMember.jsp" method="post">
 			<div class="memeber__container">
 				<div class="member__form">
 					<span>* 필수입력사항</span>
 					<!--아이디-->
-					<label>아이디 * <input type="text" name="id" id="id"
-						class="m_form" placeholder="영문소문자, 숫자 포함한 5-16글자"
-						pattern="^([a-z0-9]){5,16}$"
-						title="영문소문자 혹은 숫자를 포함한 5글자이상으로 입력해주세요" required /> <span
-						class="id-check"></span>
-					</label>
+					<span>아이디 *</span>
+					<input type="text" name="id" id="id" class="m_form large" placeholder="영문소문자, 숫자 포함한 5-16글자" pattern="^([a-z0-9]){5,16}$" title="영문소문자 혹은 숫자를 포함한 5글자이상으로 입력해주세요" required /> 
+						<span class="id-check"></span>
+					
 
 					<!--비밀번호-->
-					<label>비밀번호 * <input type="password" name="pass" id="pass"
-						class="m_form" placeholder="비밀번호" required /> <!--
+					<span>비밀번호 * </span>
+					<input type="password" name="pass" id="pass"
+						class="m_form large" placeholder="비밀번호" required /> <!--
 					비밀번호패턴
 					 pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다."  
 					 -->
-					</label> <span class="pass-check"></span> 비밀번호 확인 <input type="password"
-						class="m_form" placeholder="비밀번호확인" id="passComfirm" required />
+					 <span class="pass-check"></span>
+					<span> 비밀번호 확인 </span>
+					 <input type="password"
+						class="m_form large" placeholder="비밀번호확인" id="passComfirm" required />
 					<span class="pass-comfirm"></span>
 					<!--이름-->
-					<label>이름 * <input type="text" name="user_name"
-						class="m_form" placeholder="이름" title="한글만 입력가능합니다" required />
-					</label>
+					<span>이름 * 
+					</span><input type="text" name="user_name" class="m_form large" placeholder="이름" title="한글만 입력가능합니다" required />
+					
 					<!--휴대폰-->
-					<label for="hp">휴대폰 * <select name="hp1">
+					<span>휴대폰 * </span>
+					<div>
+					<select name="hp1">
 							<option selected>010</option>
 							<option>011</option>
 							<option>016</option>
 							<option>017</option>
 							<option>018</option>
 							<option>019</option>
-					</select> <span>-</span> <input type="text" name="hp2" class="m_form"
+					</select> <span>-</span> <input type="text" name="hp2" id="hp2" class="m_form small"
 						pattern="\d{4}" title="숫자만 입력가능합니다" maxlength="4" required /> <span>-</span>
-						<input type="text" name="hp3" class="m_form" pattern="\d{4}"
+						<input type="text" name="hp3" class="m_form small" id="hp3" pattern="\d{4}"
 						title="숫자만 입력가능합니다" maxlength="4" required />
-					</label>
+					
+					</div>
 				</div>
 
 				<div class="member__form">
 					<!--이메일-->
-					<label>이메일 * <input type="text" name="email1"
-						class="m_form" placeholder="이메일주소" required /> <span>@</span> <input
-						type="text" class="m_form" name="email2" id="email2"
-						placeholder="이메일주소" required /> <select id="email3">
+					<span>이메일 *</span>
+					<div>
+					<input type="text" name="email1" class="m_form medium" placeholder="이메일주소" required /> <span>@</span> 
+						<input type="text" class="m_form medium name="email2" id="email2" placeholder="이메일주소" required /> 
+						<select id="email3">
 							<option disabled selected>선택하세요</option>
 							<option value="gmail.com">gmail.com</option>
 							<option value="naver.com">naver.com</option>
@@ -279,31 +293,25 @@ select {
 							<option value="nate.com">nate.com</option>
 							<option value="-">직접 입력하기</option>
 					</select>
-					</label>
-					<!-- 주소 -->
-					<div>
-						<label for="address">주소 <input type="text" id="postcode"
-							class="m_form readonly" placeholder="우편번호" name="zipcode"
-							readonly />
-							<button type="button" onclick="searchPostcode()">우편번호 찾기</button>
-							<br /> <input type="text" id="roadAddress"
-							class="m_form readonly" placeholder="도로명주소" name="road_addr"
-							readonly /> <input type="text" id="jibunAddress"
-							class="m_form readonly" placeholder="지번주소" name="jibun_addr"
-							readonly /> <span id="guide" style="color: #999; display: none"></span>
-							<input type="text" id="detailAddress" class="m_form"
-							placeholder="상세주소" name="detail_addr" />
-						</label>
 					</div>
+					<!-- 주소 -->
+					<span>주소 </span>
+					<div>
+						<input type="text" id="postcode" class="m_form readonly medium" placeholder="우편번호" name="zipcode" readonly />
+							<button type="button" onclick="searchPostcode()">우편번호 찾기</button></div>
+						
+							 <div><input type="text" id="roadAddress" class="m_form readonly large" placeholder="도로명주소" name="road_addr" readonly />
+							 <input type="text" id="jibunAddress" class="m_form readonly large" placeholder="지번주소" name="jibun_addr" readonly /> </div>
+							 <span id="guide" style="color: #999; display: none"></span>
+							<input type="text" id="detailAddress" class="m_form large" placeholder="상세주소" name="detail_addr" />
+					
 
 					<!-- 회원약관 -->
 					<div>
-						<input type="checkbox" required /> <a
-							href="index.jsp?main=Member/agreement.jsp" target="blank">이용약관동의(필수)</a>
-						<input type="checkbox" required /> <a
-							href="index.jsp?main=Member/agreement.jsp" target="blank">개인정보취급방침
-							동의(필수)</a> <input type="checkbox" id="chk_agree" /> 위치정보동의(선택) <input
-							type="hidden" name="agree" id="agree" value="0" />
+						
+						<input type="checkbox" required /> <a href="index.jsp?main=Member/agreement.jsp" target="blank">개인정보취급방침 동의(필수)</a><br> 
+						<input type="checkbox" id="chk_agree" /> <a href="index.jsp?main=Member/agreement.jsp" target="blank">위치정보동의(선택) </a> 
+						<input type="hidden" name="agree" id="agree" value="0" />
 						<script type="text/javascript">
                //위치정보동의 파라미터
 				$("#chk_agree").click(function () {
@@ -334,10 +342,10 @@ select {
               </script>
 
 					</div>
-					<button type="submit">회원가입</button>
+					<button type="submit" class="medium">회원가입</button>
 				</div>
 			</div>
 		</form>
-	</div>
+
 </body>
 </html>
