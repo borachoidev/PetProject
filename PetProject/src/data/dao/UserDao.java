@@ -214,13 +214,13 @@ public class UserDao {
 		}
 		
 		//이메일애 따른 아이디 확인
-		public UserDto findID(String email)
+		public String findID(String email)
 		{
-			UserDto dto = new UserDto();
+			String id="";
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			String sql="select * from user_tb where email=?";
+			String sql="select id from user_tb where email=?";
 			conn=db.getMyConnection();
 			
 			try {
@@ -228,20 +228,7 @@ public class UserDao {
 				pstmt.setString(1, email);
 				rs=pstmt.executeQuery();
 				if(rs.next()) {
-					dto.setUser_num(rs.getString("user_num"));
-					dto.setUser_name(rs.getString("user_name"));
-					dto.setId(rs.getString("id"));
-					dto.setPass(rs.getString("pass"));
-					dto.setEmail(rs.getString("email"));
-					dto.setHp(rs.getString("hp"));
-					dto.setZipcode(rs.getString("zipcode"));
-					dto.setRoad_addr(rs.getString("road_addr"));
-					dto.setJibun_addr(rs.getString("jibun_addr"));
-					dto.setDetail_addr(rs.getString("detail_addr"));
-					
-					dto.setAgree(rs.getInt("agree"));
-					dto.setLvl(rs.getInt("lvl"));
-					
+					id=rs.getString("id");		
 				}
 					
 					
@@ -251,7 +238,7 @@ public class UserDao {
 			} finally {
 				db.dbClose(conn, pstmt,rs);
 			}
-			return dto;
+			return id;
 		}
 		
 		//비밀번호 변경
@@ -279,7 +266,7 @@ public class UserDao {
 			
 		}
 		
-		//이메일애 따른 아이디 확인
+		//id에 따른 User정보 가져오기
 		public UserDto getData(String myId)
 		{
 			UserDto dto = new UserDto();
@@ -319,6 +306,36 @@ public class UserDao {
 			}
 			return dto;
 		}
+		
+		//회원정보 수정
+		public void updateUser(UserDto2 dto) {
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="update user_tb set hp=?,email=?,zipcode=?,road_addr=?,jibun_addr=?,detail_addr=?,agree=? where user_num=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				String hp = dto.getHp1() + "-" + dto.getHp2() + "-" + dto.getHp3();
+				pstmt.setString(1, hp);
+				String email = dto.getEmail1() + "@" + dto.getEmail2();
+				pstmt.setString(2, email);
+				pstmt.setString(3, dto.getZipcode());
+				pstmt.setString(4, dto.getRoad_addr());
+				pstmt.setString(5, dto.getJibun_addr());
+				pstmt.setString(6, dto.getDetail_addr());
+				pstmt.setInt(7, dto.getAgree());
+				pstmt.setString(8, dto.getUser_num());
+				pstmt.executeQuery();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt);
+			}
+		}
+		
 }
 
 

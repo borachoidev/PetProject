@@ -36,8 +36,7 @@ public class SendId extends HttpServlet {
 		System.out.println(email);
 		//먼저 아이디로 회원정보를 받아오고 가져온 데이터에서 email값을 비교하여 존재하지 않으면 인증메일 보내지 못함
 		UserDao dao =new UserDao();
-		UserDto dto=dao.findID(email);
-		String id =dto.getId();
+		String id =dao.findID(email);
 		System.out.println(id);
 		if(id==null){
 			response.sendRedirect("index.jsp?main=Login/searchFailed.jsp");
