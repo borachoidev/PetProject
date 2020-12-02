@@ -284,7 +284,7 @@ width:10em;
 					<span>이메일 *</span>
 					<div>
 					<input type="text" name="email1" class="m_form medium" placeholder="이메일주소" required /> <span>@</span> 
-						<input type="text" class="m_form medium name="email2" id="email2" placeholder="이메일주소" required /> 
+						<input type="text" class="m_form medium" name="email2" id="email2" placeholder="이메일주소" required /> 
 						<select id="email3">
 							<option disabled selected>선택하세요</option>
 							<option value="gmail.com">gmail.com</option>

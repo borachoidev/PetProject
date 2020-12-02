@@ -358,6 +358,67 @@ public class UserDao {
 			}
 		}
 		
+		//전체회원 출력
+		public List<UserDto> getAllUsers(){
+			List<UserDto> list=new ArrayList<UserDto>();
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="select * from user_tb";
+			conn=db.getMyConnection();
+			try {
+				pstmt=conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				while(rs.next()) {
+					UserDto dto=new UserDto();
+					dto.setUser_num(rs.getString("user_num"));
+					dto.setUser_name(rs.getString("user_name"));
+					dto.setId(rs.getString("id"));
+					dto.setPass(rs.getString("pass"));
+					dto.setEmail(rs.getString("email"));
+					dto.setHp(rs.getString("hp"));
+					dto.setZipcode(rs.getString("zipcode"));
+					dto.setRoad_addr(rs.getString("road_addr"));
+					dto.setJibun_addr(rs.getString("jibun_addr"));
+					dto.setDetail_addr(rs.getString("detail_addr"));
+					
+					dto.setAgree(rs.getInt("agree"));
+					dto.setLvl(rs.getInt("lvl"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			
+			return list;
+		}
+
+		//회원레벨수정
+		public void updateUserLevel(String user_num,String lvl) {
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="update user_tb set lvl=? where user_num=?";
+			conn=db.getMyConnection();
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, lvl);
+				pstmt.setString(2, user_num);
+			
+				pstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt);
+			}
+		}
 }
 
 
