@@ -26,7 +26,8 @@
          e.preventDefault();
          
          var adopt_num=$(this).attr("adopt_num");
-         location.href="index.jsp?main=Adopt/detailpage.jsp?adopt_num="+adopt_num;
+         var user_num=$(this).attr("user_num");
+         location.href="index.jsp?main=Adopt/detailpage.jsp?adopt_num="+adopt_num+"&user_num="+user_num;
       });
    });
 </script>
@@ -94,6 +95,7 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
          <td>
          <div class="thumnail">
          <a adopt_num="<%=dto.getAdopt_num()%>"
+            user_num="<%=dto.getUser_num()%>"
             style="cursor:pointer;" class="godetail">
             <img src="adoptsave/<%=photo%>" class="photo">
 
@@ -156,7 +158,7 @@ if(totalCount>0)
 
   <td>
   <button type="button" class="btn btn-info"style="width: 150px;" id="btn_add"
-  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp'">강아지 등록</button>
+  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">강아지 등록</button>
    <%String loginOk=(String)session.getAttribute("loginOk");	
 	String myId=(String)session.getAttribute("myId"); 
 	if(loginOk==null){%>

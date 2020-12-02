@@ -16,7 +16,7 @@
    try{
       multi=new MultipartRequest(request,uploadPath,uploadSize,
             "utf-8",new DefaultFileRenamePolicy());
-      String id=multi.getParameter("id");
+      String adopt_name=multi.getParameter("adopt_name");
       String age=multi.getParameter("age");
       String breed=multi.getParameter("breed");
       String gender=multi.getParameter("gender");
@@ -45,7 +45,7 @@
       AdoptDao dao=new AdoptDao();
       //dto에 데이터 넣기
       AdoptDto dto=new AdoptDto();
-      dto.setId(id);
+      dto.setAdopt_name(adopt_name);
       dto.setAge(age);
       dto.setBreed(breed);
       dto.setGender(gender);

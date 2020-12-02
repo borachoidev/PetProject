@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import data.dto.AdoptCommentDto;
 import data.dto.AdoptDto;
+import data.dto.MungCommentDto;
 import data.dto.UserDto;
 import mysql.db.MysqlConnect;
 
@@ -19,14 +21,14 @@ public class AdoptDao {
 	//insert
 	public void insertAdopt(AdoptDto dto)
 	{
-		String sql="insert into adopt (id,breed,age,gender,vaccine,content,photo,user_num,writeday) values (?,?,?,?,?,?,?,?,now())";
+		String sql="insert into adopt (adopt_name,breed,age,gender,vaccine,content,photo,user_num,writeday) values (?,?,?,?,?,?,?,?,now())";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
 			//바인딩
-			pstmt.setString(1, dto.getId());
+			pstmt.setString(1, dto.getAdopt_name());
 			pstmt.setString(2, dto.getBreed());
 			pstmt.setString(3, dto.getAge());
 			pstmt.setString(4, dto.getGender());
@@ -73,8 +75,9 @@ public class AdoptDao {
 				dto.setBreed(rs.getString("breed"));
 				dto.setVaccine(rs.getString("vaccine"));
 				dto.setPhoto(rs.getString("photo"));
-				dto.setId(rs.getString("id"));
+				dto.setAdopt_name(rs.getString("adopt_name"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
+				dto.setUser_num(rs.getString("user_num"));
 				list.add(dto);
 				
 			}
@@ -89,14 +92,14 @@ public class AdoptDao {
 	}
 	
 	//한개 데이타 가져오기
-	/*public AdoptDto getData(String adopt_num)
+	public AdoptDto getData(String adopt_num)
 	{
 		AdoptDto dto=new AdoptDto();
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		String sql="select a.adopt_num, a.content, a.age, a.gender, a.breed, a.commt, a.photo ,a.likes, a.writeday, a.id ,b.id from adopt a, user_tb b where a.user_num=b.user_num and a.adopt_num=? ";
-		//String sql="select * from adopt where adopt_num=?";
+		//String sql="select a.adopt_num, a.content, a.age, a.gender, a.breed, a.commt, a.photo ,a.likes, a.writeday, a.id ,b.id from adopt a, user_tb b where a.user_num=b.user_num and a.adopt_num=? ";
+		String sql="select * from adopt where adopt_num=?";
 		conn=db.getMyConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -112,7 +115,7 @@ public class AdoptDao {
 				dto.setBreed(rs.getString("breed"));
 				dto.setVaccine(rs.getString("vaccine"));
 				dto.setPhoto(rs.getString("photo"));
-				dto.setId(rs.getString("id"));
+				dto.setAdopt_name(rs.getString("adopt_name"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
 			}
 		} catch (SQLException e) {
@@ -122,9 +125,9 @@ public class AdoptDao {
 			db.dbClose(conn, pstmt, rs);
 		}
 		return dto;	
-	}*/
+	}
 	
-	public List<HashMap<String, String>> getData(String adopt_num)
+	/*public List<HashMap<String, String>> getData(String adopt_num)
 	{
 		String sql="select a.adopt_num, a.content, a.age, a.gender, a.breed, a.commt, a.photo ,a.likes, a.writeday, a.id ,b.id u_id from adopt a, user_tb b where a.user_num=b.user_num and a.adopt_num=? ";
 		List<HashMap<String, String>> list=
@@ -167,7 +170,7 @@ public class AdoptDao {
 			db.dbClose(conn, pstmt, rs);
 		}
 		return list;
-	}
+	}*/
 	
 	//삭제
 	public void deleteAdopt(String adopt_num)
@@ -215,5 +218,85 @@ public class AdoptDao {
 
 		return n;
 	}
+	
+	public void insertComment(AdoptCommentDto dto)
+	{
+		String sql="insert into adopt_comment (comm_num, id, content, writeday) values (?,?,?,now())";
+			
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			//바인딩
+			pstmt.setString(1, dto.getComm_num());
+			pstmt.setString(2, dto.getId());
+			pstmt.setString(3, dto.getContent());
+			//실행
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt);
+		}
+	}
+	
+	public List<AdoptCommentDto> getCommentList(String adopt_num)
+	{
+		System.out.println("1:"+adopt_num);
+		List<AdoptCommentDto> list=new ArrayList<AdoptCommentDto>();
+		String sql="select * from adopt_comment where comm_num=? order by idx desc";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, adopt_num);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				AdoptCommentDto dto=new AdoptCommentDto();
+				
+				dto.setIdx(rs.getString("idx"));
+				dto.setComm_num(rs.getString("comm_num"));
+				dto.setContent(rs.getString("content"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일"); 
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
+				dto.setId(rs.getString("id"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return list;
+	}
+	
+	public void deleteComment(String idx)
+	{
+		String sql="delete from adopt_comment where idx=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			//바인딩
+			pstmt.setString(1, idx);;
+			//실행
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt);
+		}
+	}
+	
 			
 }

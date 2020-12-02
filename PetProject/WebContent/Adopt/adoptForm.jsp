@@ -30,7 +30,7 @@ String user_num=dao.getNum(myId);
          <tr>
             <td>
                <span>이름</span>
-               <input type="text" name="id" style="width: 75px;" required="required">
+               <input type="text" name="adopt_name" style="width: 75px;" required="required">
             </td>
          </tr>
          <tr>

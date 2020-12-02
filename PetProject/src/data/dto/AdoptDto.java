@@ -13,7 +13,20 @@ public class AdoptDto {
 	private String photo;
 	private int likes;
 	private Timestamp writeday;
-	private String id;
+	private String adopt_name;
+	private String comm_num;
+	public String getComm_num() {
+		return comm_num;
+	}
+	public void setComm_num(String comm_num) {
+		this.comm_num = comm_num;
+	}
+	public String getAdopt_name() {
+		return adopt_name;
+	}
+	public void setAdopt_name(String adopt_name) {
+		this.adopt_name = adopt_name;
+	}
 	private String user_name;
 	private String user_num;
 	public String getUser_num() {
@@ -81,12 +94,6 @@ public class AdoptDto {
 	}
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getUser_name() {
 		return user_name;
