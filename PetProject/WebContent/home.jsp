@@ -18,6 +18,11 @@ html, body {
 	margin:0;
 	padding:0;
 }
+
+#introDescription, #mungDescription{
+cursor: pointer;
+padding:4vw;
+}
 .container{
 overflow: hidden;
 touch-action: none;
@@ -32,6 +37,9 @@ background: url('Image/main1.jpg') no-repeat center ;
 background-size: cover;
 width:100%;
 height:100%;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 #community{
 overflow:hidden;
@@ -39,6 +47,9 @@ background: url('Image/main2.jpg') no-repeat center ;
 background-size: cover;
 width:100%;
 height:100%;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .animate__jello{
@@ -52,10 +63,10 @@ window.onload=function() {
 	const mung =document.getElementById("community");
 	const introDescription =document.getElementById("introDescription");
 	const mungDescription =document.getElementById("mungDescription");
-	intro.onclick=function(){
+	introDescription.onclick=function(){
 		location.href="index.jsp?main=Intro/intro.jsp";
 	}
-	mung.onclick=function(){
+	mungDescription.onclick=function(){
 		location.href="index.jsp?main=Mung/mungMain.jsp";
 	}
 	

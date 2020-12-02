@@ -101,11 +101,12 @@ height:100%;}
 .submenuLink:hover {
   color: #FFD479; 
 }
-
 .menu__login li{
-margin:1vw;
+padding-right:1vw;
 }
-
+.menu__title{
+padding-left:1.5vw;
+}
 </style>
 
 </head>
@@ -113,7 +114,7 @@ margin:1vw;
 <body>
 <!-- 메인메뉴 -->
 	<div class="main-menu" id="topMenu">
-		<span><a href="home.jsp">Pet&Me</a></span>
+		<span class="menu__title"><a href="home.jsp">Pet&Me</a></span>
 		<ul class="menu__list">
 			<li class="topMenuLi">
 				<a class="menuLink" href="index.jsp?main=Intro/intro.jsp">펫앤미소개</a> 
@@ -153,23 +154,41 @@ margin:1vw;
 	String myId=(String)session.getAttribute("myId");
 		if(loginok==null){%>
 		<ul class="menu__login">
-				<li id="loginBtn"><a href="index.jsp?main=Login/loginForm.jsp">로그인 </a> </li>
 				<li id="signinBtn"><a href="index.jsp?main=Member/memberForm.jsp">회원가입 </a></li>
+				<li id="loginBtn"><a href="index.jsp?main=Login/loginForm.jsp">로그인 </a> </li>
 			</ul>
 	<%}else{
 		//아이디가 amdin일떄 관리자 메뉴표시
 		if(myId!=null){	
 		 if(myId.equals("admin")){%>
-		 	<ul class="menu__login">	
+		 	<ul class="menu__login menu__list">	
+				<li id="myPageBtn" class="topMenuLi">
+					<a class="menuLink" href="index.jsp?main=Admin/adminMain.jsp">관리자페이지</a>
+					<ul class="menu__adminpage submenu">
+						<li><a class="submenuLink" href="index.jsp?main=Admin/memberList.jsp"> 회원관리 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=Admin/bookingList.jsp"> 예약관리 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=Admin/reviewList.jsp"> 후기글관리 </a></li>
+					</ul>
+				</li>	
 				<li id="logoutBtn"><a href="Login/logoutAction.jsp" >로그아웃 </a></li>
-				<li id="myPageBtn"><a href="index.jsp?main=Admin/adminMain.jsp">관리자페이지</a></li>
+				
 			</ul>
 			<%}else{
 			//아닐때 일반 로그아웃 메뉴 표시
 			%>
-		<ul class="menu__login">	
+		<ul class="menu__login menu__list">	
+				<li id="myPageBtn" class="topMenuLi">
+					<a class="menuLink" href="index.jsp?main=MyPage/mypageMain.jsp">마이페이지 </a>
+					<ul class="menu__mypage submenu">
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/accAdd.jsp"> 반려동물등록 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/accUpdate.jsp"> 반려동물수정</a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/bookList.jsp"> 수강내역 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/bookListForFuture.jsp"> 예약현황 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/reviewList.jsp"> 내글관리 </a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/memberUpdate.jsp"> 회원정보수정 </a></li>
+					</ul>
+				</li>	
 				<li id="logoutBtn"><a href="Login/logoutAction.jsp" >로그아웃 </a></li>
-				<li id="myPageBtn"><a href="index.jsp?main=MyPage/mypageMain.jsp">마이페이지 </a></li>
 			</ul>
 	<%}}
 			
@@ -178,3 +197,18 @@ margin:1vw;
 	</div> 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

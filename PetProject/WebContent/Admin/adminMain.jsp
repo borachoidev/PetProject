@@ -19,9 +19,9 @@
   <br><br>
   <p>보안을 위하여 비밀번호 노출 및 로그아웃 유무에 유의 부탁드립니다.</p>
  	 <div class="list-group">
- 		 <a href="#" class="myAdd list-group-item">회원관리</a>
-  		 <a href="#" class="myAdj list-group-item">예약관리</a>
-  		 <a href="#" class="myBook list-group-item">후기글 관리</a>
+ 		 <a href="index.jsp?main=Admin/memberList.jsp" class="myAdd list-group-item">회원관리</a>
+  		 <a href="index.jsp?main=Admin/bookingList.jsp" class="myAdj list-group-item">예약관리</a>
+  		 <a href="index.jsp?main=Admin/reviewList.jsp" class="myBook list-group-item">후기글 관리</a>
 	</div>
 </div>
 </body>
