@@ -25,11 +25,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Do+Hyeon&family=Press+Start+2P&display=swap"
-	rel="stylesheet">
 <meta charset="UTF-8">
 <link rel="icon" href="Image/favicon.png">
 <!--general stylesheet-->
@@ -44,8 +39,9 @@ a {
 	all: unset;
 }
 .layout__nav{
-position: sticky;
+	position: sticky;
 	top:0;
+	z-index: 9999;
 }
 .layout__main {
 	width: 100%;
@@ -53,6 +49,7 @@ position: sticky;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	
 }
 /* 기본 링크 스타일 */
