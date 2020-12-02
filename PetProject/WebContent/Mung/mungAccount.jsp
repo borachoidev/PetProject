@@ -10,9 +10,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 <title>Insert title here</title>
 <style type="text/css">
 /* bg-dark text-white */
@@ -24,11 +21,11 @@ ul li {
 	color: white;
 }
 
-img.mung__post {
-	max-width: 300px;
+.mung__img-box img{
+	min-height: 300px;
 }
 
-.mung__post {
+.mung__img-box {
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -57,17 +54,31 @@ div.mung__post__modal {
 }
 
 div.mung__modal__img {
-	max-width: 600px;
+	background-color: #121212;
+	max-width: 300px;
+	min-width: 200px;
+	height: 450px;
+	display: felx;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-size {
+	width: 80%; 
+	min-width: 80%;
+	height: 90%;
+	min-height: 70%;
+}
+
+.modalImg {
+	max-width: 300px;
+	min-width: 200px;
+	height: 100%;
+	min-height: 100%; 
 }
 
 </style>
 <script type="text/javascript">
-//* noConflict 를 통해 충돌을 피하기 위해 JQuery 라이브러리의 noConflict() 함수 호출
-// * noConflict() 는 호출됨과 동시에 $라는 변수 키워드가 가지고 있는 JQuery에 대한 제어권을 포기.
-// * $.noClonflict() 함수는 JQuery 객체를 반환하는데, 여기서는1.11.1 버전의 라이브러리 JQuery 객체를 반환하고 이를 lowJquery 라는 새 변수 별명(Alias)로 할당
-// 1.11.1 버전의 JQuery 라이브러리에만 정의된 함수나 속성을 사용하려면 $ 대신  lowJQuery 를 사용
-var lowJquery = $.noConflict(true);
-
 $(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
@@ -101,34 +112,34 @@ $(function() {
 				var src="mungSave/"+photo[img_idx];
 				//캐러셀 이미지에 들어갈 코드
 				var s1="";
-				s1+="<div class='item active'>";
-				s1+="<img src='"+src+"' class='modalImg'>";
+				s1+="<div class='carousel-item active'>";
+				s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
 				s1+="</div>";
 				//사진이 2장이상일 경우 사진개수만큼 코드 생성
 				if(img_idx>0) {
 					for(var i=img_idx-1; i>=0; i--) {
 						src="mungSave/"+photo[i];
-						s1+="<div class='item'>";
-						s1+="<img src='"+src+"' class='modalImg'>";
+						s1+="<div class='carousel-item'>";
+						s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
 						s1+="</div>";
 					}    
 				}
 				//코드 추가
-				lowJquery("#slideImg").html(s1);
+				$("#slideImg").html(s1);
 				//캐러셀 이미지 위치 표시를 위한 코드
 				var s2="";
-				s2+="<li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>";
+				s2+="<li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li>";
 				//사진이 2장이상일 경우 사진개수만큼 코드 생성
 				if(img_idx>0) {
 					for(var i=1; i<=img_idx; i++) {
 						src="mungSave/"+photo[i];
-						s2+="<li data-target='#carousel-example-generic' data-slide-to='"+i+"'></li>";
+						s2+="<li data-target='##carouselExampleIndicators' data-slide-to='"+i+"'></li>";
 					}    
 				}
 				//코드 추가
-				lowJquery("#slideIdx").html(s2);
+				$("#slideIdx").html(s2);
 				//캐러셀 실행 및 자동 슬라이드 기능 해제
-				lowJquery('.carousel').carousel('pause');
+				$('.carousel').carousel('pause');
 				
 				/* 텍스트 */
 	        	//게시글 작성한 계정정보
@@ -145,12 +156,8 @@ $(function() {
 	        	}
 	        	$("#mung__modal__tag").html(tagList);
 	        	
-	        	//댓글 목록
-	        	var comm="";
-	        	$.each(commList,function(i,item) {
-	        		comm="<li><img class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><span>"+item.content+"</span><span>"+item.writeday+"</span></li>";
-		        	$("#mung__modal__comment").append(comm);
-				});
+	        	//댓글 목록(댓글 추가 후 목록 새로고침 되도록 ajax로 처리)
+	        	getCommList(post_num);
 	        	
 	        	//게시글 좋아요
 	        	$("#mung__modal__likes").html("좋아요&nbsp;"+likes+"개");
@@ -158,20 +165,16 @@ $(function() {
 	        	//게시글 댓글
 	        	$("#mung__comm__commNum").val(post_num);
 				
+				//댓글 추가 버튼 이벤트
+				$("#mung__modal__sbmitBtn").click(function() {
+					var content=$("#mung__modal__inputComm").val();
+					var dog_num=$("#mung__modal__commNum").val();
+					insertComm(post_num, content, dog_num);
+				});
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});
-	});
-	
-	//댓글 추가 버튼
-	$("#mung__modal__sbmitBtn").click(function() {
-		location.href="index.jsp?main=Mung/mungCommAddAction.jsp";
-	});
-	
-	//댓글 추가후 댓글 목록 다시 출력
-	$("form.mung__modal__add-comment").submit(function(e) {
-		
 	});
 	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
@@ -180,10 +183,44 @@ $(function() {
 		$("#slideIdx").html("");
 		$("#mung__modal__content").val("");
 		$("#mung__modal__tag").html("");
-		$("#mung__modal__comment").html("");
+		$("#mung__modal__inputComm").html("");
 	});
 });
+//댓글 목록 출력
+function getCommList(post_num) {
+	$.ajax({
+		type:"post",
+		url:"Mung/mungPostData.jsp",
+		data:{"post_num":post_num},
+		datatype:'json',
+		success:function(data) {
+			//json파싱
+			json=JSON.parse(data);
+			//댓글목록 초기화
+			$("#mung__modal__comment").html("");
+			//댓글 목록 출력
+			var commList=json.commList;
+			var comm="";
+        	$.each(commList,function(i,item) {
+        		comm="<li><img class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><span>"+item.content+"</span><span>"+item.writeday+"</span></li>";
+	        	$("#mung__modal__comment").append(comm);
+			});
+		}	
+	});
+}
 
+//댓글 추가
+function insertComm(comm_num,content,dog_num) {
+	$.ajax({
+		type:"post",
+		url:"Mung/mungCommAddAction.jsp",
+		data:{"comm_num":comm_num,"content":content,"dog_num":dog_num},
+		datatype:'html',
+		success:function(data) {
+			getCommList(comm_num);
+		}	
+	});
+}
 </script>
 </head>
 <%	
@@ -205,7 +242,7 @@ $(function() {
 	<ul id="mung__nav">
 		<!-- 로그인한 계정 정보 -->
 <%
-		if(loginOk!=null) {
+		if(loginOk!=null && accId!="no") {
 %>		
 		<li class="mung__nav__acc">
 			<a href="index.jsp?main=Mung/mungAccount.jsp">
@@ -262,7 +299,7 @@ $(function() {
 			
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
-			    <div class="card mung__post">
+			    <div class="card mung__img-box">
 			      <img src="mungSave/<%=photo %>" class="card-img-top mung__post-img">
 			      <div class="card-img-overlay">
 				    <p class="card-text mung__post-text">
@@ -286,20 +323,21 @@ $(function() {
 			
 	<!-- 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered modal-xl">
+	  <div class="modal-dialog modal-size modal-dialog-centered">
 		<!-- close 버튼 -->	  
 	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
 	      <span aria-hidden="true">&times;</span>
 	    </button>
 	    <!-- 모달창 컨텐츠 -->
-	    <div class="modal-content">
+	    <div class="modal-content modal-size">
 	      <div class="modal-body mung__post__modal">
 	       <div class="row">
      		 <div class="col">
 		      	<!-- 이미지영역 -->
 		      	<div class="row">
-	        	<div class="mung__modal__img col-6">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	        	<div class="mung__modal__img">
+	        		<%-- 캐러셀 --%>
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <!-- Indicators -->
 					  <ol class="carousel-indicators" id="slideIdx">
 					    <%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
@@ -309,18 +347,18 @@ $(function() {
 						<%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
 					  </div>
 					  <!-- Controls -->
-					  <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
+					 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
+					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
 					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
-		        <div class="mung__modal__text col-6">
+		        <div class="mung__modal__text">
 		        	<!-- 게시글 작성한 계정 -->
 		        	<ul class="mung__modal__acc">
 		        		<!-- 프로필 -->
@@ -352,11 +390,10 @@ $(function() {
 			        	</div> 
 			        </div>		
 		        	<!-- 게시글 댓글추가 -->
-		        	<form action="Mung/mungCommentAdd.jsp" class="mung__modal__add-comment">
-		        		<input type="hidden" id="mung__comm__commNum" name="comm_num" value="">
-		        		<input type="hidden" id="mung__comm__dogNum" name="dog_num" value="<%=dog_num%>">
-		        		<input type="text" name="comment" class="mung__modal__input-comment">
-		        		<button type="submit" id="mung__modal__sbmitBtn">등록</button>
+		        	<form id="mung__modal__addComm">
+		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
+		        		<input type="text" id="mung__modal__inputComm">
+		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
 		        	</form>
 		        </div>
 		      </div>
