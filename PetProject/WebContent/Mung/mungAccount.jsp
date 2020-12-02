@@ -17,14 +17,21 @@ ul li {
 	list-style: none;
 }
 
-.mung__post-text {
-	color: white;
+a {
+	cursor: pointer;
 }
 
+/* 카드텍스트 */
+.mung__post-text {
+	
+}
+
+/* 카드이미지*/
 .mung__img-box img{
 	min-height: 300px;
 }
 
+/* 카드이미지 박스 */
 .mung__img-box {
     overflow: hidden;
     display: flex;
@@ -34,6 +41,7 @@ ul li {
     height: 300px;
 }
 
+/* 로그인한 계정 프로필, 게시글작성한 계정 프로필 */
 .mung__profile {
 	width: 30px;
 	height: 30px;
@@ -41,42 +49,51 @@ ul li {
 	margin: 0 20px;
 }
      
+/* 게시글에 댓글작성한 계정 프로필 */     
 .mung__profile-sm {
 	width: 20px;
 	height: 20px;
 	border-radius: 50px;
 	margin: 0 10px;
-}     
-
-div.mung__post__modal {
-	padding: 0;
-	display: felx;
 }
 
-div.mung__modal__img {
-	background-color: #121212;
-	max-width: 300px;
-	min-width: 200px;
-	height: 450px;
-	display: felx;
-    align-items: center;
-    justify-content: center;
-}
-
+/* 모달 (모달dialog, 모달content) */
 .modal-size {
 	width: 80%; 
 	min-width: 80%;
 	height: 90%;
 	min-height: 70%;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+    justify-content: center;
+}     
+
+/* 모달 바디 */
+div.mung__post__modal {
+	padding: 0;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+    justify-content: center;
 }
 
+/* 모달 이미지 박스 */
+div.mung__modal__img {
+	background-color: #121212;
+	display: block;	
+    align-items: center;
+    justify-content: center;
+    height: 90%;
+}
+
+
+/* 모달창 이미지 */
 .modalImg {
-	max-width: 300px;
-	min-width: 200px;
-	height: 100%;
-	min-height: 100%; 
+	max-width: 100%;
+	max-height: 90%;
+	 
 }
-
 </style>
 <script type="text/javascript">
 $(function() {
@@ -112,16 +129,16 @@ $(function() {
 				var src="mungSave/"+photo[img_idx];
 				//캐러셀 이미지에 들어갈 코드
 				var s1="";
-				s1+="<div class='carousel-item active'>";
+				s1+="<div class='carousel-item active'><div class='mung__modal__img'>";
 				s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-				s1+="</div>";
+				s1+="</div></div>";
 				//사진이 2장이상일 경우 사진개수만큼 코드 생성
 				if(img_idx>0) {
 					for(var i=img_idx-1; i>=0; i--) {
 						src="mungSave/"+photo[i];
-						s1+="<div class='carousel-item'>";
+						s1+="<div class='carousel-item'><div class='mung__modal__img'>";
 						s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-						s1+="</div>";
+						s1+="</div></div>";
 					}    
 				}
 				//코드 추가
@@ -170,6 +187,7 @@ $(function() {
 					var content=$("#mung__modal__inputComm").val();
 					var dog_num=$("#mung__modal__commNum").val();
 					insertComm(post_num, content, dog_num);
+					$("#mung__modal__inputComm").val("");
 				});
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -183,7 +201,7 @@ $(function() {
 		$("#slideIdx").html("");
 		$("#mung__modal__content").val("");
 		$("#mung__modal__tag").html("");
-		$("#mung__modal__inputComm").html("");
+		$("#mung__modal__inputComm").val("");
 	});
 });
 //댓글 목록 출력
@@ -275,12 +293,6 @@ function insertComm(comm_num,content,dog_num) {
 			</svg>
 		</li>
 <%
-		}else {
-%>
-<script>
-			location.href="index.jsp?main=Mung/mungMain.jsp";
-</script>
-<%
 		}
 %>
 	</ul>
@@ -334,8 +346,6 @@ function insertComm(comm_num,content,dog_num) {
 	       <div class="row">
      		 <div class="col">
 		      	<!-- 이미지영역 -->
-		      	<div class="row">
-	        	<div class="mung__modal__img">
 	        		<%-- 캐러셀 --%>
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <!-- Indicators -->
@@ -358,7 +368,7 @@ function insertComm(comm_num,content,dog_num) {
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
-		        <div class="mung__modal__text">
+		        <div class="mung__modal__text col-5">
 		        	<!-- 게시글 작성한 계정 -->
 		        	<ul class="mung__modal__acc">
 		        		<!-- 프로필 -->
@@ -389,19 +399,23 @@ function insertComm(comm_num,content,dog_num) {
 			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
 			        	</div> 
 			        </div>		
+<%
+					if(loginOk!=null && accId!="no") {
+%>			        
 		        	<!-- 게시글 댓글추가 -->
 		        	<form id="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
 		        		<input type="text" id="mung__modal__inputComm">
 		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
 		        	</form>
-		        </div>
-		      </div>
-		    </div>
-		   </div> 
+<%
+					}
+%>	
+		   		 </div>
+		   	   </div> 
+		   	 </div>
 		   </div>
-		   </div>
-	  </div>
+	  	</div>
 	</div>
 </div>
 </body>

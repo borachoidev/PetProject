@@ -1,3 +1,4 @@
+<%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.AccountDto"%>
 <%@page import="java.util.List"%>
@@ -16,14 +17,21 @@ ul li {
 	list-style: none;
 }
 
-.mung__post-text {
-	color: white;
+a {
+	cursor: pointer;
 }
 
+/* 카드텍스트 */
+.mung__post-text {
+	
+}
+
+/* 카드이미지*/
 .mung__img-box img{
 	min-height: 300px;
 }
 
+/* 카드이미지 박스 */
 .mung__img-box {
     overflow: hidden;
     display: flex;
@@ -33,6 +41,7 @@ ul li {
     height: 300px;
 }
 
+/* 로그인한 계정 프로필, 게시글작성한 계정 프로필 */
 .mung__profile {
 	width: 30px;
 	height: 30px;
@@ -40,44 +49,54 @@ ul li {
 	margin: 0 20px;
 }
      
+/* 게시글에 댓글작성한 계정 프로필 */     
 .mung__profile-sm {
 	width: 20px;
 	height: 20px;
 	border-radius: 50px;
 	margin: 0 10px;
-}     
-
-div.mung__post__modal {
-	padding: 0;
-	display: felx;
 }
 
-div.mung__modal__img {
-	background-color: #121212;
-	max-width: 300px;
-	min-width: 200px;
-	height: 450px;
-	display: felx;
-    align-items: center;
-    justify-content: center;
-}
-
+/* 모달 (모달dialog, 모달content) */
 .modal-size {
 	width: 80%; 
 	min-width: 80%;
 	height: 90%;
 	min-height: 70%;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+    justify-content: center;
+}     
+
+/* 모달 바디 */
+div.mung__post__modal {
+	padding: 0;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+    justify-content: center;
 }
 
+/* 모달 이미지 박스 */
+div.mung__modal__img {
+	background-color: #121212;
+	display: block;	
+    align-items: center;
+    justify-content: center;
+    height: 90%;
+}
+
+
+/* 모달창 이미지 */
 .modalImg {
-	max-width: 300px;
-	min-width: 200px;
-	height: 100%;
-	min-height: 100%; 
+	max-width: 100%;
+	max-height: 90%;
+	 
 }
 </style>
 <script type="text/javascript">
-window.onload=function() {
+$(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
 	$("#exampleModal").on("show.bs.modal",function(e) {
@@ -101,6 +120,7 @@ window.onload=function() {
 				var postUserId=json.postUserId;
 				var postAccId=json.postAccId;
 				var postProfile=json.postProfile;
+				var commList=json.commList;
 				
 				/* 사진 캐러셀 */
 				//게시글 당 불러올 사진 개수
@@ -109,16 +129,16 @@ window.onload=function() {
 				var src="mungSave/"+photo[img_idx];
 				//캐러셀 이미지에 들어갈 코드
 				var s1="";
-				s1+="<div class='carousel-item active'>";
+				s1+="<div class='carousel-item active'><div class='mung__modal__img'>";
 				s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-				s1+="</div>";
+				s1+="</div></div>";
 				//사진이 2장이상일 경우 사진개수만큼 코드 생성
 				if(img_idx>0) {
 					for(var i=img_idx-1; i>=0; i--) {
 						src="mungSave/"+photo[i];
-						s1+="<div class='carousel-item'>";
+						s1+="<div class='carousel-item'><div class='mung__modal__img'>";
 						s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-						s1+="</div>";
+						s1+="</div></div>";
 					}    
 				}
 				//코드 추가
@@ -167,6 +187,7 @@ window.onload=function() {
 					var content=$("#mung__modal__inputComm").val();
 					var dog_num=$("#mung__modal__commNum").val();
 					insertComm(post_num, content, dog_num);
+					$("#mung__modal__inputComm").val("");
 				});
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -174,17 +195,15 @@ window.onload=function() {
 		});
 	});
 	
-	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		$("#slideImg").html("");
 		$("#slideIdx").html("");
 		$("#mung__modal__content").val("");
 		$("#mung__modal__tag").html("");
-		$("#mung__modal__inputComm").html("");
+		$("#mung__modal__inputComm").val("");
 	});
-};
-
+});
 //댓글 목록 출력
 function getCommList(post_num) {
 	$.ajax({
@@ -220,7 +239,6 @@ function insertComm(comm_num,content,dog_num) {
 		}	
 	});
 }
-
 </script>
 </head>
 <%	
@@ -230,21 +248,20 @@ function insertComm(comm_num,content,dog_num) {
 	String loginOk=(String)session.getAttribute("loginOk");
 	
 	MungDao dao=new MungDao();
-	// (로그인 상태일 경우)계정정보
+	//계정 정보 출력
 	AccountDto accDto=dao.getAccountData(accId);
 	String dog_num=dao.getAccount(accId);
-	//전체 게시글목록 출력
+	//해당계정 게시글목록 출력
 	List<MungPostDto> postList=dao.getAllPost();
-	
 %>
 <body>
 <div id="mumg__container">
 	<!-- 멍스타그램 네비바 -->
-<%
-	if(loginOk!=null && accId!="no") {
-%>		
 	<ul id="mung__nav">
 		<!-- 로그인한 계정 정보 -->
+<%
+		if(loginOk!=null && accId!="no") {
+%>		
 		<li class="mung__nav__acc">
 			<a href="index.jsp?main=Mung/mungAccount.jsp">
 				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
@@ -275,10 +292,10 @@ function insertComm(comm_num,content,dog_num) {
 			  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
 			</svg>
 		</li>
-	</ul>
 <%
-	}
+		}
 %>
+	</ul>
 	
 	<!-- 게시글 목록 카드이미지 -->
 	<div class="mung__post-list">
@@ -286,7 +303,7 @@ function insertComm(comm_num,content,dog_num) {
 <%
 		//전체 게시글리스트에서 데이터 꺼내기
 		for(MungPostDto dto:postList) {
-			//계정별 게시글 전체 목록에서 필요한 데이터 변수(로그인 여부 상관 없이)
+			//계정별 게시글 전체 목록에서 필요한 데이터 변수
 			int idx=dto.getPhoto().split(",").length-1;
 			String photo=dto.getPhoto().split(",")[idx];
 			int likes=dto.getLikes();
@@ -329,9 +346,7 @@ function insertComm(comm_num,content,dog_num) {
 	       <div class="row">
      		 <div class="col">
 		      	<!-- 이미지영역 -->
-		      	<div class="row">
-	        	<div class="mung__modal__img col-6">
-	        		<%-- 캐러셀 --%>	
+	        		<%-- 캐러셀 --%>
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <!-- Indicators -->
 					  <ol class="carousel-indicators" id="slideIdx">
@@ -342,10 +357,10 @@ function insertComm(comm_num,content,dog_num) {
 						<%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
 					  </div>
 					  <!-- Controls -->
-					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 					    <span class="sr-only">Previous</span>
-					   </a>
+					  </a>
 					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
 					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 					    <span class="sr-only">Next</span>
@@ -353,7 +368,7 @@ function insertComm(comm_num,content,dog_num) {
 					</div>
 	        	</div>
 	        	<!-- 텍스트 영역 -->
-		        <div class="mung__modal__text col-6">
+		        <div class="mung__modal__text col-5">
 		        	<!-- 게시글 작성한 계정 -->
 		        	<ul class="mung__modal__acc">
 		        		<!-- 프로필 -->
@@ -370,7 +385,7 @@ function insertComm(comm_num,content,dog_num) {
 		        	</ul>
 		        	<div class="mung__modal__textBox">
 			        	<!-- 게시글 내용 -->
-			        	<textarea id="mung__modal__content" disabled><%-- 게시글 내용 출력 --%></textarea>
+			        	<textarea id="mung__modal__content"><%-- 게시글 내용 출력 --%></textarea>
 			        	<div id="mung__modal__tag"><%-- 게시글 태그 출력 --%></div>
 			        	<!-- 게시글 댓글 목록 -->
 			        	<ul id="mung__modal__comment">
@@ -384,14 +399,18 @@ function insertComm(comm_num,content,dog_num) {
 			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
 			        	</div> 
 			        </div>		
+<%
+					if(loginOk!=null && accId!="no") {
+%>			        
 		        	<!-- 게시글 댓글추가 -->
 		        	<form id="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
 		        		<input type="text" id="mung__modal__inputComm">
 		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
 		        	</form>
-		        </div>
-		      </div>
+<%
+					}
+%>	
 		    </div>
 		   </div> 
 		   </div>
