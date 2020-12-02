@@ -143,6 +143,7 @@ div.mung__modal__img {
 	width: 200px;
 }
 
+
 </style>
 <script type="text/javascript">
 $(function() {
@@ -388,8 +389,10 @@ function insertComm(comm_num,content,dog_num) {
 	//계정 정보 출력
 	AccountDto accDto=dao.getAccountData(accId);
 	String dog_num=dao.getAccount(accId);
-	//해당 게시글목록 출력
-	List<MungPostDto> postList=dao.getAccountPost(dog_num);
+	//검색한 게시글목록 출력
+	String tag=request.getParameter("tag");
+	List<MungPostDto> postList=dao.getSearchData(tag);
+	System.out.println(tag);
 %>
 <body>
 <div id="mumg__container">
@@ -413,7 +416,7 @@ function insertComm(comm_num,content,dog_num) {
 		</li>
 		<!-- 검색창 -->
 		<li>
-			<input type="text" id="mung__searchTag" class="form-control">
+			<input type="text" id="mung__searchTag" class="form-control" placeholder="#<%=tag%>">
 		</li>
 		<!-- 메뉴 버튼 -->
 		<li class="mung__nav__btn">
@@ -438,7 +441,7 @@ function insertComm(comm_num,content,dog_num) {
 %>
 	</ul>
 	
-	<!-- 게시글 목록 카드이미지 -->
+<!-- 게시글 목록 카드이미지 -->
 	<div class="mung__post-list">
 		<div class="row row-cols-1 row-cols-md-3">
 <%

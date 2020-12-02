@@ -1,3 +1,5 @@
+<%@page import="data.dao.MungDao"%>
+<%@page import="data.dto.AccountDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,15 +8,32 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+a {
+	cursor: pointer;
+}
+
+.mung__profile {
+	width: 30px;
+	height: 30px;
+	border-radius: 50px;
+	margin: 0 20px;
+}
+
 ul.mung__img {
 	display: flex;
 	justify-content: space-between;
 	align-self: center;
 }
 
+ul.mung__nav li {
+	list-style: none;
+	margin: 0 10px;
+}
+
 ul.mung__img li {
 	list-style: none;
 	margin: 0 10px;
+	text-align: center;
 }
 
 ul.mung__img li input {
@@ -36,6 +55,11 @@ ul.mung__img li input {
      width: 200px;
      height: 200px;
      border: 1px solid gray;
+}
+
+.mung__del-btn {
+	color: red;
+	box-shadow: red;
 }
 
 </style>
@@ -105,16 +129,19 @@ function readUrl(input,idx,file) {
 	String myId=(String)session.getAttribute("myId");
 	String accId=(String)session.getAttribute("accId");
 	String loginOk=(String)session.getAttribute("loginOk");
+	
+	MungDao dao=new MungDao();
+	AccountDto accDto=dao.getAccountData(accId);
 %>
 <body>
 <%
 	if(loginOk!=null) {
 %>
 <div id="mumg__container">
-	<ul id="mung__nav">
+	<ul class="mung__nav">
 		<li class="mung__nav__acc">
 			<a href="index.jsp?main=Mung/mungAccount.jsp">
-				<img class="mung__profile" src="">
+				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
 		</li>
@@ -135,35 +162,45 @@ function readUrl(input,idx,file) {
 				<div class="mung__img-container">
 					<img class="mung__preview" id="preview1" src="">
 				</div>	
-				<button type="button" id="mung__delBtn1" class="mung__del-btn">삭제</button>
+				<svg id="mung__delBtn1" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>
 				<input type="file" name="photo2" onchange="readUrl(this,2,this.value)">
 				<div class="mung__img-container">
 					<img class="mung__preview" id="preview2" src="">
 				</div>	
-				<button type="button" id="mung__delBtn2" class="mung__del-btn">삭제</button>
+				<svg id="mung__delBtn2" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>
 				<input type="file" name="photo3" onchange="readUrl(this,3,this.value)">
 				<div class="mung__img-container">
 					<img class="mung__preview" id="preview3" src="">
 				</div>	
-				<button type="button" id="mung__delBtn3" class="mung__del-btn">삭제</button>	
+				<svg id="mung__delBtn3" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>	
 				<input type="file" name="photo4" onchange="readUrl(this,4,this.value)">
 				<div class="mung__img-container">
 					<img class="mung__preview" id="preview4" src="">
 				</div>	
-				<button type="button" id="mung__delBtn4" class="mung__del-btn">삭제</button>
+				<svg id="mung__delBtn4" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>
 				<input type="file" name="photo5" onchange="readUrl(this,5,this.value)" >
 				<div class="mung__img-container">
 					<img class="mung__preview" id="preview5" src="">
 				</div>	
-				<button type="button" id="mung__delBtn5" class="mung__del-btn">삭제</button>
+					<svg id="mung__delBtn5" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 		</ul>
 		<textarea class="mung__content" name="content" required="required"></textarea>
