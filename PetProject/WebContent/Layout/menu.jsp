@@ -24,7 +24,6 @@ $(function(){
 });
 
 </script>
-
 <style type="text/css">
 
 #topMenu {
@@ -40,15 +39,17 @@ $(function(){
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 #topMenu ul {
+ 
   list-style-type: none; 
   margin: 0px; 
-  padding: 0px; 
+  padding: 0px;
 }
 #topMenu ul li {
+  
   color: black; 
   line-height: 3rem;
-  vertical-align: middle;
-  text-align: center; 
+  vertical-align: middle; 
+  text-align: center;
 }
 .menu__list{
 	display: flex;
@@ -61,7 +62,13 @@ $(function(){
 	padding:3em;
 	align-items: center;
 }
+ .menuLink,
+.submenuLink {
+  text-decoration: none; 
+  display: block; 
+  width: 11vw; 
 
+} 
 
 .topMenuli{
 height:100%;}
@@ -69,17 +76,28 @@ height:100%;}
   color: black;
   height:100%;
 }
+ .submenuLink {
 
+  color: #2d2d2d; 
+  background-color: white; 
+
+} 
 
 .submenu {
+  
   position: absolute; 
   height: 0px; 
-  overflow: hidden;
+  overflow: hidden; 
   transition: height 0.2s; 
+  -webkit-transition: height 0.2s; 
+  -moz-transition: height 0.2s;
+  -o-transition: height 0.2s; 
+  z-index:9999;
 }
 .topMenuLi:hover .submenu {
   	height: auto; 
-  	
+  	/* box-shadow: -1px 1px 6px rgba(0,0,0,0.16); */
+}
 .submenuLink:hover {
   color: #FFD479; 
 }
