@@ -358,6 +358,13 @@
 							    overlay.setMap(null);
 							};
 							
+							function fillStars(){
+					    		var userScoreNum = $("#makeStar option:selected").val();
+					    		alert(userScoreNum);
+					    		$(".rating i").css({color:'#000'});
+					    		$('.rating i:nth-child(-n+' + userScoreNum + ')').css({color:'#F05522'});
+					    	}
+							
 							var $wrap = $('<div class="wrap" />');
 							var $info = $('<div class="info" />');
 							var $title = $('<div class="title" />').text(place_name);
@@ -367,22 +374,21 @@
 							var $ellipsis1 = $('<div class="ellipsis" />').text(road_address_name);
 							var $ellipsis2 = $('<div class="ellipsis" />');
 							var $url = $('<a class="link" />').attr({href:place_url, target:"_blank"});
-							var $url = $('<a class="link" />').text("홈페이지");
+							$url = $('<a class="link" />').text("홈페이지");
 							var $ellipsis3 = $('<div class="ellipsis" />').text("별점 : ");
 							var $starAverage = $('<span class="ellipsis" />');
 							var $make_star = $('<div id="make_star" class="make_star" />');
 							var $makeStar = $('<select name="star" id="makeStar" />');
-							var $option1 = $('<option class="op" value="1" selected/>').text("1점");
+							$makeStar.change(fillStars());
+							var $option1 = $('<option class="op" value="1" selected="selected"/>').text("1점");
 							var $option2 = $('<option class="op" value="2" />').text("2점");
 							var $option3 = $('<option class="op" value="3" />').text("3점");
 							var $option4 = $('<option class="op" value="4" />').text("4점");
 							var $option5 = $('<option class="op" value="5" />').text("5점");
-							var $rating = $('<span class="rating" />').attr("data-rate","5");
-							var $star1 = $('<i class="fas fa=star" />');
-							var $star2 = $('<i class="fas fa=star" />');
-							var $star3 = $('<i class="fas fa=star" />');
-							var $star4 = $('<i class="fas fa=star" />');
-							var $star5 = $('<i class="fas fa=star" />');
+							var $rating = $('<span class="rating"><i class="fas fa-star"></i>' +
+							'<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>' +
+							'<i class="fas fa-star"></i></span>');
+							//var $star = $('<i class="fas fa-star" />');
 							var $overxPos=$('<input type="hidden" value="'+x+'">');
 							var $overyPos=$('<input type="hidden" value="'+y+'">');
 							var $btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').text("별점추가");
@@ -408,7 +414,7 @@
 							%>
 							$make_star.append($makeStar).append($rating).append($btn_add);
 							$makeStar.append($option1).append($option2).append($option3).append($option4).append($option5);
-							$rating.append($star1).append($star2).append($star3).append($star4).append($star5);
+							//$rating.append($star).append($star).append($star).append($star).append($star);
 							
 							var content = $wrap[0];
 						
@@ -421,13 +427,6 @@
 					            //position: marker.getPosition()
 					        });
 					        
-					        var userScore = $("#makeStar");
-					    	userScore.change(function(){
-					    		var userScoreNum = $(this).val();
-					    		$(".make_star i").css({color:'#000'});
-					    		$('.make_star i:nth-child(-n+' + userScoreNum + ')').css({color:'#F05522'});
-					    	});
-						    
 					  		// 마커가 지도 위에 표시되도록 설정합니다
 							overlay.setMap(null);
 					      
