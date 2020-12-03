@@ -1,3 +1,5 @@
+<%@page import="data.dao.MungDao"%>
+<%@page import="data.dto.AccountDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,66 +8,140 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+a {
+	cursor: pointer;
+}
+
+.mung__profile {
+	width: 30px;
+	height: 30px;
+	border-radius: 50px;
+	margin: 0 20px;
+}
+
 ul.mung__img {
 	display: flex;
 	justify-content: space-between;
 	align-self: center;
 }
 
+ul.mung__nav li {
+	list-style: none;
+	margin: 0 10px;
+}
+
 ul.mung__img li {
 	list-style: none;
-	border: 1px solid gray;
 	margin: 0 10px;
+	text-align: center;
 }
 
 ul.mung__img li input {
 	display: none;
 }
 
-img {
+.mung__img-container img{
 	max-width: 200px;
 }
 
 .mung__img-container{
+     background-image: url('Image/favicon.png');
+     background-repeat : no-repeat;
+     background-position: center;
      overflow: hidden;
      display: flex;
      align-items: center;
      justify-content: center;
      width: 200px;
      height: 200px;
+     border: 1px solid gray;
 }
+
+.mung__del-btn {
+	color: red;
+	box-shadow: red;
+}
+
 </style>
 <script type="text/javascript">
 $(function() {
-	$("div.mung__img-container").click(function() {
+	$(".mung__img-container").click(function() {
 		//이벤트 강제호출
 		$(this).prev().trigger('click');
 	});
 	
+	//사진 선택시 삭제버튼 보이기
+	for(var i=1; i<=5; i++) {
+		var id="#preview"+i;
+		var src=$(id).attr("src");
+		var btn="#mung__delBtn"+i;
+		if(src=="") {
+			$(btn).hide();
+		}
+	}
+	
+	//추가한이미지 삭제버튼 이벤트
+	$(".mung__del-btn").click(function() {
+		$(this).prev().find("img").attr("src","");
+		$(this).hide();
+	});
+	
+	//제출시 이미지파일 누락 또는 태그에 #이 빠진 경우
+	$('#mung__addForm').submit(function() {
+        if($('.mung__preview').attr("src")=='') {
+            alert("사진을 1장 이상 등록해주세요");
+            return false;
+        }
+        
+        if($("#mung__tag").val()!=null && !$("#mung__tag").val().match("#")) {
+        	alert("태그에 #을 붙여주세요.");
+            return false;
+        }
+    });
+	
 });
 
-function readUrl(input,idx) {
+//파일 업로드
+function readUrl(input,idx,file) {
 	if(input.files[0]) {
 		var reader=new FileReader();
 		var tag="#preview"+idx;
+		var btn="#mung__delBtn"+idx;
 		reader.onload=function(e) {
 			$(tag).attr("src",e.target.result);
+			$(btn).show();
 		}
-		reader.readAsDataURL(input.files[0]);
+		
+		//파일 확장자 검사(이미지만 가능)
+		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+
+	  	if(file.match(reg)) {
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			alert("이미지 파일을 선택해주세요.");
+		}
 	}
+	
 }
 </script>
 </head>
 <%
 	String myId=(String)session.getAttribute("myId");
 	String accId=(String)session.getAttribute("accId");
+	String loginOk=(String)session.getAttribute("loginOk");
+	
+	MungDao dao=new MungDao();
+	AccountDto accDto=dao.getAccountData(accId);
 %>
 <body>
+<%
+	if(loginOk!=null) {
+%>
 <div id="mumg__container">
-	<ul id="mung__nav">
+	<ul class="mung__nav">
 		<li class="mung__nav__acc">
 			<a href="index.jsp?main=Mung/mungAccount.jsp">
-				<img class="mung__profile" src="">
+				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
 		</li>
@@ -79,43 +155,67 @@ function readUrl(input,idx) {
 		</li>
 	</ul>
 	
-	<form action="Mung/mungPostAddAction.jsp" method="post" enctype="multipart/form-data">
+	<form action="Mung/mungPostAddAction.jsp" method="post" enctype="multipart/form-data" id="mung__addForm">
 		<ul class="mung__img">
 			<li>
-				<input type="file" name="photo1" onchange="readUrl(this,1)">
+				<input type="file" name="photo1" onchange="readUrl(this,1,this.value)">
 				<div class="mung__img-container">
-					<img id="preview1" src="Image/favicon.png">
+					<img class="mung__preview" id="preview1" src="">
 				</div>	
+				<svg id="mung__delBtn1" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>
-				<input type="file" name="photo2" onchange="readUrl(this,2)">
+				<input type="file" name="photo2" onchange="readUrl(this,2,this.value)">
 				<div class="mung__img-container">
-					<img id="preview2" src="Image/favicon.png">
+					<img class="mung__preview" id="preview2" src="">
 				</div>	
-			</li>
-			<li>	
-				<input type="file" name="photo3" onchange="readUrl(this,3)">
-				<div class="mung__img-container">
-					<img id="preview3" src="Image/favicon.png">
-				</div>	
-			</li>
-			<li>	
-				<input type="file" name="photo4" onchange="readUrl(this,4)">
-				<div class="mung__img-container">
-					<img id="preview4" src="Image/favicon.png">
-				</div>	
+				<svg id="mung__delBtn2" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 			<li>
-				<input type="file" name="photo5" onchange="readUrl(this,5)" >
+				<input type="file" name="photo3" onchange="readUrl(this,3,this.value)">
 				<div class="mung__img-container">
-					<img id="preview5" src="Image/favicon.png">
+					<img class="mung__preview" id="preview3" src="">
 				</div>	
+				<svg id="mung__delBtn3" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
+			</li>
+			<li>	
+				<input type="file" name="photo4" onchange="readUrl(this,4,this.value)">
+				<div class="mung__img-container">
+					<img class="mung__preview" id="preview4" src="">
+				</div>	
+				<svg id="mung__delBtn4" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
+			</li>
+			<li>
+				<input type="file" name="photo5" onchange="readUrl(this,5,this.value)" >
+				<div class="mung__img-container">
+					<img class="mung__preview" id="preview5" src="">
+				</div>	
+					<svg id="mung__delBtn5" width="1em" height="1em" viewBox="0 0 16 16" class="mung__del-btn" bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+				</svg>
 			</li>
 		</ul>
 		<textarea class="mung__content" name="content" required="required"></textarea>
-		<input type="text" placeholder="#+추가할태그" name="tag" class="form-control">
+		<input type="text" placeholder="태그입력후 엔터" name="tag" class="form-control" id="mung__tag">
 		<button type="submit" id="mung__addBtn">등록</button>
 	</form>
 </div>	
+<%
+	}else {
+%>
+<script type="text/javascript">
+	location.href="index.jsp?main=Mung/mungMain.jsp";
+</script>
+<%
+	}
+%>
 </body>
 </html>

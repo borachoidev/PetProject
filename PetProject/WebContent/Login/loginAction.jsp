@@ -21,7 +21,7 @@ UserDao dao=new UserDao();
 AccountDao adao=new AccountDao();
 String accId=adao.getDefault(id);
 
-if(accId.equals(""))
+if(accId==null||accId.equals(""))
 {
 	accId="no";
 }

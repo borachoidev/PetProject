@@ -208,7 +208,7 @@ public class MungDao {
 	//게시글별 댓글 리스트 출력
 	public List<MungCommentDto> getCommentList(String post_num) {
 		List<MungCommentDto> list=new ArrayList<MungCommentDto>();
-		String sql="select * from mung_comment where comm_num=? order by idx desc";
+		String sql="select * from mung_comment where comm_num=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -243,7 +243,7 @@ public class MungDao {
 	
 	//댓글 추가
 	public void insertComment(MungCommentDto dto) {
-		String sql="insert into mung_comment (comm_num, content, writeday, dog_num) values (?,?,?,now(),?)";
+		String sql="insert into mung_comment (comm_num, content, writeday, dog_num) values (?,?,now(),?)";
 			
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -438,4 +438,77 @@ public class MungDao {
 		return cnt;
 	}
 	
+	//게시글 좋아요 +1
+	public void plusLikes(String post_num) {
+		String sql="update mung_post set likes=likes+1 where post_num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, post_num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt);
+		}
+		
+	}
+	
+	//게시글 좋아요 -1
+	public void minusLikes(String post_num) {
+		String sql="update mung_post set likes=likes-1 where post_num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, post_num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt);
+		}
+		
+	}
+	
+	//태그 검색
+	public List<MungPostDto> getSearchData(String tag) {
+		List<MungPostDto> list=new ArrayList<MungPostDto>();
+		String sql="select * from mung_post where tag like '%"+tag+"%'";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MungPostDto dto=new MungPostDto();
+				dto.setPost_num(rs.getString("post_num"));
+				dto.setPhoto(rs.getString("photo"));
+				dto.setContent(rs.getString("content"));
+				dto.setTag(rs.getString("tag"));
+				dto.setLikes(rs.getInt("likes"));
+				SimpleDateFormat sdf=new SimpleDateFormat("M월 d일");
+				dto.setWriteday(sdf.format(rs.getTimestamp("writeday")));
+				dto.setDog_num(rs.getString("dog_num"));
+				dto.setUser_num(rs.getString("user_num"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}		
+		return list;
+	}
 }

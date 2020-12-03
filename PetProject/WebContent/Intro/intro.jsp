@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3391999e3ec830519ed5007fbea0bef5&libraries=services"></script>
+<link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <title>Insert title here</title>
 <style type="text/css">
 .intro__container{
@@ -61,7 +62,44 @@ padding:1em;
 	height:400px;
 	border: 1px solid #dedede ;
 }
+
+.program__title h1{
+color:#424242;
+}
+
+.program__title h2{
+color:#797979;
+}
+
+.program__description {
+color:#797979;
+}
+
+
 </style>
+<script type="text/javascript">
+document.addEventListener('scroll', function() {
+    var currentScrollValue = document.documentElement.scrollTop;
+    var proDes1 =document.getElementById("programDescription1");
+    var proDes2 =document.getElementById("programDescription2");
+    console.log('currentScrollValue is ' + currentScrollValue);
+    if(currentScrollValue<577){
+    	proDes1.classList.add('animate__fadeInUp');
+    	proDes2.classList.remove('animate__fadeInUp');
+    	
+    	
+    }else if(currentScrollValue>=577&&currentScrollValue<1294){
+    	proDes2.classList.add('animate__fadeInUp');
+    	proDes1.classList.remove('animate__fadeInUp');
+    }else{
+    	proDes2.classList.remove('animate__fadeInUp');
+    }
+    
+    });//scollEvent 종료
+
+    
+
+</script>
 </head>
 <body>
 <!-- 센터소개 -->
@@ -69,10 +107,9 @@ padding:1em;
 	<div id="introUs">
 	  <div class="section1">
 		   <div class="item"><!-- 사진표시를 위한div --></div>
-		   <div class="item program">
-			   <div  class="program__title"><span>KINDERGARTEN</span> <span>유치원</span></div>
-			  	<div class="program__description">
-			  
+		   <div class="item program" id="program1">
+			   <div  class="program__title"><h1>KINDERGARTEN</h1> <h2>반려견유치원</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription1">
 			   펫앤미에서 운영하는 강아지 유치원은 다양한 프로그램과 관리 시스템으로 많은 견주분들의 사랑을 받고 있습니다. 
 			   강이지 피트니스부터, 수영, 산책과 같은 동적인 프로그램부터, 간식 찾기, 미각 놀이와 같은 교육적 프로그램 또한, 
 			   강아지 생일파티, 야외소풍까지 다양한 프로그램을 통해 견주들뿐만 아니라 강아지들을 위한 프로그램이 운영되고 있습니다.
@@ -81,9 +118,9 @@ padding:1em;
 	</div>
 	   <div class="section2">
 		    <div class="item"><!-- 사진표시를 위한div --></div>
-		     <div class="item program">
-			    <div class="program__title"><span>PICKUP SERVICE</span> <span>픽업서비스</span></div>
-			  	<div class="program__description">
+		     <div class="item program" id="program2">
+			    <div class="program__title"><h1>PICKUP SERVICE</h1> <h2>픽업서비스</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription2">
 			 	 펫앤미에서는 픽업 서비스를 지원하고 있습니다. 아이들을 안전하게 태우고 집에서부터 펫앤미까지, 
 			    또 펫앤미에서 집까지 운행하는 픽업 서비스로 견주분들의 편의를 제공하고 있습니다. 물론 언제나 안전 운전으로 반려견들의 안전은 잊지 않고 운행합니다. 
 			    (강남, 서초 지점 한정, 그중 일부 지역은 제외)
