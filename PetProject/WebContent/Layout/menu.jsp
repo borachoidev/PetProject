@@ -181,7 +181,7 @@ padding-left:1.5vw;
 					<a class="menuLink" href="index.jsp?main=MyPage/mypageMain.jsp">마이페이지 </a>
 					<ul class="menu__mypage submenu">
 						<li><a class="submenuLink" href="index.jsp?main=MyPage/accAdd.jsp"> 반려동물등록 </a></li>
-						<li><a class="submenuLink" href="index.jsp?main=MyPage/accUpdate.jsp"> 반려동물수정</a></li>
+						<li><a class="submenuLink" href="index.jsp?main=MyPage/accUpdateList.jsp"> 반려동물수정</a></li>
 						<li><a class="submenuLink" href="index.jsp?main=MyPage/bookList.jsp"> 수강내역 </a></li>
 						<li><a class="submenuLink" href="index.jsp?main=MyPage/bookListForFuture.jsp"> 예약현황 </a></li>
 						<li><a class="submenuLink" href="index.jsp?main=MyPage/reviewList.jsp"> 내글관리 </a></li>
