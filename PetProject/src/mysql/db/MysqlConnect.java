@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class MysqlConnect {
 	String driver="com.mysql.jdbc.Driver";
-	String myurl="jdbc:mysql://semidb.cvlqexbehcqg.ap-northeast-2.rds.amazonaws.com:3306/semidbfinal?serverTimezone=Asia/Seoul";
+	String myurl="jdbc:mysql://semidb.cvlqexbehcqg.ap-northeast-2.rds.amazonaws.com:3306/semidbfinal?serverTimezone=Asia/Seoul&useSSL=false";
 	String myid="admin";
 	String mypass="bit301301";
 	
