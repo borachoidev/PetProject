@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 <!-- 카카오지도 api 앱키와 라이브러리정보를 입력해줍니다 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3c68a4aa3b82c817fb89aa2e592fe90a&libraries=services"></script>
 <style type="text/css">
 	div.search{
@@ -37,16 +38,16 @@
 		display: block;
 	}
 	
-   	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+   	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 142px;margin-left: -144px;text-align: left;overflow: auto;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info {width: 286px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: auto;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
     .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 10px 0 0 90px;height: 75px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .info .body {position: relative;overflow: auto;}
+    .info .desc {position: relative;margin: 10px 0 0 90px;height: 95px;}
+    .desc .ellipsis {overflow: auto;text-overflow: auto;white-space: nowrap;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
 	
@@ -256,7 +257,7 @@
 		        if (status === kakao.maps.services.Status.OK) {
 		        	// 마커 이미지의 이미지 주소입니다
 		            var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-		        	
+		            
 		         	// 마커 이미지의 이미지 크기 입니다
 		            var imageSize = new kakao.maps.Size(24, 35); 
 		            for(var i=0; i<result.length; i++){
@@ -273,9 +274,6 @@
 					    var marker = new kakao.maps.Marker({
 					        map: map, // 마커를 표시할 지도
 					        position: mark.latlng, // 마커를 표시할 위치
-					        title : mark.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-					        address: mark.address,
-					        place_url: place_url,
 					        image : markerImage // 마커 이미지 
 					    });
 					    
@@ -285,131 +283,178 @@
 					    // 생성된 마커를 배열에 추가합니다
 					    markers.push(marker);
 					    
-					 	// 일반 함수
-						var closeOverlay = function() {
-						    overlay.setMap(null);
-						};
-						
-						var userScore = $("#makeStar");
-					    userScore.on({
-					    	onchange: function(){
-					    		var userScoreNum = $(this).val();
-					    		alert(userScoreNum);
-					    		$(".make_star i").css({color:'#000'});
-					    		$('.make_star i:nth-child(-n+' + userScoreNum + ')').css({color:'#F05522'});	
-					    	}
-						});
-						
-						var ajax = function() {
-			            	var star = $("#makeStar").find("option:selected").val();
-							alert(star);
-							$.ajax({
-								type:"post",
-								url:"Walk/checkWritten.jsp",
-								dataType: "xml",
-								data:{"xPos":x, "yPos":y, "id":<%=myId%>},
-								success: function(data){
-									alert("와");
-									var cnt = $(data).find("count").text();
-									if(cnt == 0){
-										$.ajax({
-											type:"post",
-											url:"Walk/addStar.jsp",
-											dataType: "xml",
-											data:{"xPos":x, "yPos":y, "star":star, "id":<%=myId%>},
-											success: function(data){
-												alert("이제 insert짜자");
-											}
-										});
-									}else{
-										alert("이미 작성했습니다");
-									}
-								}
-							});
-						};
-						
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
 						// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 						// 별도의 이벤트 메소드를 제공하지 않습니다 
-						var $wrap = $('<div class="wrap" />');
-						var $info = $('<div class="info" />');
-						var $title = $('<div class="title" />').text(place_name);
-						var $close = $('<div class="close" title="닫기" />').click(closeOverlay);
-						var $body = $('<div class="body" />');
-						var $desc = $('<div class="desc" />');
-						var $ellipsis1 = $('<div class="ellipsis" />').text(road_address_name);
-						var $ellipsis2 = $('<div class="ellipsis" />');
-						var $url = $('<a class="link" />').attr({href:place_url, target:"_blank"})
-						$url = $('<a class="link" />').text("홈페이지");
-						var $ellipsis3 = $('<div class="ellipsis" />').text("별점 : ");
-						var $ellipsis4 = $('<div class="ellipsis" />').hide();
-						$ellipsis4 = $('<div class="ellipsis" />').text(x);
-						var $ellipsis5 = $('<div class="ellipsis" />').hide();
-						$ellipsis5 = $('<div class="ellipsis" />').text(y);
-						var $ellipsis6 = $('<div class="ellipsis" />').hide();
-						$ellipsis6 = $('<div class="ellipsis" />').text("<%=myId%>");
-						var $make_star = $('<div class="make_star" />')
-						var $makeStar = $('<select name="star" id="makeStar" />');
-						var $option1 = $('<option />').text("1점");
-						$option1 = $('<option class="op" />').attr({value:"1", selected:"selected"});
-						var $option2 = $('<option class="op" value="2" />').text("2점");
-						var $option3 = $('<option class="op" value="3" />').text("3점");
-						var $option4 = $('<option class="op" value="4" />').text("4점");
-						var $option5 = $('<option class="op" value="5" />').text("5점");
-						var $rating = $('<span class="rating" />').attr("data-rate","5");
-						var $star1 = $('<i class="fas fa=star" />');
-						var $star2 = $('<i class="fas fa=star" />');
-						var $star3 = $('<i class="fas fa=star" />');
-						var $star4 = $('<i class="fas fa=star" />');
-						var $star5 = $('<i class="fas fa=star" />');
-						var $btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').text("별점추가");
-						$btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').click(ajax);
-						
-						$wrap.append($info);
-						$info.append($title).append($body);
-						$title.append($close);
-						$body.append($desc);
-						$desc.append($ellipsis1).append($ellipsis2).append($ellipsis3).append($ellipsis4).append($ellipsis5).append($ellipsis6);
-						$ellipsis2.append($url);
-						$ellipsis3.append($make_star).append($rating).append($btn_add);
-						$makeStar.append($option1).append($option2).append($option3).append($option4).append($option5);
-						$rating.append($star1).append($star2).append($star3).append($star4).append($star5);
-						
-						var content = $wrap[0];
-						
-				        // 마커 위에 커스텀오버레이를 표시합니다
-				        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-				        var overlay = new kakao.maps.CustomOverlay({
-				            content: content,
-				            map: map,
-				            position: marker.getPosition()
-				        });
-				        
-				  		// 마커가 지도 위에 표시되도록 설정합니다
-						overlay.setMap(null);
-				      
-				        overlays.push(overlay);
-				         
-						// 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
-					    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-					    (function(marker, overlay) {
-					        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-					        kakao.maps.event.addListener(marker, 'mouseover', function() {
-					            // 색변경
-					        });
+						(function($) {
+							
+							function getStarAverage(){
+								var curr_x = $overxPos.val();
+				            	var curr_y = $overyPos.val();
+								$.ajax({
+									type:"post",
+									url:"Walk/viewStar.jsp",
+									dataType: "xml",
+									data:{"xPos":curr_x, "yPos":curr_y},
+									success: function(data){
+										var average = $(data).find("average").text();
+										$starAverage.text("("+average+")");
+									}
+								});
+							};
+							
+							function checkWritten(){
+								var curr_x = $overxPos.val();
+				            	var curr_y = $overyPos.val();
+				            	var id = "<%=myId%>";
+								$.ajax({
+									type:"post",
+									url:"Walk/checkWritten.jsp",
+									dataType: "xml",
+									data:{"xPos":curr_x, "yPos":curr_y, "id":id},
+									success: function(data){
+										var cnt = $(data).find("count").text();
+										if(cnt == 1){
+											$make_star.hide();
+										}
+									}
+								});
+							};
+							
+							// 별점추가
+							var ajax = function() {
+								var curr_x = $overxPos.val();
+				            	var curr_y = $overyPos.val();
+				            	var star = $("#makeStar").find("option:selected").val();
+				            	var id = "<%=myId%>";
+								$.ajax({
+									type:"post",
+									url:"Walk/checkWritten.jsp",
+									dataType: "xml",
+									data:{"xPos":curr_x, "yPos":curr_y, "id":id},
+									success: function(data){
+										var cnt = $(data).find("count").text();
+										if(cnt == 0){
+											
+											$.ajax({
+												type:"post",
+												url:"Walk/addStar.jsp",
+												dataType: "html",
+												data:{"xPos":curr_x, "yPos":curr_y, "star":star, "id":id},
+												success: function(data){
+													$("#make_star").css("display","none");
+													alert("별점을 추가했습니다");
+													getStarAverage();
+												}
+											});
+										}else{
+											alert("이미 별점 작성했습니다");
+										}
+									}
+								});
+							};
 
-					        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-					        kakao.maps.event.addListener(marker, 'mouseout', function() {
-					            // 색변경
+							var closeOverlay = function() {
+							    overlay.setMap(null);
+							};
+							
+							var $wrap = $('<div class="wrap" />');
+							var $info = $('<div class="info" />');
+							var $title = $('<div class="title" />').text(place_name);
+							var $close = $('<div class="close" />').click(closeOverlay);
+							var $body = $('<div class="body" />');
+							var $desc = $('<div class="desc" />');
+							var $ellipsis1 = $('<div class="ellipsis" />').text(road_address_name);
+							var $ellipsis2 = $('<div class="ellipsis" />');
+							var $url = $('<a class="link" />').attr({href:place_url, target:"_blank"});
+							var $url = $('<a class="link" />').text("홈페이지");
+							var $ellipsis3 = $('<div class="ellipsis" />').text("별점 : ");
+							var $starAverage = $('<span class="ellipsis" />');
+							var $make_star = $('<div id="make_star" class="make_star" />');
+							var $makeStar = $('<select name="star" id="makeStar" />');
+							var $option1 = $('<option class="op" value="1" selected/>').text("1점");
+							var $option2 = $('<option class="op" value="2" />').text("2점");
+							var $option3 = $('<option class="op" value="3" />').text("3점");
+							var $option4 = $('<option class="op" value="4" />').text("4점");
+							var $option5 = $('<option class="op" value="5" />').text("5점");
+							var $rating = $('<span class="rating" />').attr("data-rate","5");
+							var $star1 = $('<i class="fas fa=star" />');
+							var $star2 = $('<i class="fas fa=star" />');
+							var $star3 = $('<i class="fas fa=star" />');
+							var $star4 = $('<i class="fas fa=star" />');
+							var $star5 = $('<i class="fas fa=star" />');
+							var $overxPos=$('<input type="hidden" value="'+x+'">');
+							var $overyPos=$('<input type="hidden" value="'+y+'">');
+							var $btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').text("별점추가");
+							$btn_add.click(ajax);
+							
+							$wrap.append($info);
+							$info.append($title).append($body);
+							$title.append($close);
+							$body.append($desc);
+							$desc.append($ellipsis1).append($ellipsis2).append($ellipsis3);
+							$ellipsis2.append($url);
+							$ellipsis3.append($starAverage);
+							<%
+							if(loginOk == null || loginOk.equals("no")){
+								// 비로그인시 별점추가 form hide
+							}else if(loginOk.equals("success")){
+								// 로그인시 별점추가 form show
+								%>
+								checkWritten();
+								$ellipsis3.append($make_star).append($overxPos).append($overyPos);
+								<%
+							}
+							%>
+							$make_star.append($makeStar).append($rating).append($btn_add);
+							$makeStar.append($option1).append($option2).append($option3).append($option4).append($option5);
+							$rating.append($star1).append($star2).append($star3).append($star4).append($star5);
+							
+							var content = $wrap[0];
+						
+					        // 마커 위에 커스텀오버레이를 표시합니다
+					        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+					        var overlay = new kakao.maps.CustomOverlay({
+					            content: content,
+					            map: map,
+					            position: mark.latlng
+					            //position: marker.getPosition()
 					        });
 					        
-					     	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-							kakao.maps.event.addListener(marker, 'click', function() {
-								closeOverlays();
-							    overlay.setMap(map);
-							});
-					    })(marker, overlay);
-						
+					        var userScore = $("#makeStar");
+					    	userScore.change(function(){
+					    		var userScoreNum = $(this).val();
+					    		$(".make_star i").css({color:'#000'});
+					    		$('.make_star i:nth-child(-n+' + userScoreNum + ')').css({color:'#F05522'});
+					    	});
+						    
+					  		// 마커가 지도 위에 표시되도록 설정합니다
+							overlay.setMap(null);
+					      
+					        overlays.push(overlay);
+				        
+							// 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+						    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+						    (function(marker, overlay) {
+						        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
+						        kakao.maps.event.addListener(marker, 'mouseover', function() {
+						            // 색변경
+						        });
+	
+						        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
+						        kakao.maps.event.addListener(marker, 'mouseout', function() {
+						            // 색변경
+						        });
+						        
+						     	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+								kakao.maps.event.addListener(marker, 'click', function() {
+									closeOverlays();
+								    overlay.setMap(map);
+								    getStarAverage()
+								});
+						    })(marker, overlay);
+							
+						})(jQuery);
 		            }
 		            
 		         	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
@@ -420,7 +465,7 @@
 		                bounds.extend(markers[i].getPosition());
 		            }
 		            map.setBounds(bounds);
-		            
+			            
 		        }else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
 		           	alert('검색 결과가 존재하지 않습니다.');
@@ -435,22 +480,18 @@
 		};
     }
 	    
-	
-	
-	
 	function closeOverlays(){
 		for ( var i = 0; i < overlays.length; i++ ) {
 	        overlays[i].setMap(null);
 	    }
-    }
+    };
 	
 	function removeMarkers() {
 		for ( var i = 0; i < markers.length; i++ ) {
 	        markers[i].setMap(null);
 	    }
 		markers = [];
-	}
-	
+	};
 	
 </script>
 </body>
