@@ -85,6 +85,7 @@ document.addEventListener('scroll', function() {
     console.log('currentScrollValue is ' + currentScrollValue);
     if(currentScrollValue<577){
     	proDes1.classList.add('animate__fadeInUp');
+    	proDes2.classList.remove('animate__fadeInUp');
     	
     	
     }else if(currentScrollValue>=577&&currentScrollValue<1294){
