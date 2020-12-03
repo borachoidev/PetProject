@@ -34,7 +34,7 @@ String id=(String)session.getAttribute("myId");
 	<form action="Review/formAction.jsp"
 	  method="post" enctype="multipart/form-data"
 	   name="f">
-	 <table class="table table-bordered">
+	 <table class="table">
 	 	<tr>
 
 	 		<td>
