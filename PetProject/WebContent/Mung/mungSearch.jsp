@@ -15,7 +15,7 @@
 /* bg-dark text-white */
 #mumg__container {
 	width: 100%;
-	font-size: 0.9rem;
+	font-size: 0.8em;
 }
 
 ul li {
@@ -119,6 +119,7 @@ a {
 	overflow: hidden;
 	align-items: center;
     justify-content: center;
+    border: 0;
 }     
 
 /* 모달 바디 */
@@ -138,6 +139,7 @@ div.mung__post__modal {
 	justify-content: center;
 	align-items: center; 
 	background-color: #121212;
+	height: 100%;
 }
 
 .mung__modal__text {
@@ -145,6 +147,7 @@ div.mung__post__modal {
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;	
+	max-height: 100%;
 }
 
 /* 모달 텍스트 헤더 */
@@ -167,6 +170,7 @@ div.mung__post__modal {
 	width: 100%;
 	height: 60%;
 	border-bottom: 1px solid #ddd;
+	overflow: auto;
 }
 
 /* 컨텐츠 */
@@ -176,6 +180,7 @@ div.mung__post__modal {
 
 /* 태그 목록 */
 #mung__modal__tag {
+
 }
 
 /* 태그 */
@@ -187,6 +192,7 @@ div.mung__post__modal {
 /* 댓글 목록 */
 #mung__modal__comment {
 	psdding: 0 0.8em;
+	overflow: auto;
 }
 
 
@@ -223,12 +229,18 @@ div.mung__post__modal {
 	width: 200px;
 }
 
+/* 모달창 close */
+.mung__close-btn {
+	font-size: 1em;
+}
+
 
 </style>
 <script type="text/javascript">
 $(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
+	
 	$("#exampleModal").on("show.bs.modal",function(e) {
 		//클릭한 게시글 post_num
 		var post_num=$(e.relatedTarget).data("num");
@@ -336,9 +348,9 @@ $(function() {
 	        		
 	        	});
 	        	
-	        	//게시글 댓글 스크롤 이벤트
-	        	$("#mung__comm__commNum").val(post_num);
-				
+	        	//작성일 출력
+	        	$("#mung__postDay").text(writeday);
+	        	
 				//댓글 추가 버튼 이벤트
 				$("#mung__modal__sbmitBtn").click(function() {
 					var content=$("#mung__modal__inputComm").val();
@@ -386,6 +398,9 @@ $(function() {
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
+	
+	//게시글 삭제 이벤트
+	/* $("#") */
 	
 });
 
@@ -655,11 +670,11 @@ function insertComm(comm_num,content,dog_num) {
 			
 	<!-- 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
+      <span aria-hidden="true" class="mung__close-btn">&times;</span>
+    </button>
 	  <div class="modal-dialog modal-size modal-dialog-centered">
 		<!-- close 버튼 -->	  
-	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
-	      <span aria-hidden="true">&times;</span>
-	    </button>
 	    <!-- 모달창 컨텐츠 -->
 	    <div class="modal-content modal-size">
 	      <div class="modal-body mung__post__modal">
@@ -716,7 +731,7 @@ function insertComm(comm_num,content,dog_num) {
 				/* 로그인한 경우에만 좋아요 및 댓글작성 가능 */
 				if(loginOk!=null && accId!="no") {
 %>			        
-		        	<!-- 게시글 좋아요 -->
+		        	<!-- 게시글 좋아요/작성일 -->
 		        	<div class="mung__modal_likes">
 		        		<span id="mung__likesIcon" class="empty">
 			        		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -735,7 +750,7 @@ function insertComm(comm_num,content,dog_num) {
 <%
 				}else {
 %>						
-					<!-- 게시글 좋아요 -->
+					<!-- 게시글 좋아요/작성일 -->
 		        	<div class="mung__modal_likes">
 		        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
 		        		<div id="mung__postDay" class="text-secondary"></div>
