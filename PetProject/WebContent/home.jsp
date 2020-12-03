@@ -71,46 +71,35 @@ window.onload=function() {
 	}
 	
 	intro.onmouseover=function(){
-		addClass(introDescription, "animate__animated");
-		addClass(introDescription, "animate__jello");
+		introDescription.classList.add('animate__jello');
+		
 	}
 	mung.onmouseover=function(){
-		addClass(mungDescription, "animate__animated");
-		addClass(mungDescription, "animate__jello");
+		mungDescription.classList.add('animate__jello');
 	}
 	intro.onmouseout=function(){
-		removeClass(introDescription, "animate__animated");
-		removeClass(introDescription, "animate__jello");
+		introDescription.classList.remove('animate__jello');
 	}
 	mung.onmouseout=function(){
-		removeClass(mungDescription, "animate__animated");
-		removeClass(mungDescription, "animate__jello");
+		mungDescription.classList.remove('animate__jello');
 	}
 	
 }
-function addClass(element, className){ 
-	element.className += " " + className; 
-	};
 
-
-function removeClass(element, className){
-	var check = new RegExp("(\\s|^)" + className + "(\\s|$)"); 
-	element.className = element.className.replace(check, " ").trim(); 
-	};
 
 </script>
 </head>
 <body>
 <div class="container">
 	<div id="intro">
-		<div id="introDescription">
+		<div id="introDescription" class="animate__animated">
 			<h3>프리미엄 반려견유치원</h3>
 			<h1>펫앤미</h1>
 			<p>&lt;들어가기&gt;<p>
 		</div>
 	</div>	
 	<div id="community">
-		<div id="mungDescription">
+		<div id="mungDescription" class="animate__animated">
 			<h3>국내 최대 반려견 커뮤니티</h3>
 			<h1>멍스타그램</h1>
 			<p>&lt;들어가기&gt;<p>
