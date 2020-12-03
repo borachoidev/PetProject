@@ -133,6 +133,7 @@ div.mung__post__modal {
     justify-content: center;
 }
 
+
 .mung__modal__img {
 	padding-right: 0;
 	display: flex;
@@ -170,12 +171,14 @@ div.mung__post__modal {
 	width: 100%;
 	height: 60%;
 	border-bottom: 1px solid #ddd;
-	overflow: auto;
+	padding: 0 0.8em;
+	overflow-y: auto;
+	overflow-x: hidden;
+	align: top;
 }
 
 /* 컨텐츠 */
 #mung__modal__content {
-	
 }
 
 /* 태그 목록 */
@@ -192,7 +195,7 @@ div.mung__post__modal {
 /* 댓글 목록 */
 #mung__modal__comment {
 	psdding: 0 0.8em;
-	overflow: auto;
+	width: 90%;
 }
 
 
@@ -201,19 +204,32 @@ div.mung__post__modal {
 	width: 100%;
 	height: 10%;
 	border-bottom: 1px solid #ddd;
+	padding-left: 1em;
 }
 
 #mung__modal__likes {
+	
+}
+
+/* 텍스트박스 댓글내용(스크롤) */
+.mung__modal__content {
+	display: inline-block;
+	white-space: pre-wrap;
+	width: 80%;
+	padding-left: 1em;
+	font-size: 0.9em;
 }
 
 /* 작성일 */
-#mung__postDay {
+#mung__postDay,.mung__comm-writeday {
 	font-size: 0.8em;
 }
 
 /* 댓글입력창 */
 #mung__modal__inputComm {
 	max-width: 80%;
+	width: 80%;
+	padding-left: 1em;
 	height: 100%;
 	border: 0;
 }
@@ -463,7 +479,7 @@ function getCommList(post_num) {
 			var commList=json.commList;
 			var comm="";
         	$.each(commList,function(i,item) {
-        		comm="<li><img class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><span>"+item.content+"</span><span>"+item.writeday+"</span></li>";
+        		comm="<li><img style='vertical-align: top;' class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><article class='mung__modal__content'>"+item.content+"</article><div class='mung__comm-writeday text-secondary'>"+item.writeday+"</div></li>";
 	        	$("#mung__modal__comment").append(comm);
 			});
 		}	
@@ -500,6 +516,7 @@ function insertComm(comm_num,content,dog_num) {
 	//검색한 게시글목록 출력
 	String tag=request.getParameter("tag");
 	List<MungPostDto> postList=dao.getSearchData(tag);
+	System.out.println(tag);
 %>
 <body>
 <div id="mumg__container">
