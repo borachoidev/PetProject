@@ -2,28 +2,30 @@ package data.dto;
 
 public class BookDto {
 	private String book_num;
-	private String cneter;
-	private String teacher;
+	private String petcenter;
+	private String petselect;
 	private String startday;
 	private String user_num;
-
+	private String dog_num;
+	
+	
 	public String getBook_num() {
 		return book_num;
 	}
 	public void setBook_num(String book_num) {
 		this.book_num = book_num;
 	}
-	public String getCneter() {
-		return cneter;
+	public String getPetcenter() {
+		return petcenter;
 	}
-	public void setCneter(String cneter) {
-		this.cneter = cneter;
+	public void setPetcenter(String petcenter) {
+		this.petcenter = petcenter;
 	}
-	public String getTeacher() {
-		return teacher;
+	public String getPetselect() {
+		return petselect;
 	}
-	public void setTeacher(String teacher) {
-		this.teacher = teacher;
+	public void setPetselect(String petselect) {
+		this.petselect = petselect;
 	}
 	public String getStartday() {
 		return startday;
@@ -37,6 +39,14 @@ public class BookDto {
 	public void setUser_num(String user_num) {
 		this.user_num = user_num;
 	}
+	public String getDog_num() {
+		return dog_num;
+	}
+	public void setDog_num(String dog_num) {
+		this.dog_num = dog_num;
+	}
+
+	
 
 }
 
