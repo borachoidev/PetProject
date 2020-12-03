@@ -25,7 +25,7 @@ try{
 	String gender=multi.getParameter("accGender");
 	String memo=multi.getParameter("accMemo");
 	String photo=multi.getFilesystemName("accPhoto");
-
+	//int sel_acc=Integer.parseInt(multi.getParameter("sel_acc"));
 
 	//dto에 넣기
 	AccountDto dto=new AccountDto();
@@ -38,6 +38,7 @@ try{
 	dto.setPhoto(photo);
 	dto.setMemo(memo);
 	dto.setDog_num(dog_num);
+	//dto.setSel_acc(sel_acc);
 	
 
 	

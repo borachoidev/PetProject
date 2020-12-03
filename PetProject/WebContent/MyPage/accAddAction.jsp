@@ -27,7 +27,7 @@
 		String photo=multi.getFilesystemName("accPhoto");
 		int sel_acc=Integer.parseInt(multi.getParameter("sel_acc"));
 
-		System.out.println(breed+weight+age+gender+memo+photo);
+		//System.out.println(breed+weight+age+gender+memo+photo+sel_acc);
 	
 		//dto에 넣기
 		AccountDto dto=new AccountDto();

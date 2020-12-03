@@ -16,30 +16,41 @@ $(function(){
 		location.href="index.jsp?main=MyPage/accUpdate.jsp?dog_num="+dog_num;
 	});
 	
-	//강아지계정 sel_acc를 0->1로 바꿔주기 (현재 고민중인것은 어찌 updateDefaultAll (dao)를 활용할 것인가)
-	$(document).on(".acc__sel-acc", function() {	
-		var dog_num=$("#dog_num").val();
-		
+	$(document).on("click",".acc__sel-acc", function() {	
+		var user_num=$(this).attr("user_num");
 		
 		$.ajax({
 			dataType:"html",
 			data:{
-				"dog_num":dog_num,
+				"user_num":user_num,	
+			},
+			type:"post",
+			url:"MyPage/accDefaultAll.jsp",
+			success:function(){
+				alert("컨펌버튼을 최종적으로 클릭해야 수정됩니다!")
 				
+			}
+		});
+		
+	});
+	$(document).on("click",".acc__sel-cnf", function() {	
+		var dog_num=$(this).attr("dog_num2");
+		
+		$.ajax({
+			dataType:"html",
+			data:{
+				"dog_num":dog_num,	
 			},
 			type:"post",
 			url:"MyPage/accDefault.jsp",
 			success:function(){
-				location.reload();
+				 alert("수정완료 :)")
+				 location.reload();
 			}
-		})
-	});
+		});
 	
-
 });
-
-
-
+});
 
 </script>
 <%
@@ -61,32 +72,35 @@ $(function(){
 
 
 <div id="acc_update-list">
-	<caption><b>내 강아지 명단</b></caption>
+	<h4><b>내 강아지 명단</b></h4>
 	<table class="table table-bordered" style="width:600px;">
 	<tr bgcolor="#66cdaa">
 		<td style="width:100px;" align="center">강아지 이름</td>
+		<!--  <td style="width:100px;" align="center">사진</td>-->
 		<td style="width:100px;" align="center">견종</td>
 		<td style="width:100px;" align="center">성별</td>
-		<td style="width:100px;" align="center">메인강아지로 설정</td>
+		<td style="width:100px;" align="center">메인설정(각각 클릭)</td>
 		<td style="width:100px;" align="center">강아지 계정삭제</td>
 	</tr>
 	
 	<%
 	for(AccountDto dto:alist)
 		{%>
-		<tr bgcolor="">
 		<input type="hidden" name="dog_num" id="dog_num" value="<%=dto.getDog_num()%>">
+		<tr bgcolor="white">
 		<td> <a dog_num="<%=dto.getDog_num()%>" style="width:100px;cursor:pointer;" align="center" name="accName" class="acc_dogdetail"><%=dto.getAcc_name()%></a></td>
+		<!--  <td style="width:100px;" align="center" name="accPhoto"></td>-->
 		<td style="width:100px;" align="center" name="accBreed"><%=dto.getBreed()%></td>
 		<td style="width:100px;" align="center" name="accGender"><%=dto.getGender()%></td>
 		<input type="hidden" id="sel_acc" name="sel_acc" value="<%=dto.getSel_acc()%>">
 		<%if(dto.getSel_acc()==0){ %>
 		<td style="width:100px;" align="center">
-			<button type="button" class="acc__sel-acc btn btn-danger btn-sm">기본으로</button>
+			<button user_num="<%=dto.getUser_num()%>" type="button" class="acc__sel-acc btn btn-danger btn-sm" >설정</button>
+			<button dog_num2="<%=dto.getDog_num()%>" type="button" class="acc__sel-cnf btn btn-danger btn-sm" >컨펌</button>
 		</td>
 		<%}else{%>
-			<td style="width:100px;" align="center" id="acc_sel-acc-default">
-			기본강아지
+			<td style="width:100px;" align="center" id="acc_default">
+			메인계정
 		</td>
 		<%} %>
 		<td>
@@ -98,9 +112,9 @@ $(function(){
 	}
 	%>
 	</table>
-	<button type="button" class="btn btn-default" style="width:100px;"
-	onclick="history.back()">돌아가기</button>
+	
 </div>
+
 
 </body>
 </html>

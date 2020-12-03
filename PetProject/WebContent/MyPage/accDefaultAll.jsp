@@ -3,11 +3,11 @@
     pageEncoding="UTF-8"%>
 <%
 
-	String dog_num=request.getParameter("dog_num");
+	String user_num=request.getParameter("user_num");
 	
 	AccountDao dao=new AccountDao();
 	
-	dao.updateDefault(dog_num);
+	dao.updateDefaultAll(user_num);
 	
 	response.sendRedirect("../index.jsp?main=MyPage/accUpdateList.jsp");
 
