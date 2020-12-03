@@ -60,16 +60,14 @@ input {
 button {
 	padding: 0.5em 1em;
 	margin: 0.4em 0.15em;
-	border: 1px solid #ccc;
-	border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
+	border: 1px solid #dbdbdb;
 	cursor: pointer;
 	color: #464646;
 	border-radius: 0.7em;
 	vertical-align: middle;
 	font-size: 1em;
 	line-height: 1.25em;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
-		to(#f2f2f2));
+	background-color: #efefef;
 }
 
 select {
