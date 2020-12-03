@@ -13,6 +13,9 @@
 <title>Insert title here</title>
 <style type="text/css">
 /* bg-dark text-white */
+#mumg__container {
+	width: 100%;
+}
 
 ul li {
 	list-style: none;
@@ -23,9 +26,9 @@ a {
 }
 
 .mung__post-list{
-	max-width: 60%;
+	max-width: 86.5%;
 	text-align: center;
-	margin: 0 40%;
+	margin: 0 13.5%;
 }
 
 /* 카드텍스트 */
@@ -40,7 +43,6 @@ a {
 	border-style: none;
 	border-radius: 0;
 	margin: 0;
-	
 }
 
 /* 카드이미지 박스 */
@@ -216,7 +218,7 @@ $(function() {
 	        	var tagList="";
 	        	var tag_len=tag.length;
 	        	for(var i=1; i<tag_len; i++) {
-	        		tagList+="<span class='mung__modal__tag'>#"+tag[i]+"</span>";
+	        		tagList+="<span class='mung__modal__tag text-primary'>#"+tag[i]+"</span>";
 	        	}
 	        	$("#mung__modal__tag").html(tagList);
 	        	
@@ -285,11 +287,7 @@ $(function() {
 	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
 	$('#exampleModal').on('hidden.bs.modal', function () {
-		$("#slideImg").html("");
-		$("#slideIdx").html("");
-		$("#mung__modal__content").val("");
-		$("#mung__modal__tag").html("");
-		$("#mung__modal__inputComm").val("");
+		location.reload();
 	});
 });
 
@@ -625,8 +623,19 @@ function insertComm(comm_num,content,dog_num) {
 			        	</div> 
 			        </div>		
 <%
+					/* 로그인한 경우에만 좋아요 및 댓글작성 가능 */
 					if(loginOk!=null && accId!="no") {
 %>			        
+			        	<!-- 게시글 좋아요 -->
+			        	<div class="mung__modal_likes">
+			        		<span id="mung__likesIcon" class="empty">
+				        		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+								</svg>
+			        		</span>
+			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
+			        	</div> 
+			        </div>		
 		        	<!-- 게시글 댓글추가 -->
 		        	<form id="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
@@ -634,14 +643,20 @@ function insertComm(comm_num,content,dog_num) {
 		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
 		        	</form>
 <%
+					}else {
+%>						
+						<!-- 게시글 좋아요 -->
+			        	<div class="mung__modal_likes">
+			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
+			        	</div> 
+			        </div>
+<%
 					}
 %>	
-		   		 </div>
-		   	   </div> 
-		   	 </div>
-		   </div>
-	  	</div>
-	</div>
+	   		   </div>
+	   	    </div> 
+  		 </div>
+ 	 </div>
 </div>
 </body>
 </html>
