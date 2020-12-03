@@ -221,7 +221,12 @@ div.mung__post__modal {
 }
 
 /* 작성일 */
-#mung__postDay,.mung__comm-writeday {
+#mung__postDay{
+	font-size: 0.8em;
+}
+
+.mung__comm-writeday {
+	padding-left: 3em;
 	font-size: 0.8em;
 }
 
