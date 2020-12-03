@@ -26,7 +26,10 @@
 	
 	UserDao udao=new UserDao();
 	String user_num=udao.getNum(id);
-
+	
+	
+	AccountDao adao=new AccountDao();
+	int cnt=adao.countDefault(user_num);
 	
 	
 %>
@@ -34,6 +37,18 @@
 	<form action="MyPage/accAddAction.jsp" method="post" enctype="multipart/form-data"
 	class="form-inline">
 	<input type="hidden" name="user_num" value="<%=user_num%>">
+	
+	<%
+	
+		if(cnt==0)
+		{%>
+			<input type="hidden" name="sel_acc" value="1">
+		<%}else{%>
+			<input type="hidden" name="sel_acc" value="0">
+		<%}
+	
+	%>
+	
 
 	<table class="table table-bordered" style="width: 600px;">
 		<tr>
@@ -64,12 +79,24 @@
 			<td><input type="text" name="accWeight" class="form-control" style="width: 100px;">
 			KG</td>
 		</tr>
+		
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
+			<td style="width: 150px;background-color:#66cdaa;">
 			<b>나이</b></td>
-			<td><input type="text" name="accAge" class="form-control" style="width: 100px;">년 (1년 미만일 시 0으로 기입)
-			<!-- <input type="text" name="accAge_2" class="form-control" style="width: 100px;">개월 -->
-			</td>
+			<td><select name="accAge">
+			<option disabled selected value>나이를 선택해 주세요</option>
+      		<option value="0~6개월">0~6개월미만</option>
+      		<option value="6개월~1년">6개월~1년미만</option>
+      		<option value="1년~2년">1년~2년미만</option>
+      		<option value="2년~3년">2년~3년미만</option>
+      		<option value="3년~4년">3년~4년미만</option>
+      		<option value="4년~5년">4년~5년미만</option>
+      		<option value="5년~6년">5년~6년미만</option>
+      		<option value="6년~7년">6년~7년미만</option>
+      		<option value="7년 이상">7년 이상</option>
+      		<option value="10년 이상">10년 이상</option>
+  			</select></td>
+		
 		</tr>
 		<tr>
 			<td style="width: 80px;background-color:#66cdaa;">
@@ -90,7 +117,6 @@
 				<input type="file" name="accPhoto"
 				style="width:250px;" class="form-control" required="required">
 			</div>
-			<div class="acc__addfile"></div>
 			</td>
 		</tr>
 		<tr>

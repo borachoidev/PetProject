@@ -1,9 +1,13 @@
+<%@page import="java.util.List"%>
+<%@page import="data.dto.AccountDto"%>
+<%@page import="data.dao.AccountDao"%>
+<%@page import="data.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
 <!--general stylesheet-->
 <style type="text/css">
 * {
@@ -12,65 +16,93 @@
 	font-family: 'Noto Sans KR';
 }
 
-
-
-
 </style>
-<title>애견 등록하기</title>
-</head>
-<body>
+<title>애견 정보들 수정하기</title>
 <%
 
-
+	String dog_num=request.getParameter("dog_num");
 	
+	
+	AccountDao adao=new AccountDao();
+	AccountDto dto=adao.getDogData(dog_num);
 	
 	
 	
 %>
+
+<script type="text/javascript">
+$(function() {
+	  $("#accBreed").val("<%=dto.getBreed()%>");
+	  $("#accAge").val("<%=dto.getAge()%>");
+	  $("#accGender").val("<%=dto.getGender()%>");
+	  
+	});
+</script>
+</head>
+<body> 
+
+
 <div class="acc__update-form">
-	<form action="mypage/accAddAction.jsp" method="post" enctype="multipart/form-data"
+	<form action="MyPage/accUpdateAction.jsp" method="post" enctype="multipart/form-data"
 	class="form-inline">
-	
-	<table class="table table-bordered" style="width: 600px;">
+		<input type="hidden" name="dog_num" value="<%=dto.getDog_num()%>">
+		<table class="table table-bordered" style="width: 600px;">
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
-			<b>애견이름</b></td>
-			<td><input type="text" name="accName" class="form-control" style="width: 400px;" required="required">
+			<td style="width: 120px;background-color:#66cdaa;">
+			<b>애견이름(변경불가)</b></td>
+			<td><input type="text" name="accName" class="form-control" style="width: 400px;" value="<%=dto.getAcc_name()%>" disabled>
 			</td>
 		</tr>
 		<tr>
 			<td style="width: 150px;background-color:#66cdaa;">
-			<b>견종</b></td>
-			<td><span class="acc__breed">
-      		<input type="radio" name="accBreed" value="poodle">푸들
-      		<input type="radio" name="accBreed" value="pomeranian">포메
-      		<input type="radio" name="accBreed" value="goldenretriever">골든리트리버
-      		<input type="radio" name="accBreed" value="jindo"checked>진돗개
-      		<input type="radio" name="accBreed" value="mixed">믹스견
-      		<input type="radio" name="accBreed" value="other">기타
-  			</span></td>
+			<b>견종선택</b></td>
+			<td><select name="accBreed" id="accBreed" required="required" >
+			<option disabled selected value>견종을 선택해 주세요</option>
+      		<option value="푸들">푸들</option>
+      		<option value="비숑">비숑</option>
+      		<option value="포메라니언">포메라니언</option>
+      		<option value="퍼그">퍼그</option>
+      		<option value="골든리트리버">골든리트리버</option>
+      		<option value="허스키">허스키</option>
+      		<option value="진돗개">진돗개</option>
+      		<option value="믹스견">믹스견</option>
+      		<option value="기타">기타</option>
+  			</select></td>
 		</tr>
 		<tr>
 			<td style="width: 80px;background-color:#66cdaa;">
 			<b>무게</b></td>
-			<td><input type="text" name="accWeight" class="form-control" style="width: 400px;">
-			</td>
+			<td><input type="text" name="accWeight" class="form-control" style="width: 100px;" value=<%=dto.getWeight()%>>
+			KG</td>
 		</tr>
+		
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
+			<td style="width: 150px;background-color:#66cdaa;">
 			<b>나이</b></td>
-			<td><input type="text" name="accAge" class="form-control" style="width: 400px;">
-			</td>
+			<td><select name="accAge" id="accAge">
+			<option disabled selected value>나이를 선택해 주세요</option>
+      		<option value="0~6개월">0~6개월미만</option>
+      		<option value="6개월~1년">6개월~1년미만</option>
+      		<option value="1년~2년">1년~2년미만</option>
+      		<option value="2년~3년">2년~3년미만</option>
+      		<option value="3년~4년">3년~4년미만</option>
+      		<option value="4년~5년">4년~5년미만</option>
+      		<option value="5년~6년">5년~6년미만</option>
+      		<option value="6년~7년">6년~7년미만</option>
+      		<option value="7년 이상">7년 이상</option>
+      		<option value="10년 이상">10년 이상</option>
+  			</select></td>
 		</tr>
 		<tr>
 			<td style="width: 80px;background-color:#66cdaa;">
 			<b>성별</b></td>
-			<td>
-			<input type="radio" name="accGender" value="male">수컷
-      		<input type="radio" name="accGender" value="female">암컷
-      		<input type="radio" name="accGender" value="maleneutral">수컷(중성화)
-      		<input type="radio" name="accGender" value="femaleneutral" checked>암컷(중성화)
-  			</td>
+			<td><select name="accGender" id="accGender" required="required">
+			<option disabled selected value>성별을 선택해주세요</option>
+			<option value="수컷">수컷</option>
+			<option value="암컷">암컷</option>
+			<option value="수컷(중성화)">수컷(중성화)</option>
+			<option value="암컷(중성화)">암컷(중성화)</option>
+  			</select></td>
 		</tr>
 		<tr>
 			<td style="width: 150px;background-color:#66cdaa;">
@@ -78,9 +110,8 @@
 			<td>
 			<div class="form-group">
 				<input type="file" name="accPhoto"
-				style="width:250px;" class="form-control" required="required">
+				style="width:250px;" class="form-control" required="required" <%=dto.getPhoto()%>>
 			</div>
-			<div class="addfile"></div>
 			</td>
 		</tr>
 		<tr>
@@ -88,17 +119,33 @@
 			<b>소개글</b></td>
 			<td>
 				<textarea name="accMemo"
-				style="width:400px;height: 150px;"></textarea>
+				style="width:400px;height: 150px;"><%=dto.getMemo()%></textarea>
 			</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2" align="center">
-				<button type="submit" class="acc__btn btn-info"
+				<button type="submit" class="acc__update btn btn-info"
 				style="width:100px;">수정하기</button>
+				<button type="button" class="btn btn-default"
+				style="width:100px;" onclick="history.back()">돌아가기</button>
+			</td>
 		</tr>
 	</table>
+	
 	</form>
 </div>
+<script type="text/javascript">
+$('#accBreed').change(function() {
+    $(this).val();
+});
+$('#accAge').change(function() {
+    $(this).val();
+});
+$('#accGender').change(function() {
+    $(this).val();
+});
+
+</script>
 </body>
 </html>
