@@ -69,7 +69,7 @@ public class ReviewDao {
 	//페이징 처리한 리스트 목록 반환
 	public List<ReviewDto> getList(int start,int end){
 		List<ReviewDto> list = new ArrayList<ReviewDto>();
-		String sql="select * from review order limit ?,?";
+		String sql="select * from review order by review_num desc limit ?,?";
 		Connection conn=null;
 		PreparedStatement pstmt= null;
 		ResultSet rs=null;
@@ -88,8 +88,8 @@ public class ReviewDao {
 			while(rs.next()) {
 				ReviewDto dto=new ReviewDto();
 				dto.setReview_num(rs.getString("review_num"));
-				dto.setId(rs.getString("name"));
-				dto.setTitle(rs.getString("subject"));
+				dto.setId(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setWriteday(rs.getString("writeday"));
 				
@@ -125,8 +125,8 @@ public class ReviewDao {
 			
 			if(rs.next()) {
 				dto.setReview_num(rs.getString("review_num"));
-				dto.setId(rs.getString("name"));
-				dto.setTitle(rs.getString("subject"));
+				dto.setId(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setWriteday(rs.getString("writeday"));
 			}
@@ -199,14 +199,13 @@ public class ReviewDao {
 	
 	
 	//최신 후기 8개 가져오기
-	public List<ReviewDto> getMainlist(){
+	public List<ReviewDto> getBestReview(){
 		//최신글5개 가져오기
-		String sql="select * from review order by num desc limit 0,8";
+		String sql="select * from review order by review_num asc limit 0,8";
 		List<ReviewDto> list=new ArrayList<ReviewDto>();
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		
 		
 		conn=db.getMyConnection();
 		try
