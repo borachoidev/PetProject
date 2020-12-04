@@ -16,35 +16,21 @@ $(function(){
 		location.href="index.jsp?main=MyPage/accUpdate.jsp?dog_num="+dog_num;
 	});
 	
-	$(document).on("click",".acc__sel-acc", function() {	
+	
+	$(document).on("click",".acc__set-default", function() {
 		var user_num=$(this).attr("user_num");
-		
-		$.ajax({
-			dataType:"html",
-			data:{
-				"user_num":user_num,	
-			},
-			type:"post",
-			url:"MyPage/accDefaultAll.jsp",
-			success:function(){
-				alert("컨펌버튼을 최종적으로 클릭해야 메인계정이 설정됩니다!")
-				
-			}
-		});
-		
-	});
-	$(document).on("click",".acc__sel-cnf", function() {	
 		var dog_num=$(this).attr("dog_num2");
 		
 		$.ajax({
 			dataType:"html",
 			data:{
 				"dog_num":dog_num,	
+				"user_num":user_num
 			},
 			type:"post",
 			url:"MyPage/accDefault.jsp",
 			success:function(){
-				 alert("설정완료 :)")
+				
 				 location.reload();
 			}
 		});
@@ -79,7 +65,7 @@ $(function(){
 		<td style="width:100px;" align="center">사진</td>
 		<td style="width:120px;" align="center">견종</td>
 		<td style="width:120px;" align="center">성별</td>
-		<td style="width:120px;" align="center">메인설정(각각 클릭)</td>
+		<td style="width:120px;" align="center">메인계정으로 설정</td>
 		<td style="width:100px;" align="center">계정삭제</td>
 	</tr>
 	
@@ -95,12 +81,11 @@ $(function(){
 		<input type="hidden" id="sel_acc" name="sel_acc" value="<%=dto.getSel_acc()%>">
 		<%if(dto.getSel_acc()==0){ %>
 		<td style="width:120px;" align="center">
-			<button user_num="<%=dto.getUser_num()%>" type="button" class="acc__sel-acc btn btn-danger btn-sm" >설정</button>
-			<button dog_num2="<%=dto.getDog_num()%>" type="button" class="acc__sel-cnf btn btn-danger btn-sm" >컨펌</button>
+			<button dog_num2="<%=dto.getDog_num()%>" user_num="<%=dto.getUser_num()%>" type="button" class="acc__set-default btn btn-danger btn-sm" >메인으로</button>
 		</td>
 		<%}else{%>
-			<td style="width:120px;" align="center" id="acc_default">
-			메인계정
+			<td style="width:120px;" align="center" id="acc_sel-defaultAcc">
+			메인강아지
 		</td>
 		<%} %>
 		<td>
