@@ -107,14 +107,16 @@
 	<div class="select3" style="width: 100%; height: 200px; border: 1px solid red;">
 		<form action="Book/bookpageaction2.jsp" method="post">
 			<select name = "petcenter">
-				<option value="비트점">비트점</option>
-				<option value="강남점">강남점</option>
-				<option value="안양점">안양점</option>
-				<option value="부산점">부산점</option>
+				<option value="서초본원">서초본원</option>
+				<option value="강남센터">강남센터</option>
+				<option value="신촌센터">신촌센터</option>
+				<option value="종로센터">종로센터</option>
+				<option value="안양센터">안양센터</option>
+				<option value="부산센터">부산센터</option>
 			</select>
 			<!-- <div id="tmdals" name ="bookday">달력에서 날짜를 클릭해주세요</div> -->
 			<input type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-			<input type="text" name ="endDay" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
+			<input type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
 			<input type="text" name="petselect" id="petselect" placeholder="과정을 클릭해주세요" required="required"> 
 			
 			<button type="submit">가자잉</button>

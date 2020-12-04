@@ -8,6 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>예약관리</title>
+<style type="text/css">
+	th{
+		font-size: 0.9em;
+	}
+	td{
+		font-size: 0.9em;
+	}
+	
+</style>
 </head>
 <%
 BookDao dao = new BookDao();
@@ -21,16 +30,17 @@ List<HashMap<String,String>> list = dao.getAllBook();
 	<table class="table table-striped">
 		<tr align="center">
 			<th>예약 번호</th>
-			<th>예약자 ID</th>
-			<th>예약자 이름</th>
-			<th>예약자 H.P</th>
+			<th>ID</th>
+			<th>이름</th>
+			<th>H.P</th>
 			<th>강아지 이름</th>
 			<th>강아지 견종</th>
 			<th>강아지 성별</th>
 			<th>강아지 나이</th>
 			<th>예약 지점</th>
 			<th>예약 강좌</th>
-			<th>시작 날짜</th>
+			<th>시작일</th>
+			<th>종료일</th>
 		</tr>
 		
 		<%
@@ -50,6 +60,7 @@ List<HashMap<String,String>> list = dao.getAllBook();
 				<td><%=map.get("petcenter") %></td>
 				<td><%=map.get("petselect") %></td>
 				<td><%=map.get("startday") %></td>
+				<td><%=map.get("endday") %></td>
 			</tr>
 		
 		<%}

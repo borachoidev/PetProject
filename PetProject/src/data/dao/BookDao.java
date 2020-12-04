@@ -59,7 +59,7 @@ public class BookDao {
 	
 	public void insertBook(BookDto dto)
 	{
-		String sql = "insert into book (petcenter,petselect,startday,user_num,dog_num) values (?,?,?,?,?)";
+		String sql = "insert into book (petcenter,petselect,startday,endday,user_num,dog_num) values (?,?,?,?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		conn = db.getMyConnection();
@@ -69,8 +69,9 @@ public class BookDao {
 			pstmt.setString(1, dto.getPetcenter());
 			pstmt.setString(2, dto.getPetselect());
 			pstmt.setString(3, dto.getStartday());
-			pstmt.setString(4, dto.getUser_num());
-			pstmt.setString(5, dto.getDog_num());
+			pstmt.setString(4, dto.getEndday());
+			pstmt.setString(5, dto.getUser_num());
+			pstmt.setString(6, dto.getDog_num());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -84,7 +85,7 @@ public class BookDao {
 	
 	public List<HashMap<String, String>> getAllBook()
 	{
-		String sql = "select u.id, u.user_name, u.hp, a.acc_name, a.breed, a.age, a.gender, b.startday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num order by book_num desc";
+		String sql = "select u.id, u.user_name, u.hp, a.acc_name, a.breed, a.age, a.gender, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num order by book_num desc";
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -106,6 +107,7 @@ public class BookDao {
 				map.put("age", rs.getString("age"));
 				map.put("gender", rs.getString("gender"));
 				map.put("startday", rs.getString("startday"));
+				map.put("endday", rs.getString("endday"));
 				map.put("petcenter", rs.getString("petcenter"));
 				map.put("petselect", rs.getString("petselect"));
 				map.put("book_num", rs.getString("book_num"));
@@ -125,7 +127,7 @@ public class BookDao {
 	
 	public List<HashMap<String, String>> getUserBook(String id)
 	{
-		String sql = "select u.id, u.user_name, u.hp, a.acc_name, b.startday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num and u.id=? order by book_num desc";
+		String sql = "select u.id, u.user_name, u.hp, a.acc_name, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num and u.id=? order by book_num desc";
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -145,6 +147,7 @@ public class BookDao {
 				map.put("hp", rs.getString("hp"));
 				map.put("acc_name", rs.getString("acc_name"));
 				map.put("startday", rs.getString("startday"));
+				map.put("endday", rs.getString("endday"));
 				map.put("petcenter", rs.getString("petcenter"));
 				map.put("petselect", rs.getString("petselect"));
 				map.put("book_num", rs.getString("book_num"));

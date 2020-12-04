@@ -22,12 +22,13 @@
 	<table class="table table-striped">
 		<tr align="center">
 			<th>예약 번호</th>
-			<th>예약자 이름</th>
-			<th>예약자 hp</th>
+			<th>이름</th>
+			<th>H.P</th>
 			<th>강아지 이름</th>
 			<th>예약 지점</th>
 			<th>예약 강좌</th>
-			<th>시작 날짜</th>
+			<th>시작일</th>
+			<th>종료일</th>
 			<th>예약 관리</th>
 		</tr>
 		
@@ -44,8 +45,9 @@
 				<td><%=map.get("petcenter") %></td>
 				<td><%=map.get("petselect") %></td>
 				<td><%=map.get("startday") %></td>
+				<td><%=map.get("endday") %></td>
 				<td>
-					<input type="hidden" value="<%=map.get("book_num") %>" calss="book__num">
+					<input type="hidden" value="<%=map.get("book_num") %>" class="book__num">
 					<button type="button" class="book__delete btn btn-danger btn-sm">예약 취소</button>
 				</td>
 			</tr>
