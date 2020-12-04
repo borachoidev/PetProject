@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,6 +105,49 @@ public class BookDao {
 		}
 		return list;
 	}
+	
+	sql="select endday from book where user_num=?;";
+	
+	1월1일 =
+	length = 6 or 5 / subString 
+	
+	public List<BookDto> getUserBook(String user_num)
+	{
+		List<BookDto> list = new ArrayList<BookDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql= "select book_num, petcenter, petselect, startday, endday, dog_num from book where user_num=?;";
+		
+		conn = db.getMyConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				BookDto dto=new BookDto();
+				dto.setBook_num(rs.getString("book_num"));
+				dto.setPetcenter(rs.getString("petcenter"));
+				dto.setPetselect(rs.getString("petselect"));
+				dto.setStartday(rs.getString("startday"));
+				dto.setDog_num(rs.getString("dog_num"));
+				
+
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
+	
 }
 
 

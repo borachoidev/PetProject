@@ -1,3 +1,7 @@
+<%@page import="data.dto.BookDto"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="data.dao.BookDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,25 +20,15 @@
 
 
 <script type="text/javascript">
-//$(function(){
-//	$(document).on("click","", function() {	
-//		var dog_num=$(this).attr("dog_num");
-//		location.href="index.jsp?main=MyPage/xxxx.jsp?dog_num="+dog_num;
-//	});
-	
-//});
-
 </script>
 <%
+request.setCharacterEncoding("utf-8");
+String id=(String)session.getAttribute("myId");
 
-	//String id=(String)session.getAttribute("myId");
-	
-	//UserDao udao=new UserDao();
-	//String user_num=udao.getNum(id);
-	
-	
-	//BookDao bdao=new BookDao();
-	//List<BookDto> blist=bdao.getXXXXX(user_num);
+
+BookDao bdao=new BookDao();
+List<BookDto> blist=bdao.getUserBook();
+
 	
 	
 %>
@@ -52,8 +46,9 @@
 		<td style="width:120px;" align="center">종료일</td>
 	</tr>
 	
-	
-	<!-- for(BookDto dto:blist) -->
+	<!-- subString, toString -->
+	<%for(BookDto dto:blist)
+	{%>
 	
 		<input type="hidden" name="dog_num" id="dog_num" value="">
 		<tr bgcolor="white">
@@ -63,6 +58,9 @@
 		<td style="width:120px;" align="center" name="bookStartDay">bookStartDay</td>
 		<td style="width:120px;" align="center" name="bookEndDay">bookEndDay</td>
 		</tr>
+	<%
+	}
+	%>
 	</table>
 </div>
 <br>
