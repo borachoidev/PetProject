@@ -1,3 +1,6 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="data.dao.AccountDao"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.AccountDto"%>
@@ -11,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style type="text/css">
 /* bg-dark text-white */
 #mumg__container {
@@ -22,10 +26,82 @@ ul li {
 	list-style: none;
 }
 
-a {
-	cursor: pointer;
+/* 메뉴바 */
+#mung__nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 86.5%;
+	margin: 2% 13.5% 5% 13.5%;
+	padding: 0 1.5%;
 }
 
+.mung__nav__acc {
+	width: 30%;
+}
+
+.mung__add-btn {
+	font-size: 1.5em;
+}
+
+.mung__add-btn:hover {
+	color: #ffc107;
+}
+
+.mung__nav__search {
+	width: 40%;
+	text-align: center;
+}
+
+.mung__nav__btn {
+	width: 30%;
+	text-align: right;
+}
+
+.mung__nav__btn a {
+	font-size: 1.5em;
+	margin: 2% 0.5em;
+}
+
+.mung__nav__btn a:hover {
+	color: #ffc107;
+}
+
+.mung__acc-modal {
+	width: 100%;
+}
+
+/* 계정목록 */
+#mung__accList {
+	text-align: center;
+	width: 20%;
+	margin: 0 40%;
+}
+
+.mung__accList {
+	padding: 2% 0;
+}
+
+.mung__accList-content {
+	border: none;
+}
+
+.mung__accId {
+	padding: 5% 0;
+	border-radius: 5px;
+}
+
+.mung__acc-btn:hover {
+	color: #ffc107;
+}
+
+.mung__accId:hover {
+	cursor: pointer;
+	color: #ffc107;
+}
+	
+
+/* 메인컨텐츠 */
 .mung__post-list{
 	max-width: 86.5%;
 	text-align: center;
@@ -91,21 +167,25 @@ a {
 
 /* 로그인한 계정 프로필, 게시글작성한 계정 프로필 */
 .mung__profile {
+	width: 40px;
+	height: 40px;
+	border-radius: 40px;
+	margin: 0 1%;
+	border: 1px solid #ddd;
+	padding: 0.08em;
+}
+ 
+/* 게시글에 댓글작성한 계정 프로필 */     
+.mung__profile-sm {
 	width: 30px;
 	height: 30px;
 	border-radius: 30px;
 	margin: 0 1%;
-}
-     
-/* 게시글에 댓글작성한 계정 프로필 */     
-.mung__profile-sm {
-	width: 20px;
-	height: 20px;
-	border-radius: 20px;
-	margin: 0 1%;
+	border: 1px solid #ddd;
+	padding: 0.08em;
 }
 
-.modal {
+.mung__post-modal {
 	min-width: 100%; 
 	height: 100%;
 	margin: 3.5% 0;
@@ -179,12 +259,13 @@ div.mung__post__modal {
 
 /* 컨텐츠 */
 #mung__modal__content {
-	margin: 1em 0 0 0;
+	margin: 1em 0 0 1em;
+	white-space: pre-wrap;
 }
 
 /* 태그 목록 */
 #mung__modal__tag {
-	margin: 1em 0 0 0;
+	margin: 1em 0 0 1em;
 }
 
 /* 태그 */
@@ -195,11 +276,33 @@ div.mung__post__modal {
 
 /* 댓글 목록 */
 #mung__modal__comment {
-	margin: 2em 0 0 0;
+	margin: 1.5em 0 0 0;
 	psdding: 0 0.8em;
 	width: 90%;
 }
 
+.mung__comm-list {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 1em 0 0;
+	width: 100%;
+}
+
+/* 텍스트박스 댓글내용(스크롤) */
+.mung__modal__content-box {
+	white-space: pre-wrap;
+	font-size: 0.9em;
+	width: 100%;
+	margin-left: 1em;
+}
+
+.mung__modal__content {
+	white-space: pre-wrap;
+	font-size: 0.9em;
+	width: 80%;
+}
 
 /* 좋아요 */
 .mung__modal_likes {
@@ -210,26 +313,12 @@ div.mung__post__modal {
 	align-items: center;
 }
 
-#mung__modal__likes {
-	
-}
-
-/* 텍스트박스 댓글내용(스크롤) */
-.mung__modal__content {
-	display: inline-block;
-	white-space: pre-wrap;
-	width: 80%;
-	padding-left: 1em;
-	font-size: 0.9em;
-}
-
 /* 작성일 */
 #mung__postDay{
 	font-size: 0.8em;
 }
 
 .mung__comm-writeday {
-	padding-left: 3em;
 	font-size: 0.8em;
 }
 
@@ -246,7 +335,7 @@ div.mung__post__modal {
 
 /* 댓글입력창 */
 #mung__modal__inputComm {
-	max-width: 80%;
+	width: 80%;
 	font-size: 1em;
 	border: 0;
 	display: inline-flex;
@@ -258,28 +347,40 @@ div.mung__post__modal {
 	box-shadow: 0;
 }
 
-
-
 /* 댓글전송 버튼 */
 #mung__modal__submitBtn {
-	max-width: 20%;
+	width: 20%;
 	background: none;
 	border: none;
 	font-size: 0.9em;
 	display: inline-flex;
 	margin-left: 1em;
 	white-space: nowrap;
-	
 }
 
 /* 검색창 */
 #mung__searchTag {
-	width: 200px;
+	width: 100%;
+	border: 1px solid #ddd;
+	outline: none;
+	height: 100%; 
+	border-radius: 10px;
+	padding: 2% 5%;
+	text-align: center;
+}
+
+#mung__searchTag:focus {
+	box-shadow: 1px 1px .2em #ffc107, -1px -1px .2em #ffc107;
+	background-color:transparent;
+	caret-color: #ffc107;
+	border-color: white;
 }
 
 /* 모달창 close */
 .mung__close-btn {
 	font-size: 1em;
+	color: white;
+	cursor: pointer;
 }
 
 /* 게시글 삭제버튼 */
@@ -294,7 +395,6 @@ div.mung__post__modal {
 $(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
-	
 	$("#exampleModal").on("show.bs.modal",function(e) {
 		//클릭한 게시글 post_num
 		var post_num=$(e.relatedTarget).data("num");
@@ -437,10 +537,38 @@ $(function() {
 					}
 				});
 				
+				//댓글 추가 엔터키 이벤트
+				$("#mung__modal__inputComm").keydown(function(key) {
+					if(key.keyCode==13) {
+						var content=$(this).val();
+						var dog_num=$("#mung__modal__commNum").val();
+						
+						if(content!='') {
+							insertComm(post_num, content, dog_num);
+							$("#mung__modal__inputComm").val("");
+						}else {
+							alert('내용을 입력해주세요!')
+						}
+					}
+				});
+				
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});
+	});
+	
+	//계정 리스트 숨기기	
+	$("#mung__accList").hide();
+	
+	//계정 전환 버튼이벤트
+	$("#mung__accListBtn").click(function() {
+		$("#mung__accList").toggle();	
+	});
+	 
+	$(".mung__accId").click(function() {
+		var accId=$(this).text();
+		location.href="index.jsp?main=Mung/mungSession.jsp?accId="+accId;
 	});
 	
 	//카드이미지 마우스오버 이벤트
@@ -470,10 +598,10 @@ $(function() {
 	
 	//댓글창 입력시 이벤트
 	$("#mung__modal__inputComm").keydown(function() {
-		$("#mung__modal__submitBtn").removeClass().addClass("text-primary");
-	if($("#mung__modal__inputComm").val()=='') {
-		$(this).next().removeClass().addClass("text-muted");
-	}
+		$("#mung__modal__submitBtn").removeClass("text-muted").css("color","#ffc107");
+		if($("#mung__modal__inputComm").val()=='') {
+			$(this).next().css("color","").addClass("text-muted");
+		}
 	});
 	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
@@ -483,6 +611,12 @@ $(function() {
 	
 	
 });
+
+
+//숫자 포매팅 함수
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 //게시글 좋아요 출력
 function getLikes(post_num) {
@@ -496,6 +630,8 @@ function getLikes(post_num) {
 			json=JSON.parse(data);
 			//좋아요 개수 출력
 			var likes=json.likes;
+			//포맷
+			likes=numberWithCommas(likes);
 			$("#mung__modal__likes").html("좋아요&nbsp;"+likes+"개");
 		}	
 	});
@@ -543,7 +679,9 @@ function getCommList(post_num) {
 			var commList=json.commList;
 			var comm="";
         	$.each(commList,function(i,item) {
-        		comm="<li><img style='vertical-align: top;' class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+"><article class='mung__modal__content'>"+item.content+"</article><div class='mung__comm-writeday text-secondary'>"+item.writeday+"</div></li>";
+        		comm="<li class='mung__comm-list'><img style='vertical-align: top;' class='mung__profile-sm' idx="+item.idx+" src=AccSave/"+item.commProfile+">";
+        		comm+="<ul class='mung__modal__content-box'><li class='mung__modal__content'>"+item.content+"</li>";
+        		comm+="<ln class='mung__comm-writeday text-secondary'>"+item.writeday+"</ln></ul></li>";
 	        	$("#mung__modal__comment").append(comm);
 			});
 		}	
@@ -564,23 +702,32 @@ function insertComm(comm_num,content,dog_num) {
 }
 </script>
 </head>
+<%!
+	String myId;
+	String accId;
+	String loginOk;
+%>
 <%	
 	//인코딩
 	request.setCharacterEncoding("utf-8");
 
 	//로그인 상태 및 아이디 세션값
-	String myId=(String)session.getAttribute("myId");
-	String accId=(String)session.getAttribute("accId");
-	String loginOk=(String)session.getAttribute("loginOk");
+	myId=(String)session.getAttribute("myId");
+	accId=(String)session.getAttribute("accId");
+	loginOk=(String)session.getAttribute("loginOk");
 	
 	MungDao dao=new MungDao();
 	//계정 정보 출력
 	AccountDto accDto=dao.getAccountData(accId);
 	String dog_num=dao.getAccount(accId);
+	//계정리스트
+	AccountDao accDao=new AccountDao();
+	String user_num=dao.getUser(myId);
+	List<AccountDto> accList=accDao.getAllAccounts(user_num);
 	//검색한 게시글목록 출력
-		String tag=request.getParameter("tag");
-		List<MungPostDto> postList=dao.getSearchData(tag);
-		System.out.println(tag);
+	String tag=request.getParameter("tag");
+	List<MungPostDto> postList=dao.getSearchData(tag);
+	System.out.println(tag);
 %>
 <body>
 <div id="mumg__container">
@@ -595,7 +742,7 @@ function insertComm(comm_num,content,dog_num) {
 				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
 				<b><%=accId %>(<%=myId %>)</b>
 			</a>
-			<a href="index.jsp?main=Mung/mungPostAdd.jsp">
+			<a class="mung__add-btn" href="index.jsp?main=Mung/mungPostAdd.jsp">
 				<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 				  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -603,8 +750,8 @@ function insertComm(comm_num,content,dog_num) {
 			</a>
 		</li>
 		<!-- 검색창 -->
-		<li>
-			<input type="text" id="mung__searchTag" class="form-control" placeholder="#<%=tag%>">
+		<li class="mung__nav__search">
+			<input type="text" id="mung__searchTag"  placeholder="#<%=tag%>">
 		</li>
 		<!-- 메뉴 버튼 -->
 		<li class="mung__nav__btn">
@@ -619,10 +766,34 @@ function insertComm(comm_num,content,dog_num) {
 				  <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
 				</svg>
 			</a>
-			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-			  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-			  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-			</svg>
+			<a id="mung__accListBtn" data-toggle="modal" data-target="#mung__accList">
+				<svg class="mung__acc-btn" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+				  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+				</svg>
+			</a>
+			<div id="mung__accList" class="modal fade mung__acc-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				 <div class="modal-dialog modal-dialog-centered">
+  					  <div class="modal-content mung__accList-content">
+						<ul class="modal-body mung__accList">
+						<%-- 계정 목록 출력 --%>
+<%
+						for(AccountDto acc:accList) {
+%>
+							<li class="mung__accId">
+								<img class="mung__profile" src="AccSave/<%=acc.getPhoto()%>">
+								<span id="mung__accId"><%=acc.getAcc_name() %></span>
+							</li>
+<%				
+						}
+%>					
+						</ul>
+					</div>
+				 	  <button type="button" class="close mung__close-btn" data-dismiss="modal" aria-label="Close">
+			             <span aria-hidden="true">&times;</span>
+			          </button>
+				</div>
+			</div>	
 		</li>
 <%
 		}
@@ -642,9 +813,23 @@ function insertComm(comm_num,content,dog_num) {
 				//계정별 게시글 전체 목록에서 필요한 데이터 변수
 				int idx=dto.getPhoto().split(",").length-1;
 				String photo=dto.getPhoto().split(",")[idx];
+				DecimalFormat df=new DecimalFormat("#,###,###");
+				DecimalFormat bdf=new DecimalFormat("#,###.#");
 				int likes=dto.getLikes();
 				int commSize=dao.getCommentSize(dto.getPost_num());
-			
+				String likes_str="";
+				String commSize_str="";
+				if(likes>=1000) {
+					likes_str=bdf.format((double)likes/1000)+"천";
+				}else {
+					likes_str=df.format(likes);
+				}
+				if(commSize>=1000) {
+					commSize_str=bdf.format(commSize);
+				}else {
+					commSize_str=df.format(commSize);
+				}
+				
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
 			    <div class="card text-center mung__img-box">
@@ -654,11 +839,11 @@ function insertComm(comm_num,content,dog_num) {
 						<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 						</svg>
-						<span><%=likes %></span>
+						<span><%=likes_str %></span>
 				    	<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
 						</svg>
-				    	<span><%=commSize %></span>
+				    	<span><%=commSize_str %></span>
 					</p>
 				  </div>
 			    </div>
@@ -685,8 +870,22 @@ function insertComm(comm_num,content,dog_num) {
 				//계정별 게시글 전체 목록에서 필요한 데이터 변수
 				int idx=dto.getPhoto().split(",").length-1;
 				String photo=dto.getPhoto().split(",")[idx];
+				DecimalFormat df=new DecimalFormat("#,###,###");
+				DecimalFormat bdf=new DecimalFormat("#,###.#");
 				int likes=dto.getLikes();
 				int commSize=dao.getCommentSize(dto.getPost_num());
+				String likes_str="";
+				String commSize_str="";
+				if(likes>=1000) {
+					likes_str=bdf.format((double)likes/1000)+"천";
+				}else {
+					likes_str=df.format(likes);
+				}
+				if(commSize>=1000) {
+					commSize_str=bdf.format(commSize);
+				}else {
+					commSize_str=df.format(commSize);
+				}
 			
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
@@ -697,18 +896,18 @@ function insertComm(comm_num,content,dog_num) {
 						<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 						</svg>
-						<span><%=likes %></span>
+						<span><%=likes_str %></span>
 				    	<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
 						</svg>
-				    	<span><%=commSize %></span>
+				    	<span><%=commSize_str %></span>
 					</p>
 				  </div>
 			    </div>
 			</div>
 <%
 			}
-%>			
+%>		
 			<div class="col md-1" > 
 			    <div class="card" style="border-style: none;">
 			      <img src="" class="card-img">
@@ -721,8 +920,22 @@ function insertComm(comm_num,content,dog_num) {
 				//계정별 게시글 전체 목록에서 필요한 데이터 변수
 				int idx=dto.getPhoto().split(",").length-1;
 				String photo=dto.getPhoto().split(",")[idx];
+				DecimalFormat df=new DecimalFormat("#,###,###");
+				DecimalFormat bdf=new DecimalFormat("#,###.#");
 				int likes=dto.getLikes();
 				int commSize=dao.getCommentSize(dto.getPost_num());
+				String likes_str="";
+				String commSize_str="";
+				if(likes>=1000) {
+					likes_str=bdf.format((double)likes/1000)+"천";
+				}else {
+					likes_str=df.format(likes);
+				}
+				if(commSize>=1000) {
+					commSize_str=bdf.format(commSize);
+				}else {
+					commSize_str=df.format(commSize);
+				}
 			
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
@@ -733,11 +946,11 @@ function insertComm(comm_num,content,dog_num) {
 						<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 						</svg>
-						<span><%=likes %></span>
+						<span><%=likes_str %></span>
 				    	<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
 						</svg>
-				    	<span><%=commSize %></span>
+				    	<span><%=commSize_str %></span>
 					</p>
 				  </div>
 			    </div>
@@ -745,12 +958,12 @@ function insertComm(comm_num,content,dog_num) {
 <%			
 			}
 		}
-%>				
+%>		
 		</div>	
 	</div>
 			
 	<!-- 모달창 -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade mung__post-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
       <span aria-hidden="true" class="mung__close-btn">&times;</span>
     </button>
@@ -821,11 +1034,11 @@ function insertComm(comm_num,content,dog_num) {
 		        		<div id="mung__postDay" class="text-secondary"></div>
 		        	</div> 
 		        	<!-- 게시글 댓글추가 -->
-		        	<form class="mung__modal__addComm">
+		        	<div class="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
 		        		<input type="text"  id="mung__modal__inputComm" placeholder="댓글 달기...">
-		        		<button type="button" id="mung__modal__submitBtn" class="text-muted"><b>게시</b></button>
-		        	</form>
+		        		<button type="button" id="mung__modal__submitBtn" class="text-muted">게시</button>
+		        	</div>
 <%
 				}else {
 %>						
