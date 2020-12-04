@@ -15,6 +15,7 @@
 /* bg-dark text-white */
 #mumg__container {
 	width: 100%;
+	font-size: 0.8em;
 }
 
 ul li {
@@ -34,7 +35,6 @@ a {
 
 /* 카드이미지*/
 .mung__post-img {
-	min-height: 300px;
 	border-style: none;
 	border-radius: 0;
 	margin: 0;
@@ -49,15 +49,18 @@ a {
 /* 카드이미지 박스 */
 .mung__img-box {
     overflow: hidden;
+    border-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 300px;
-    height: 300px;
-    border-style: none;
+    cursor: pointer;
     border-radius: 0;
     margin: 0;
     z-index: 10;
+}
+
+.card {
+	border-style: none;
 }
 
 /* 카드이미지 박스-마우스오버시 추가할 효과 */
@@ -90,86 +93,145 @@ a {
 .mung__profile {
 	width: 30px;
 	height: 30px;
-	border-radius: 50px;
-	margin: 0 20px;
+	border-radius: 30px;
+	margin: 0 1%;
 }
      
 /* 게시글에 댓글작성한 계정 프로필 */     
 .mung__profile-sm {
 	width: 20px;
 	height: 20px;
-	border-radius: 50px;
-	margin: 0 10px;
+	border-radius: 20px;
+	margin: 0 1%;
+}
+
+.modal {
+	min-width: 100%; 
+	height: 100%;
+	margin: 3.5% 0;
 }
 
 /* 모달 (모달dialog, 모달content) */
 .modal-size {
-	width: 80%; 
-	min-width: 80%;
-	height: 90%;
-	min-height: 70%;
+	min-width: 60%; 
+	min-height: 50%;
 	display: flex;
 	overflow: hidden;
 	align-items: center;
     justify-content: center;
-    z-index: 100000;
+    border: 0;
 }     
 
 /* 모달 바디 */
 div.mung__post__modal {
 	padding: 0;
+	min-width: 60%; 
+	min-height: 50%;
 	display: flex;
 	overflow: hidden;
 	align-items: center;
     justify-content: center;
 }
 
-/* 모달 이미지 박스 */
-div.mung__modal__img {
+.mung__modal__img {
+	padding-right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center; 
 	background-color: #121212;
-	display: block;	
-    align-items: center;
-    justify-content: center;
-    height: 90%;
+	height: 100%;
 }
 
+.mung__modal__text {
+	padding-left:0 ;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;	
+	max-height: 100%;
+}
 
-/* 모달창 이미지 */
-.modalImg {
-	max-width: 100%;
-	max-height: 90%;
-	 
+/* 모달 텍스트 헤더 */
+.mung__modal__acc {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 1.2em 0.8em; 
+	border-bottom: 1px solid #ddd;
+	margin: 0;
+}
+
+/* 계정아이디 */
+.mung__modal__moveAcc {
+	width: 100%;
+	height: 20%;
+}
+
+.mung__modal__textBox {
+	width: 100%;
+	height: 60%;
+	border-bottom: 1px solid #ddd;
+	overflow: auto;
 }
 
 /* 컨텐츠 */
 #mung__modal__content {
-	width: 90%;
+	
 }
 
 /* 태그 목록 */
 #mung__modal__tag {
-	width: 90%;
+
 }
 
 /* 태그 */
-.mung__modal__tag {
+.mung__modal__tag:hover {
 	cursor: pointer;
-	font-size: 0.9em;
+	opacity: 0.5;
+}
+
+/* 댓글 목록 */
+#mung__modal__comment {
+	psdding: 0 0.8em;
+	overflow: auto;
+}
+
+
+/* 좋아요 */
+.mung__modal_likes {
+	width: 100%;
+	height: 10%;
+	border-bottom: 1px solid #ddd;
+}
+
+#mung__modal__likes {
+}
+
+/* 작성일 */
+#mung__postDay {
+	font-size: 0.8em;
 }
 
 /* 댓글입력창 */
 #mung__modal__inputComm {
 	max-width: 80%;
+	height: 100%;
+	border: 0;
 }
 
-/* 좋아요 */
-#mung__modal__likes {
-	font-size: 0.8em;
+/* 댓글전송 버튼 */
+#mung__modal__sbmitBtn {
+	background: none;
+	border: none;
 }
 
 /* 검색창 */
 #mung__searchTag {
 	width: 200px;
+}
+
+/* 모달창 close */
+.mung__close-btn {
+	font-size: 1em;
 }
 
 
@@ -178,6 +240,7 @@ div.mung__modal__img {
 $(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
+	
 	$("#exampleModal").on("show.bs.modal",function(e) {
 		//클릭한 게시글 post_num
 		var post_num=$(e.relatedTarget).data("num");
@@ -208,16 +271,16 @@ $(function() {
 				var src="mungSave/"+photo[img_idx];
 				//캐러셀 이미지에 들어갈 코드
 				var s1="";
-				s1+="<div class='carousel-item active'><div class='mung__modal__img'>";
-				s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-				s1+="</div></div>";
+				s1+="<div class='carousel-item active'>";
+				s1+="<img src='"+src+"' class='d-block w-100'>";
+				s1+="</div>";
 				//사진이 2장이상일 경우 사진개수만큼 코드 생성
 				if(img_idx>0) {
 					for(var i=img_idx-1; i>=0; i--) {
 						src="mungSave/"+photo[i];
-						s1+="<div class='carousel-item'><div class='mung__modal__img'>";
-						s1+="<img src='"+src+"' class='d-block w-100 modalImg'>";
-						s1+="</div></div>";
+						s1+="<div class='carousel-item'>";
+						s1+="<img src='"+src+"' class='d-block w-100'>";
+						s1+="</div>";
 					}    
 				}
 				//코드 추가
@@ -285,9 +348,9 @@ $(function() {
 	        		
 	        	});
 	        	
-	        	//게시글 댓글
-	        	$("#mung__comm__commNum").val(post_num);
-				
+	        	//작성일 출력
+	        	$("#mung__postDay").text(writeday);
+	        	
 				//댓글 추가 버튼 이벤트
 				$("#mung__modal__sbmitBtn").click(function() {
 					var content=$("#mung__modal__inputComm").val();
@@ -326,10 +389,18 @@ $(function() {
 		location.href="index.jsp?main=Mung/mungSearch.jsp?tag="+tag;
 	});
 	
+	/* //댓글창 입력시 이벤트
+	$("#mung__modal__inputComm").keyup(function() {
+		("#mung__modal__sbmitBtn").removeClass('text-muted').addClass("text-info");
+	}); */
+	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
+	
+	//게시글 삭제 이벤트
+	/* $("#") */
 	
 });
 
@@ -429,7 +500,6 @@ function insertComm(comm_num,content,dog_num) {
 	//검색한 게시글목록 출력
 	String tag=request.getParameter("tag");
 	List<MungPostDto> postList=dao.getSearchData(tag);
-	System.out.println(tag);
 %>
 <body>
 <div id="mumg__container">
@@ -495,7 +565,7 @@ function insertComm(comm_num,content,dog_num) {
 				int commSize=dao.getCommentSize(dto.getPost_num());
 			
 %>
-			<div class="col mb-4  " data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
+			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
 			    <div class="card text-center mung__img-box">
 			      <img src="mungSave/<%=photo %>" class="card-img mung__post-img">
 			      <div class="card-img-overlay">
@@ -574,7 +644,7 @@ function insertComm(comm_num,content,dog_num) {
 				int commSize=dao.getCommentSize(dto.getPost_num());
 			
 %>
-			<div class="col mb-4  " data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
+			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
 			    <div class="card text-center mung__img-box">
 			      <img src="mungSave/<%=photo %>" class="card-img mung__post-img">
 			      <div class="card-img-overlay">
@@ -600,92 +670,93 @@ function insertComm(comm_num,content,dog_num) {
 			
 	<!-- 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
+      <span aria-hidden="true" class="mung__close-btn">&times;</span>
+    </button>
 	  <div class="modal-dialog modal-size modal-dialog-centered">
 		<!-- close 버튼 -->	  
-	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mung__modal__closeBtn">
-	      <span aria-hidden="true">&times;</span>
-	    </button>
 	    <!-- 모달창 컨텐츠 -->
 	    <div class="modal-content modal-size">
 	      <div class="modal-body mung__post__modal">
 	       <div class="row">
-     		 <div class="col">
-		      	<!-- 이미지영역 -->
-	        		<%-- 캐러셀 --%>
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-					  <!-- Indicators -->
-					  <ol class="carousel-indicators" id="slideIdx">
-					    <%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
-					  </ol>
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner" role="listbox" id="slideImg">
-						<%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
-					  </div>
-					  <!-- Controls -->
-					 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-					</div>
-	        	</div>
-	        	<!-- 텍스트 영역 -->
-		        <div class="mung__modal__text col-5">
-		        	<!-- 게시글 작성한 계정 -->
-		        	<ul class="mung__modal__acc">
-		        		<!-- 프로필 -->
-		        		<li class="mung__modal__moveAcc">
-		        		 	<img id="mung__post__profile" class="mung__profile" src="">
-							<b id="mung__post__id"></b>
-		        		</li>
-		        		<!-- 삭제버튼 -->
-		        		<li>
-		        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							  <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-							</svg>
-		        		</li>
+		      <!-- 이미지영역 -->
+     		 <div class="col mung__modal__img">
+        		<%-- 캐러셀 --%>
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators" id="slideIdx">
+				    <%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
+				  </ol>
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox" id="slideImg">
+					<%-- 모달창 오픈시 스크립트에서 추가될 부분 --%>
+				  </div>
+				  <!-- Controls -->
+				 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+        	</div>
+        	<!-- 텍스트 영역 -->
+	        <div class="mung__modal__text col-4">
+	        	<!-- 게시글 작성한 계정 -->
+	        	<ul class="mung__modal__acc">
+	        		<!-- 프로필 -->
+	        		<li class="mung__modal__moveAcc">
+	        		 	<img id="mung__post__profile" class="mung__profile" src="">
+						<b id="mung__post__id"></b>
+	        		</li>
+	        		<!-- 삭제버튼 -->
+	        		<li>
+	        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+						</svg>
+	        		</li>
+	        	</ul>
+	        	<div class="mung__modal__textBox">
+		        	<!-- 게시글 내용 -->
+		        	<article id="mung__modal__content"><%-- 게시글 내용 출력 --%></article>
+		        	<div id="mung__modal__tag"><%-- 게시글 태그 출력 --%></div>
+		        	<!-- 게시글 댓글 목록 -->
+		        	<ul id="mung__modal__comment">
+		        		<%-- 댓글 리스트 출력 --%>
 		        	</ul>
-		        	<div class="mung__modal__textBox">
-			        	<!-- 게시글 내용 -->
-			        	<article id="mung__modal__content"><%-- 게시글 내용 출력 --%></article>
-			        	<div id="mung__modal__tag"><%-- 게시글 태그 출력 --%></div>
-			        	<!-- 게시글 댓글 목록 -->
-			        	<ul id="mung__modal__comment">
-			        		<%-- 댓글 리스트 출력 --%>
-			        	</ul>
+		        </div>		
 <%
-					/* 로그인한 경우에만 좋아요 및 댓글작성 가능 */
-					if(loginOk!=null && accId!="no") {
+				/* 로그인한 경우에만 좋아요 및 댓글작성 가능 */
+				if(loginOk!=null && accId!="no") {
 %>			        
-			        	<!-- 게시글 좋아요 -->
-			        	<div class="mung__modal_likes">
-			        		<span id="mung__likesIcon" class="empty">
-				        		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-								</svg>
-			        		</span>
-			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
-			        	</div> 
-			        </div>		
+		        	<!-- 게시글 좋아요/작성일 -->
+		        	<div class="mung__modal_likes">
+		        		<span id="mung__likesIcon" class="empty">
+			        		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+							</svg>
+		        		</span>
+		        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
+		        		<div id="mung__postDay" class="text-secondary"></div>
+		        	</div> 
 		        	<!-- 게시글 댓글추가 -->
 		        	<form id="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
-		        		<input type="text" id="mung__modal__inputComm">
-		        		<button type="button" id="mung__modal__sbmitBtn">등록</button>
+		        		<input type="text" id="mung__modal__inputComm" placeholder="댓글 달기...">
+		        		<button type="button" id="mung__modal__sbmitBtn" class="text-muted">등록</button>
 		        	</form>
 <%
-					}else {
+				}else {
 %>						
-						<!-- 게시글 좋아요 -->
-			        	<div class="mung__modal_likes">
-			        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
-			        	</div> 
-			        </div>
+					<!-- 게시글 좋아요/작성일 -->
+		        	<div class="mung__modal_likes">
+		        		<b id="mung__modal__likes"><%-- 게시글 좋아요 개수 출력 --%></b>
+		        		<div id="mung__postDay" class="text-secondary"></div>
+		        	</div> 
 <%
-					}
+				}
 %>		
 	   		   </div>
 	   	    </div> 
