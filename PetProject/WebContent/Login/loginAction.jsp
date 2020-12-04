@@ -21,7 +21,7 @@ UserDao dao=new UserDao();
 AccountDao adao=new AccountDao();
 String accId=adao.getDefault(id);
 
-if(accId.equals(""))
+if(accId==null||accId.equals(""))
 {
 	accId="no";
 }
@@ -57,7 +57,7 @@ case 3:
 	session.setAttribute("accId", accId);
 	//세션유지시간
 	session.setMaxInactiveInterval(60*60*3); //3시간
-	response.sendRedirect("../index.jsp");
+	response.sendRedirect("../index.jsp?main=Intro/intro.jsp");
 	break;
 }
 %>

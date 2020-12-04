@@ -25,9 +25,10 @@
 		String memo=multi.getParameter("accMemo");
 		String user_num=multi.getParameter("user_num");
 		String photo=multi.getFilesystemName("accPhoto");
-		
-		
-		
+		int sel_acc=Integer.parseInt(multi.getParameter("sel_acc"));
+
+		//System.out.println(breed+weight+age+gender+memo+photo+sel_acc);
+	
 		//dto에 넣기
 		AccountDto dto=new AccountDto();
 		dto.setAcc_name(acc_name);
@@ -38,17 +39,17 @@
 		dto.setPhoto(photo);
 		dto.setMemo(memo);
 		dto.setUser_num(user_num);
+		dto.setSel_acc(sel_acc);
 		
 		
 		//dao선언
-	
 		AccountDao dao=new AccountDao();
 
 		//메서드 호출
 		dao.insertAcc(dto);
 
 		//페이지로 이동
-		response.sendRedirect("../index.jsp?main=MyPage/accUpdate.jsp");
+		response.sendRedirect("../index.jsp?main=MyPage/accUpdateList.jsp");
 		
 		
 	}catch(Exception e){
