@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import data.dto.AccountDto;
 import data.dto.BookDto;
@@ -185,6 +186,126 @@ public class BookDao {
 			db.dbClose(conn, pstmt);
 		}
 	}
+	
+	public List<BookDto> getAllUserData(String user_num)
+	{
+		List<BookDto> list=new Vector<BookDto>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from book where user_num=?";
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_num);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				BookDto dto=new BookDto();
+				dto.setBook_num(rs.getString("book_num"));
+				dto.setPetcenter(rs.getString("petcenter"));
+				dto.setPetselect(rs.getString("petselect"));
+				dto.setStartday(rs.getString("startday"));
+				dto.setEndday(rs.getString("endday"));
+				dto.setDog_num(rs.getString("dog_num"));
+				
+
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return list;
+	}
+	
+	
+	public List<BookDto> getCurrentBook(String user_num)
+	   {
+	      String sql="select * from book where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and user_num=?;";
+	      List<BookDto> list=new ArrayList<BookDto>();
+	      Connection conn=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      conn=db.getMyConnection();
+	      
+	      
+	      try {
+	         pstmt=conn.prepareStatement(sql);
+	         pstmt.setString(1, user_num);
+	         rs=pstmt.executeQuery();
+	         //바인딩
+	         while(rs.next())
+	         {
+	        	BookDto dto=new BookDto();
+	        	dto.setBook_num(rs.getString("book_num"));
+				dto.setPetcenter(rs.getString("petcenter"));
+				dto.setPetselect(rs.getString("petselect"));
+				dto.setStartday(rs.getString("startday"));
+				dto.setEndday(rs.getString("endday"));
+				dto.setDog_num(rs.getString("dog_num"));
+				dto.setUser_num(rs.getString("user_num"));
+	            
+	            
+	            list.add(dto);
+	         }
+	         
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         db.dbClose(conn, pstmt);
+	      }
+	      return list;
+	   }
+	
+		public List<BookDto> getPastBook(String user_num)
+	   {
+	      String sql="select * from book where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?;";
+	      List<BookDto> list=new ArrayList<BookDto>();
+	      Connection conn=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      conn=db.getMyConnection();
+	      
+	      
+	      try {
+	         pstmt=conn.prepareStatement(sql);
+	         pstmt.setString(1, user_num);
+	         rs=pstmt.executeQuery();
+	         
+	         //바인딩
+	         while(rs.next())
+	         {
+	        	 BookDto dto=new BookDto();
+	        	dto.setBook_num(rs.getString("book_num"));
+				dto.setPetcenter(rs.getString("petcenter"));
+				dto.setPetselect(rs.getString("petselect"));
+				dto.setStartday(rs.getString("startday"));
+				dto.setEndday(rs.getString("endday"));
+				dto.setDog_num(rs.getString("dog_num"));
+				dto.setUser_num(rs.getString("user_num"));
+	            
+	            
+	            list.add(dto);
+	         }
+	         
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         db.dbClose(conn, pstmt);
+	      }
+	      return list;
+	   }
+	
+	
 }
 
 
