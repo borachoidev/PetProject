@@ -78,6 +78,7 @@ public class AdoptDao {
 				dto.setAdopt_name(rs.getString("adopt_name"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
 				dto.setUser_num(rs.getString("user_num"));
+				dto.setLikes(rs.getInt("likes"));
 				list.add(dto);
 				
 			}
@@ -117,6 +118,8 @@ public class AdoptDao {
 				dto.setPhoto(rs.getString("photo"));
 				dto.setAdopt_name(rs.getString("adopt_name"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setLikes(rs.getInt("likes"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -296,6 +299,56 @@ public class AdoptDao {
 		}finally {
 			db.dbClose(conn, pstmt);
 		}
+	}
+	
+	public void updateAdopt(AdoptDto dto)
+	{
+		String sql="update adopt set age=?, gender=?, breed=?, vaccine=?, adopt_name=?, user_num=?, photo=?, content=? where adopt_num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getPhoto());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getAdopt_num());
+			pstmt.setString(4, dto.getAge());
+			pstmt.setString(5, dto.getGender());
+			pstmt.setString(6, dto.getBreed());
+			pstmt.setString(7, dto.getVaccine());
+			pstmt.setString(8, dto.getAdopt_name());
+			pstmt.setString(9, dto.getUser_num());
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt);
+		}
+		
+	}
+	
+	public void adoptUpdateLikes(String adopt_num)
+	{
+		String sql="update adopt set likes=likes+1 where adopt_num=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, adopt_num);
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt);
+		}
+		
 	}
 	
 			

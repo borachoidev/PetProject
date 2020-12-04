@@ -8,5 +8,6 @@
 </head>
 <body>
 <button type="button" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정분양</button>
+<button type="button" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기분양</button>
 </body>
 </html>

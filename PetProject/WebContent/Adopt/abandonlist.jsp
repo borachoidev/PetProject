@@ -1,9 +1,9 @@
 <%@page import="data.dto.AdoptCommentDto"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.NumberFormat"%>
-<%@page import="data.dto.AdoptDto"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="api.data.AbandonDto"%>
 <%@page import="java.util.List"%>
-<%@page import="data.dao.AdoptDao"%>
+<%@page import="api.data.Abandon"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,16 +38,19 @@
          e.preventDefault();        
          var adopt_num=$(this).attr("adopt_num");
          var user_num=$(this).attr("user_num");
-         location.href="index.jsp?main=Adopt/detailpage.jsp?adopt_num="+adopt_num+"&user_num="+user_num;
+         location.href="index.jsp?main=Adopt/detailpage2.jsp?adopt_num="+adopt_num+"&user_num="+user_num;
       });
    });
 </script>
 </head>
 <%
 //dao 선언
-AdoptDao dao=new AdoptDao();
+
+request.setCharacterEncoding("utf-8");
+Abandon dao = new Abandon();
+
 //세션으로 부터 key, value 가져오기
-int totalCount=dao.getTotalCount();
+int totalCount=60;
 int perPage=8;//한페이지당 보여질 글의 갯수
 int perBlock=3;//한블럭당 출력할 페이지의 갯수
 int totalPage;//총 페이지의 갯수
@@ -82,7 +85,8 @@ start=(currentPage-1)*perPage;
 int no=totalCount-(currentPage-1)*perPage;
 
 //출력할 목록 가져오기
-List<AdoptDto> list=dao.getAlldogs(start, perPage);
+List<AbandonDto> list = dao.getAbandonList();
+/* List<AdoptDto> list=dao.getAlldogs(start, perPage); */
 
 /* String adopt_num=request.getParameter("adopt_num"); */
 
@@ -92,7 +96,7 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 <body>
 	<div id="adopt__container">
 		<header>
-			<h2>가정 분양 게시판</h2>
+			<h2>유기견 분양 게시판</h2>
 		</header>
 		<main>
 			<div class="board">
@@ -102,18 +106,16 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 			      SimpleDateFormat sdf=new SimpleDateFormat("yyyy년MM월dd일");
 			      NumberFormat nf=NumberFormat.getCurrencyInstance();
 			      int e=0;
-			      for(AdoptDto dto:list)
+			      for(AbandonDto dto:list)
 			      {
-			         String photo=dto.getPhoto().split(",")[0]; 
-			         List<AdoptCommentDto> alist=dao.getCommentList(dto.getAdopt_num());
+			         String photo=dto.getPopfile().split(",")[0]; 
 			      %> 
 			         <td>
-			         <a adopt_num="<%=dto.getAdopt_num()%>"
-			            user_num="<%=dto.getUser_num()%>"
+			         <a desertionNo="<%=dto.getDesertionNo()%>"
 			            style="cursor:pointer;" class="godetail">
-			            <img src="adoptsave/<%=photo%>" class="photo">
-			            <br><%=dto.getBreed()%> <%=dto.getAge()%>개월 분양 [<%=alist.size() %>]        
-			            <br><%=sdf.format(dto.getWriteday()) %> 💛:<%=dto.getLikes() %>         
+			            <img src="<%=photo%>" class="photo">
+			            <br><%=dto.getKindcd()%> <%=dto.getAge()%>     
+			            <br><%=dto.getNoticeSdt()%>       
 			         </a>
 			         </td>
 			         <%
@@ -134,12 +136,12 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 							//이전
 							if(startPage>1)
 							{%>
-								<li><a href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=startPage-1%>">
+								<li><a href="index.jsp?main=Adopt/abandonlist.jsp?pageNum=<%=startPage-1%>">
 								이전</a></li>
 							<%}
 							for(int i=startPage;i<=endPage;i++)
 							{
-								String url="index.jsp?main=Adopt/adoptlist.jsp?pageNum="+i;
+								String url="index.jsp?main=Adopt/abandonlist.jsp?pageNum="+i;
 								
 								if(e==currentPage)
 								{%>
@@ -151,28 +153,12 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 							//다음 
 							if(endPage<totalPage)
 							{%>
-								<a href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">
+								<a href="index.jsp?main=Adopt/abandonlist.jsp?pageNum=<%=endPage+1%>">
 								다음</a>
 							<%}
 						%>
 							</ul>	
-						<div id="btn__add">
-						  <button type="button" class="btn btn-info"style="width: 150px;"
-						  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">강아지 등록</button>
-						   <%String loginOk=(String)session.getAttribute("loginOk");	
-							String myId=(String)session.getAttribute("myId"); 
-							if(loginOk==null){%>
-							<script>
-							$("#btn_add").hide();
-							</script>
-						<%}else{
-							if(loginOk.equals("success")){%>
-							<script>
-							$("#btn_add").show();
-							</script>
-							<%}
-						}
-						%>
+										
 						</div>
 					<%}
 					%>

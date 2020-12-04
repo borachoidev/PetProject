@@ -23,10 +23,10 @@ String user_num=dao.getNum(myId);
 
 <body>
    <div class="">
-   <form action="Adopt/addaction.jsp" method="post"
+   <form action="./updateaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
       <table class="" style="width: 1000px;">
-         <caption><b>강아지 등록</b></caption>
+         <caption><b>강아지 정보 수정</b></caption>
          <tr>
             <td>
                <span>이름</span>
@@ -71,7 +71,7 @@ String user_num=dao.getNum(myId);
             <td>
                <span>예방접종</span>
                <input type="checkbox" id="check">
-               <input type="hidden" name="vaccine" id="vaccine" value="예방접종 X" />
+               <input type="hidden" name="vaccine" id="vaccine" value="0" />
                   <script type="text/javascript">
       $("#check").click(function(){
     	 if($(this).prop("checked")){
@@ -95,7 +95,7 @@ String user_num=dao.getNum(myId);
          <tr>
             <td>
                <textarea name="content" required="required"
-               style="width: 800px; height: 150px;"></textarea>
+               style="width: 400px; height: 150px;"></textarea>
             </td>
          </tr>   
          <tr>
@@ -106,7 +106,7 @@ String user_num=dao.getNum(myId);
          <tr>
             <td colspan="2" align="center">
                <button type="submit" class="btn btn-info"
-               style="width: 100px;">등록</button>
+               style="width: 100px;">수정</button>
             </td>
          </tr>   
       </table>
