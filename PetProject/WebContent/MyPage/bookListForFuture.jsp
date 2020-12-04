@@ -65,7 +65,7 @@
 		if(check){
 			location.href="MyPage/deleteBookAction.jsp?num="+num;
 		}else{
-			location.href="index.jsp?main=MyPage/bookListForFuture";
+			location.onLoad();
 		}
 	});
 </script>
