@@ -81,7 +81,7 @@ List<BookDto> plist=bdao.getPastBook(user_num);
 	<tr bgcolor="#66cdaa">
 		<td style="width:60px;" align="center">예약넘버</td>
 		<td style="width:100px;" align="center">센터명</td>
-		<td style="width:120px;" align="center">애견이름</td>
+		<td style="width:120px;" align="center">예약코스</td>
 		<td style="width:120px;" align="center">시작일</td>
 		<td style="width:120px;" align="center">종료일</td>
 		<td style="width:120px;" align="center">후기</td>
@@ -91,15 +91,17 @@ List<BookDto> plist=bdao.getPastBook(user_num);
 	for(BookDto dto:plist)
 		{%>
 		
-		<input type="hidden" name="dog_num" id="dog_num" value="">
+		<input type="hidden" name="user_num" id="user_num" value="<%=user_num%>">
+		
 		<tr bgcolor="white">
-		<td style="width:60px;" align="center" name="bookNum">bookNum</td>
-		<td style="width:100px;" align="center" name="bookCenter">bookCenter</td>
-		<td style="width:120px;" align="center" name="accName">accName</td>
-		<td style="width:120px;" align="center" name="bookStartDay">bookStartDay</td>
-		<td style="width:120px;" align="center" name="bookEndDay">bookEndDay</td>
-		<td style="width:120px;" align="center">
-			<button user_num="" type="button" class="book__2 btn btn-danger btn-sm" >후기쓰기</button>
+		<td style="width:60px;" align="center" name="bookNum"><%=dto.getBook_num()%></td>
+		<!--  <td style="width:120px;" align="center" name="accName"></td>-->
+		<td style="width:120px;" align="center" name="bookCenter"><%=dto.getPetcenter()%></td>
+		<td style="width:120px;" align="center" name="bookSelect"><%=dto.getPetselect()%></td>
+		<td style="width:120px;" align="center" name="bookStartDay"><%=dto.getStartday()%></td>
+		<td style="width:120px;" align="center" name="bookEndDay"><%=dto.getEndday()%></td>
+		
+			<td><button user_num="" type="button" class="book__2 btn btn-danger btn-sm" >후기쓰기</button>
 			<!-- <button dog_num2="" type="button" class="book__1 btn btn-danger btn-sm" 
 			onclick="index.jsp?main=MyPage/reviewList.jsp?dog_num='">내글보기</button> -->
 		</td>

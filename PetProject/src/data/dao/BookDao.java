@@ -228,7 +228,7 @@ public class BookDao {
 	
 	public List<BookDto> getCurrentBook(String user_num)
 	   {
-	      String sql="select * from book where str_to_date(startday, '%Y/%m/%d') <= now() and user_num=?;";
+	      String sql="select * from book where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and user_num=?;";
 	      List<BookDto> list=new ArrayList<BookDto>();
 	      Connection conn=null;
 	      PreparedStatement pstmt=null;
