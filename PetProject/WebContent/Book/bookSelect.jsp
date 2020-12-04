@@ -114,7 +114,7 @@
 			</select>
 			<!-- <div id="tmdals" name ="bookday">달력에서 날짜를 클릭해주세요</div> -->
 			<input type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-			
+			<input type="text" name ="endDay" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
 			<input type="text" name="petselect" id="petselect" placeholder="과정을 클릭해주세요" required="required"> 
 			
 			<button type="submit">가자잉</button>
@@ -140,9 +140,69 @@
       year = document.getElementById("select_year").innerHTML;
       month = document.getElementById("select_month").innerHTML;
       date = date.innerHTML;
+      var endMonth = parseInt(month) + 1;
+      var endDate = date;
       
-      document.getElementById("startday").value = year + '년 ' + month + '월 ' + date + '일';
       
+      
+      if(year==today.getFullYear() && month == today.getMonth()+1 && date<today.getDate())
+    	  {
+    	  	alert("현재날짜 이후로 선택해 주세요");
+    	  }else if(year < today.getFullYear())
+    	  {
+    		alert("현재날짜 이후로 선택해 주세요");
+    	  }else if(year == today.getFullYear() && month < today.getMonth()+1){
+    		alert("현재날짜 이후로 선택해 주세요");  
+    	  }else{
+    		  document.getElementById("startday").value = year + '년 ' + month + '월 ' + date + '일';
+    		  if(month == 12)
+    	      	{
+    	      		var endMonth = 1;
+    	      		var year = parseInt(year) + 1;
+    	      	}
+    		  if(month == 1 && date > 28)
+  	      		{
+    			  if(year%4==0 && year%100!=0 || year%400==0)
+    				  var endDate = 29;
+    			  else
+    				  var endDate = 28;
+  	      		}
+    		  if(month == 3 && date > 30)
+	      		{
+  			  		var endDate = 30;
+	      		}
+    		  if(month == 5 && date > 30)
+	      		{
+			  		var endDate = 30;
+	      		}
+    		  if(month == 8 && date > 30)
+	      		{
+			  		var endDate = 30;
+	      		}
+    		  if(month == 10 && date > 30)
+	      		{
+			  		var endDate = 30;
+	      		}
+    		  /* switch(month){
+    		  case 1:
+    			  if(year%4==0 && year%100!=0 || year%400==0)
+    				  var endDate = 29;
+    			  else
+    				  var endDate = 28;
+    			  break;
+    		  case 3 && date > 30: case 5 && date > 30: case 8 && date > 30: case 10 && date > 30:
+    			  var endDate = 30;
+    			  break;
+    		  default:
+    		  	  break;
+    		  } */
+    		  var endDay = year + '년 ' + endMonth + '월 ' + endDate + '일 ';
+    		  document.getElementById("endDay").value = endDay;
+    	  }
+      
+      
+      	
+     	 
    }
    
    function buildCalendar(year,month){

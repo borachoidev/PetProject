@@ -60,7 +60,6 @@ String myId = (String)session.getAttribute("myId");
 BookDao bdao = new BookDao();
 
 List<HashMap<String,String>> list = bdao.getPuppyList(myId);
-
 int a = 1;
 
 
@@ -94,7 +93,6 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 						{
 							HashMap<String,String> map = list.get(0);
 							
-							
 						%>
 							예약자: <input name="user_name" type="text" value="<%=map.get("user_name") %>"><br>
 							핸드폰: <input name="hp" type="text" value="<%=map.get("hp") %>"><br>
@@ -117,7 +115,7 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 					%>
 					</select>
 					<hr>
-					
+				
 				</div>
 				<div class="bookadd__box2">
 					과  정 : <input type="text" name="petselect" value="<%=petselect%>" readonly="readonly"><br> 

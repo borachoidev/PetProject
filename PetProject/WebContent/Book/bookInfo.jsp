@@ -20,13 +20,12 @@
 	.book__choice2, .book__choice3, .book__choice4{
 		background-color: #ddd;
 	}
-	/* .book__choice1 a, .book__choice2 a, .book__choice3 a, .book__choice4 a{
+	 .book__choice1 a, .book__choice2 a, .book__choice3 a, .book__choice4 a{
 		pointer-events: none;
-	}  */
+	} 
 	.bookinfo__mainbox{
 		width:100%; 
 		height: 500px;
-		border: 1px solid red;
 		text-align: center;
 	}
 	
