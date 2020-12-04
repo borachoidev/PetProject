@@ -38,16 +38,32 @@
 		display: block;
 	}
 	
-   	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 142px;margin-left: -144px;text-align: left;overflow: auto;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+	.rating i{
+		color: gray;
+	}
+	
+	.star{
+		color:orange;
+	}
+	.star_rating .star{
+		width: 0;
+		overflow:hidden;
+	}
+	.star_rating .star-wrap{
+		display:inline-block;
+		vertical-align: middle;
+	}
+	
+   	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 142px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: auto;background: #fff;}
+    .wrap .info {width: 286px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
     .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: auto;}
     .info .desc {position: relative;margin: 10px 0 0 90px;height: 95px;}
-    .desc .ellipsis {overflow: auto;text-overflow: auto;white-space: nowrap;}
+    .desc .ellipsis {overflow: hidden;text-overflow: hidden;white-space: nowrap;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
 	
@@ -123,7 +139,7 @@
                         // 마커를 결과값으로 받은 위치로 옮긴다.
                         marker.setPosition(coords);
                         
-                        alert("검색성공: " + yPos + ", " + xPos + ", " + addr);
+                        //alert("검색성공: " + yPos + ", " + xPos + ", " + addr);
                         
                     }
                 });
@@ -162,7 +178,7 @@
 	            // 마커를 결과값으로 받은 위치로 옮긴다.
 	            marker.setPosition(coords);
 	            
-	            alert("비로그인시: " + yPos + ", " + xPos + ", " + addr);
+	            //alert("비로그인시: " + yPos + ", " + xPos + ", " + addr);
 	            
 			} 
 		});
@@ -190,7 +206,7 @@
 					// 마커를 결과값으로 받은 위치로 옮긴다.
 					marker.setPosition(coords);
 					
-					alert("로그인상태: " + yPos + ", " + xPos + ", " + addr);
+					//alert("로그인상태: " + yPos + ", " + xPos + ", " + addr);
 					
 				}
 			});
@@ -220,7 +236,7 @@
 	                // 마커를 결과값으로 받은 위치로 옮긴다.
 	                marker.setPosition(coords);
 	                
-	                alert("위치미동의계정: " + yPos + ", " + xPos + ", " + addr);
+	                //alert("위치미동의계정: " + yPos + ", " + xPos + ", " + addr);
 	                
 				} 
 			});
@@ -299,6 +315,8 @@
 									success: function(data){
 										var average = $(data).find("average").text();
 										$starAverage.text("("+average+")");
+										$star_rating.attr("data-rate",average);
+										starRating();
 									}
 								});
 							};
@@ -358,13 +376,30 @@
 							    overlay.setMap(null);
 							};
 							
-							function fillStars(){
+							var fillStars = function(){
 					    		var userScoreNum = $("#makeStar option:selected").val();
-					    		alert(userScoreNum);
-					    		$(".rating i").css({color:'#000'});
-					    		$('.rating i:nth-child(-n+' + userScoreNum + ')').css({color:'#F05522'});
-					    	}
+					    		$(".rating i").css({color:'gray'});
+					    		$('.rating i:nth-child(-n+' + userScoreNum + ')').css({color:'orange'});
+					    	};
 							
+					    	function starRating(){
+					    		var rating = $('.star_rating');
+						    	var targetScore = rating.attr('data-rate');
+						    	rating.each(function(){
+						    		var digit = targetScore.split('.');
+						    		if(digit.length > 1){
+						    			for(var i=0; i<digit[0]; i++){
+						    				rating.find('.star').eq(i).css({width: "100%"});
+						    			}
+						    			rating.find('.star').eq(digit[0]).css({width: digit[1]+'0%'});
+						    		}else{
+						    			for(var i=0; i<targetScore; i++){
+						    				rating.find('.star').eq(i).css({width: '100%'});
+						    			}
+						    		}
+						    	});
+					    	};
+					    	
 							var $wrap = $('<div class="wrap" />');
 							var $info = $('<div class="info" />');
 							var $title = $('<div class="title" />').text(place_name);
@@ -373,22 +408,31 @@
 							var $desc = $('<div class="desc" />');
 							var $ellipsis1 = $('<div class="ellipsis" />').text(road_address_name);
 							var $ellipsis2 = $('<div class="ellipsis" />');
-							var $url = $('<a class="link" />').attr({href:place_url, target:"_blank"});
-							$url = $('<a class="link" />').text("홈페이지");
-							var $ellipsis3 = $('<div class="ellipsis" />').text("별점 : ");
-							var $starAverage = $('<span class="ellipsis" />');
+							var $url = $('<a class="link" href="' +place_url+ '" target="_blank"/>').text("홈페이지");
+							var $ellipsis3 = $('<div class="ellipsis" />');
+							
+							
+							var $grade = $('<div class="grade" />');
+							var $star_rating = $('<div class="star_rating" data-rate="5">');
+							var $text = $('<div class="star-wrap">별점 : </div>')
+							var $star1 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
+							var $star2 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
+							var $star3 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
+							var $star4 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
+							var $star5 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
+							var $starAverage = $('<div class="star-wrap" />');
+							
 							var $make_star = $('<div id="make_star" class="make_star" />');
-							var $makeStar = $('<select name="star" id="makeStar" />');
-							$makeStar.change(fillStars());
-							var $option1 = $('<option class="op" value="1" selected="selected"/>').text("1점");
-							var $option2 = $('<option class="op" value="2" />').text("2점");
-							var $option3 = $('<option class="op" value="3" />').text("3점");
-							var $option4 = $('<option class="op" value="4" />').text("4점");
-							var $option5 = $('<option class="op" value="5" />').text("5점");
+							var $makeStar = $('<select class="makeStar" id="makeStar" />').change(fillStars);
+							var $option1 = $('<option value="1" selected="selected"/>').text("1점");
+							var $option2 = $('<option value="2" />').text("2점");
+							var $option3 = $('<option value="3" />').text("3점");
+							var $option4 = $('<option value="4" />').text("4점");
+							var $option5 = $('<option value="5" />').text("5점");
 							var $rating = $('<span class="rating"><i class="fas fa-star"></i>' +
 							'<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>' +
 							'<i class="fas fa-star"></i></span>');
-							//var $star = $('<i class="fas fa-star" />');
+							var $star = $('<i class="fas fa-star" />');
 							var $overxPos=$('<input type="hidden" value="'+x+'">');
 							var $overyPos=$('<input type="hidden" value="'+y+'">');
 							var $btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').text("별점추가");
@@ -400,7 +444,9 @@
 							$body.append($desc);
 							$desc.append($ellipsis1).append($ellipsis2).append($ellipsis3);
 							$ellipsis2.append($url);
-							$ellipsis3.append($starAverage);
+							$ellipsis3.append($grade);
+							$grade.append($star_rating);
+							$star_rating.append($text).append($star1).append($star2).append($star3).append($star4).append($star5).append($starAverage);
 							<%
 							if(loginOk == null || loginOk.equals("no")){
 								// 비로그인시 별점추가 form hide
@@ -414,10 +460,10 @@
 							%>
 							$make_star.append($makeStar).append($rating).append($btn_add);
 							$makeStar.append($option1).append($option2).append($option3).append($option4).append($option5);
-							//$rating.append($star).append($star).append($star).append($star).append($star);
 							
 							var content = $wrap[0];
-						
+							
+							console.log(content);
 					        // 마커 위에 커스텀오버레이를 표시합니다
 					        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 					        var overlay = new kakao.maps.CustomOverlay({
