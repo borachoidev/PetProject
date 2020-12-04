@@ -135,7 +135,7 @@ function readUrl(input,idx,file) {
 %>
 <body>
 <%
-	if(loginOk!=null) {
+	if(loginOk!=null && accId!="no") {
 %>
 <div id="mumg__container">
 	<ul class="mung__nav">

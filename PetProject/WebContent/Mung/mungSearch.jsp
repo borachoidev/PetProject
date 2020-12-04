@@ -179,11 +179,12 @@ div.mung__post__modal {
 
 /* 컨텐츠 */
 #mung__modal__content {
+	margin: 1em 0 0 0;
 }
 
 /* 태그 목록 */
 #mung__modal__tag {
-
+	margin: 1em 0 0 0;
 }
 
 /* 태그 */
@@ -194,6 +195,7 @@ div.mung__post__modal {
 
 /* 댓글 목록 */
 #mung__modal__comment {
+	margin: 2em 0 0 0;
 	psdding: 0 0.8em;
 	width: 90%;
 }
@@ -204,7 +206,8 @@ div.mung__post__modal {
 	width: 100%;
 	height: 10%;
 	border-bottom: 1px solid #ddd;
-	padding-left: 1em;
+	padding: 1% 1em;
+	align-items: center;
 }
 
 #mung__modal__likes {
@@ -230,19 +233,43 @@ div.mung__post__modal {
 	font-size: 0.8em;
 }
 
+/* 댓글입력 */
+.mung__modal__addComm {
+	height: 10%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 0.5em 1em;
+}
+
 /* 댓글입력창 */
 #mung__modal__inputComm {
 	max-width: 80%;
-	width: 80%;
-	padding-left: 1em;
-	height: 100%;
+	font-size: 1em;
 	border: 0;
+	display: inline-flex;
+	background-color:transparent;
 }
 
+#mung__modal__inputComm:focus {
+	outline: none;
+	box-shadow: 0;
+}
+
+
+
 /* 댓글전송 버튼 */
-#mung__modal__sbmitBtn {
+#mung__modal__submitBtn {
+	max-width: 20%;
 	background: none;
 	border: none;
+	font-size: 0.9em;
+	display: inline-flex;
+	margin-left: 1em;
+	white-space: nowrap;
+	
 }
 
 /* 검색창 */
@@ -253,6 +280,12 @@ div.mung__post__modal {
 /* 모달창 close */
 .mung__close-btn {
 	font-size: 1em;
+}
+
+/* 게시글 삭제버튼 */
+#mung__delPost:hover {
+	cursor: pointer;
+	color: #9a0007;
 }
 
 
@@ -326,6 +359,25 @@ $(function() {
 	        	$("#mung__post__profile").attr("src","AccSave/"+postProfile);
 	        	$("#mung__post__id").text(postAccId+' ('+postUserId+')');
 				
+	        	//게시글 삭제 버튼(작성자에게만 출력)
+	        	var accId=$("#mung__delPost").attr("accId");
+				if(accId==postAccId) {
+		        	var del_html="";
+					del_html+="<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-trash' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>";
+					del_html+="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
+					del_html+="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";
+					del_html+="</svg>";
+		        	$("#mung__delPost").html(del_html);
+				}				
+	        	
+	        	//게시글 삭제버튼 이벤트
+	        	$("#mung__delPost").click(function() {
+	        		var result=confirm('해당 게시글을 삭제하시겠습니까?');
+	        		if(result) {
+	        			location.href="index.jsp?main=Mung/mungPostDelAction.jsp?post_num="+post_num;
+	        		}
+	        	});
+	        	
 	        	//게시글 내용
 	        	$("#mung__modal__content").html(content);
 	        	
@@ -373,12 +425,18 @@ $(function() {
 	        	$("#mung__postDay").text(writeday);
 	        	
 				//댓글 추가 버튼 이벤트
-				$("#mung__modal__sbmitBtn").click(function() {
+				$("#mung__modal__submitBtn").click(function() {
 					var content=$("#mung__modal__inputComm").val();
 					var dog_num=$("#mung__modal__commNum").val();
-					insertComm(post_num, content, dog_num);
-					$("#mung__modal__inputComm").val("");
+					
+					if(content!='') {
+						insertComm(post_num, content, dog_num);
+						$("#mung__modal__inputComm").val("");
+					}else {
+						alert('내용을 입력해주세요!')
+					}
 				});
+				
 			},error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
@@ -410,18 +468,19 @@ $(function() {
 		location.href="index.jsp?main=Mung/mungSearch.jsp?tag="+tag;
 	});
 	
-	/* //댓글창 입력시 이벤트
-	$("#mung__modal__inputComm").keyup(function() {
-		("#mung__modal__sbmitBtn").removeClass('text-muted').addClass("text-info");
-	}); */
+	//댓글창 입력시 이벤트
+	$("#mung__modal__inputComm").keydown(function() {
+		$("#mung__modal__submitBtn").removeClass().addClass("text-primary");
+	if($("#mung__modal__inputComm").val()=='') {
+		$(this).next().removeClass().addClass("text-muted");
+	}
+	});
 	
 	//모달창 닫힐 때 모달창 내의 데이터 초기화
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		location.reload();
 	});
 	
-	//게시글 삭제 이벤트
-	/* $("#") */
 	
 });
 
@@ -519,9 +578,9 @@ function insertComm(comm_num,content,dog_num) {
 	AccountDto accDto=dao.getAccountData(accId);
 	String dog_num=dao.getAccount(accId);
 	//검색한 게시글목록 출력
-	String tag=request.getParameter("tag");
-	List<MungPostDto> postList=dao.getSearchData(tag);
-	System.out.println(tag);
+		String tag=request.getParameter("tag");
+		List<MungPostDto> postList=dao.getSearchData(tag);
+		System.out.println(tag);
 %>
 <body>
 <div id="mumg__container">
@@ -733,11 +792,9 @@ function insertComm(comm_num,content,dog_num) {
 	        		 	<img id="mung__post__profile" class="mung__profile" src="">
 						<b id="mung__post__id"></b>
 	        		</li>
-	        		<!-- 삭제버튼 -->
-	        		<li>
-	        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						  <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-						</svg>
+	        		<!-- 게시글 삭제버튼 -->
+	        		<li id="mung__delPost" accId=<%=accId %>>
+						<%-- 게시글 작성자일 경우에만 버튼 출력 --%>		
 	        		</li>
 	        	</ul>
 	        	<div class="mung__modal__textBox">
@@ -764,10 +821,10 @@ function insertComm(comm_num,content,dog_num) {
 		        		<div id="mung__postDay" class="text-secondary"></div>
 		        	</div> 
 		        	<!-- 게시글 댓글추가 -->
-		        	<form id="mung__modal__addComm">
+		        	<form class="mung__modal__addComm">
 		        		<input type="hidden" id="mung__modal__commNum" value="<%=dog_num%>">
-		        		<input type="text" id="mung__modal__inputComm" placeholder="댓글 달기...">
-		        		<button type="button" id="mung__modal__sbmitBtn" class="text-muted">등록</button>
+		        		<input type="text"  id="mung__modal__inputComm" placeholder="댓글 달기...">
+		        		<button type="button" id="mung__modal__submitBtn" class="text-muted"><b>게시</b></button>
 		        	</form>
 <%
 				}else {
@@ -785,6 +842,7 @@ function insertComm(comm_num,content,dog_num) {
   		 </div>
  	  </div>
  	</div> 
+ </div>	
 </div>
 </body>
 </html>

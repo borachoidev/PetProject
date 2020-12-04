@@ -43,6 +43,8 @@
 		arrOb.put("writeday", commList.get(i).getWriteday());
 		String commProfile=dao.getAccProfile(commList.get(i).getDog_num());
 		arrOb.put("commProfile", commProfile);
+		String commAccId=dao.getAccountId(commList.get(i).getDog_num());
+		arrOb.put("commAccId", commAccId);
 		jArray.add(arrOb);
 	}
 	ob.put("commList", jArray);
