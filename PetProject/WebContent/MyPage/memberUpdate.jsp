@@ -13,94 +13,25 @@
 <style type="text/css">
 
 .memeber__container {
-	margin-top:3em;
+margin-top:3em;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	width:100%;
+	flex-wrap: wrap;
 }
 
-.member__form {
+ .member__form{
 	display: flex;
 	flex-direction: column;
+	width:50%;
+} 
+@media (max-width:800px){
+.member__form {
 	width:100%;
 }
 
-input {
-	text-rendering: auto;
-	color: -internal-light-dark(black, white);
-	letter-spacing: normal;
-	word-spacing: normal;
-	text-transform: none;
-	text-indent: 0px;
-	text-shadow: none;
-	text-align: start;
-	appearance: textfield;
-	background-color: -internal-light-dark(rgb(255, 255, 255),
-		rgb(59, 59, 59));
-	-webkit-rtl-ordering: logical;
-	cursor: text;
-}
-
-.m_form {
-	margin: 0.2em 0;
-	font-size: 1em;
-	padding: 0.5em;
-	border: 1px solid #ccc;
-	border-color: #dbdbdb #d2d2d2 #d0d0d0 #d2d2d3;
-	box-shadow: inset 0.1em 0.1em 0.15em rgba(0, 0, 0, 0.1);
-	vertical-align: middle;
-	line-height: 1.25em;
-	outline: 0;
-	width: 20em;
-	border-radius: 0.7em;
-}
-
-button {
-	padding: 0.5em 1em;
-	margin: 0.4em 0.15em;
-	border: 1px solid #dbdbdb;
-	cursor: pointer;
-	color: #464646;
-	border-radius: 0.7em;
-	vertical-align: middle;
-	font-size: 1em;
-	line-height: 1.25em;
-	background-color: #efefef;
-}
-
-select {
-	padding: 0 2em 0 1em;
-	-webkit-border-radius: 0;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background: #fff url(Image/select_arrow.png) no-repeat 100% 50%;
-	background-size: 1.5em;
-	border: 1px solid #d7d7d7;
-	color: #777;
-	height: 2.38em;
-	vertical-align: middle;
-	border-radius: 0.7em;
-}
-
-
-.readonly {
-	background-color: #ebebeb;
-}
-
-.small{
-width:5em;
-}
-
-.large{
-width:16em;
-}
-
-.medium{
-width:8em;
-}
 </style>
 <script type="text/javascript">
       //우편번호 찾기 API
@@ -186,11 +117,11 @@ width:8em;
 					<span>* 필수입력사항</span>
 					<!--아이디-->
 					<span>아이디</span>
-					<input type="text" class="m_form large readonly" readonly value="<%=dto.getId()%>"/> 
+					<input type="text" class="all__form large readonly" readonly value="<%=dto.getId()%>"/> 
 						<span class="id-check"></span>
 					<!--이름-->
 					<span>이름 
-					</span><input type="text" class="m_form large readonly" readonly value="<%=dto.getUser_name()%>"/>
+					</span><input type="text" class="all__form large readonly" readonly value="<%=dto.getUser_name()%>"/>
 					
 					<!--휴대폰-->
 					<span>휴대폰 * </span>
@@ -203,16 +134,16 @@ width:8em;
 							<option>017</option>
 							<option>018</option>
 							<option>019</option>
-					</select> <span>-</span> <input type="text" name="hp2" id="hp2" class="m_form small"
+					</select> <span>-</span> <input type="text" name="hp2" id="hp2" class="all__form small"
 						pattern="\d{4}" title="숫자만 입력가능합니다" maxlength="4" required  value="<%=hp2 %>"/> <span>-</span>
-						<input type="text" name="hp3" id="hp3" class="m_form small" pattern="\d{4}"
+						<input type="text" name="hp3" id="hp3" class="all__form small" pattern="\d{4}"
 						title="숫자만 입력가능합니다" maxlength="4" required  value="<%=hp3 %>"/>
 					</div>
 					<!--이메일-->
 					<span>이메일 *</span>
 					<div>
-					<input type="text" name="email1" class="m_form medium" placeholder="이메일주소" required value="<%=email1%>"/> <span>@</span> 
-						<input type="text" class="m_form medium" name="email2" id="email2" placeholder="이메일주소" required value="<%=email2 %>" /> 
+					<input type="text" name="email1" class="all__form medium" placeholder="이메일주소" required value="<%=email1%>"/> <span>@</span> 
+						<input type="text" class="all__form medium" name="email2" id="email2" placeholder="이메일주소" required value="<%=email2 %>" /> 
 						<select id="email3">
 							<option disabled selected>선택하세요</option>
 							<option value="gmail.com">gmail.com</option>
@@ -234,13 +165,18 @@ width:8em;
 					<!-- 주소 -->
 					<span>주소 </span>
 					<div>
-						<input type="text" id="postcode" class="m_form readonly medium" placeholder="우편번호" name="zipcode" readonly value="<%=dto.getZipcode()==null?"":dto.getZipcode() %>"/>
-							<button type="button" onclick="searchPostcode()">우편번호 찾기</button></div>
+						<input type="text" id="postcode" class="all__form readonly medium" placeholder="우편번호" name="zipcode" readonly value="<%=dto.getZipcode()==null?"":dto.getZipcode() %>"/>
+							<button type="button" onclick="searchPostcode()" class="button">
+								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+								  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+								</svg>
+							</button></div>
 						
-							 <div><input type="text" id="roadAddress" class="m_form readonly large" placeholder="도로명주소" name="road_addr" readonly value="<%=dto.getRoad_addr()==null?"":dto.getRoad_addr() %>"/>
-							 <input type="text" id="jibunAddress" class="m_form readonly large" placeholder="지번주소" name="jibun_addr" readonly  value="<%=dto.getJibun_addr()==null?"":dto.getJibun_addr() %>"/> </div>
+							 <div><input type="text" id="roadAddress" class="all__form readonly large" placeholder="도로명주소" name="road_addr" readonly value="<%=dto.getRoad_addr()==null?"":dto.getRoad_addr() %>"/>
+							 <input type="text" id="jibunAddress" class="all__form readonly large" placeholder="지번주소" name="jibun_addr" readonly  value="<%=dto.getJibun_addr()==null?"":dto.getJibun_addr() %>"/> </div>
 							 <span id="guide" style="color: #999; display: none"></span>
-							<input type="text" id="detailAddress" class="m_form large" placeholder="상세주소" name="detail_addr" value="<%=dto.getDetail_addr()==null?"":dto.getDetail_addr()%>" />
+							<input type="text" id="detailAddress" class="all__form large" placeholder="상세주소" name="detail_addr" value="<%=dto.getDetail_addr()==null?"":dto.getDetail_addr()%>" />
 					
 
 					<!-- 회원약관 -->
@@ -279,14 +215,14 @@ width:8em;
 					</div>
 					<!--비밀번호-->
 					<span>비밀번호 * </span>
-					<input type="password" name="pass" id="pass" class="m_form large" placeholder="비밀번호" required /> 
+					<input type="password" name="pass" id="pass" class="all__form large" placeholder="비밀번호" required /> 
 					<!--
 					비밀번호패턴
 					 pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다."  
 					 -->
 					
-					<button type="submit" class="medium">회원정보수정</button>
-					<button type="button" class="medium" onclick="deleteUser()">회원탈퇴</button>
+					<button type="submit" class="button medium">회원정보수정</button>
+					<button type="button" class="button medium" onclick="deleteUser()">회원탈퇴</button>
 				</div>
 			</div>
 		</form>

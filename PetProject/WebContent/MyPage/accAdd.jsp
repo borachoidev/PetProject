@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <!--general stylesheet-->
 <style type="text/css">
-* {
-	padding: 0px;
-	margin: 0px;
-	font-family: 'Noto Sans KR';
+textarea.acc__memo{
+resize: none;
+width:30vw;
+height:20vh;
 }
 
 
@@ -50,18 +50,18 @@
 	%>
 	
 
-	<table class="table table-bordered" style="width: 600px;">
+	<table class="table" ">
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
+			<td ">
 			<b>애견이름</b></td>
-			<td><input type="text" name="accName" class="form-control" style="width: 400px;" required="required">
+			<td><input type="text" name="accName" class="all__form" style="width: 400px;" required="required">
 			</td>
 		</tr>
 		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
+			<td>
 			<b>견종선택</b></td>
 			<td><select name="accBreed" required="required">
-			<option disabled selected value>견종을 선택해 주세요</option>
+			<option disabled selected>견종을 선택해 주세요</option>
       		<option value="푸들">푸들</option>
       		<option value="비숑">비숑</option>
       		<option value="포메라니언">포메라니언</option>
@@ -74,17 +74,17 @@
   			</select></td>
 		</tr>
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
+			<td>
 			<b>무게</b></td>
-			<td><input type="text" name="accWeight" class="form-control" style="width: 100px;">
+			<td><input type="text" name="accWeight" class="all__form" style="width: 100px;">
 			KG</td>
 		</tr>
 		
 		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
+			<td>
 			<b>나이</b></td>
 			<td><select name="accAge">
-			<option disabled selected value>나이를 선택해 주세요</option>
+			<option disabled selected>나이를 선택해 주세요</option>
       		<option value="0~6개월">0~6개월미만</option>
       		<option value="6개월~1년">6개월~1년미만</option>
       		<option value="1년~2년">1년~2년미만</option>
@@ -99,7 +99,7 @@
 		
 		</tr>
 		<tr>
-			<td style="width: 80px;background-color:#66cdaa;">
+			<td>
 			<b>성별</b></td>
 			<td><select name="accGender" required="required">
 			<option disabled selected value>성별을 선택해주세요</option>
@@ -110,27 +110,27 @@
   			</select></td>
 		</tr>
 		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
+			<td>
 			<b>사진</b></td>
 			<td>
 			<div class="form-group">
 				<input type="file" name="accPhoto"
-				style="width:250px;" class="form-control" required="required">
+				style="width:250px;" class="all__form" required="required">
 			</div>
 			</td>
 		</tr>
 		<tr>
-			<td style="width: 150px;background-color:#66cdaa;">
+			<td >
 			<b>소개글</b></td>
 			<td>
 				<textarea name="accMemo"
-				style="width:400px;height: 150px;"></textarea>
+				class="acc__memo"></textarea>
 			</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2" align="center">
-				<button type="submit" class="acc__btn btn-info"
+				<button type="submit" class="acc__btn button"
 				style="width:100px;">저장하기</button>
 			</td>
 		</tr>
