@@ -1,3 +1,6 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="data.dao.AccountDao"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.AccountDto"%>
@@ -294,7 +297,6 @@ div.mung__post__modal {
 $(function() {
 	//게시글 클릭시 모달창 오픈
 	//모달창 열릴 경우 이벤트
-	
 	$("#exampleModal").on("show.bs.modal",function(e) {
 		//클릭한 게시글 post_num
 		var post_num=$(e.relatedTarget).data("num");
@@ -443,6 +445,19 @@ $(function() {
 		});
 	});
 	
+	//계정 리스트 숨기기	
+	$("#mung__accList").hide();
+	
+	//계정 전환 버튼이벤트
+	$("#mung__accListBtn").click(function() {
+		$("#mung__accList").toggle();	
+	});
+	 
+	$(".mung__accId").click(function() {
+		var accId=$(this).text();
+		location.href="index.jsp?main=Mung/mungSession.jsp?accId="+accId;
+	});
+	
 	//카드이미지 마우스오버 이벤트
 	$(".mung__post-img").hover(function() {
 		$(this).addClass("mung__post-img__hover");
@@ -484,6 +499,12 @@ $(function() {
 	
 });
 
+
+//숫자 포매팅 함수
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 //게시글 좋아요 출력
 function getLikes(post_num) {
 	$.ajax({
@@ -496,6 +517,8 @@ function getLikes(post_num) {
 			json=JSON.parse(data);
 			//좋아요 개수 출력
 			var likes=json.likes;
+			//포맷
+			likes=numberWithCommas(likes);
 			$("#mung__modal__likes").html("좋아요&nbsp;"+likes+"개");
 		}	
 	});
@@ -564,19 +587,28 @@ function insertComm(comm_num,content,dog_num) {
 }
 </script>
 </head>
+<%!
+	String myId;
+	String accId;
+	String loginOk;
+%>
 <%	
 	//인코딩
 	request.setCharacterEncoding("utf-8");
 
 	//로그인 상태 및 아이디 세션값
-	String myId=(String)session.getAttribute("myId");
-	String accId=(String)session.getAttribute("accId");
-	String loginOk=(String)session.getAttribute("loginOk");
+	myId=(String)session.getAttribute("myId");
+	accId=(String)session.getAttribute("accId");
+	loginOk=(String)session.getAttribute("loginOk");
 	
 	MungDao dao=new MungDao();
 	//계정 정보 출력
 	AccountDto accDto=dao.getAccountData(accId);
 	String dog_num=dao.getAccount(accId);
+	//계정리스트
+	AccountDao accDao=new AccountDao();
+	String user_num=dao.getUser(myId);
+	List<AccountDto> accList=accDao.getAllAccounts(user_num);
 	//전체 게시글목록 출력
 	List<MungPostDto> postList=dao.getAllPost();
 %>
@@ -617,10 +649,22 @@ function insertComm(comm_num,content,dog_num) {
 				  <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
 				</svg>
 			</a>
-			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-			  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-			  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-			</svg>
+			<a id="mung__accListBtn">
+				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+				  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+				</svg>
+			</a>
+			<ul id="mung__accList" >
+				<%-- 계정 목록 출력 --%>
+<%
+			for(AccountDto acc:accList) {
+%>
+				<li class="mung__accId"><%=acc.getAcc_name() %></li>
+<%				
+			}
+%>				
+			</ul>
 		</li>
 <%
 		}
@@ -640,9 +684,9 @@ function insertComm(comm_num,content,dog_num) {
 				//계정별 게시글 전체 목록에서 필요한 데이터 변수
 				int idx=dto.getPhoto().split(",").length-1;
 				String photo=dto.getPhoto().split(",")[idx];
-				int likes=dto.getLikes();
-				int commSize=dao.getCommentSize(dto.getPost_num());
-			
+				DecimalFormat df=new DecimalFormat("###,###,###");
+				int likes=Integer.parseInt(df.format(dto.getLikes()));
+				int commSize=Integer.parseInt(df.format(dao.getCommentSize(dto.getPost_num())));
 %>
 			<div class="col mb-4" data-toggle="modal" data-target="#exampleModal" data-num="<%=dto.getPost_num()%>"> 
 			    <div class="card text-center mung__img-box">
