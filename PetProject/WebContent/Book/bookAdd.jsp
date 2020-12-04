@@ -52,6 +52,7 @@
 request.setCharacterEncoding("utf-8");
 String petcenter = request.getParameter("petcenter");
 String startday = request.getParameter("startday");
+String endday = request.getParameter("endday");
 String petselect = request.getParameter("petselect");
 
 
@@ -98,9 +99,9 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 						%>
 							예약자: <input name="user_name" type="text" value="<%=map.get("user_name") %>"><br>
 							핸드폰: <input name="hp" type="text" value="<%=map.get("hp") %>"><br>
-							예약자 번호: <input name="user_num" value="<%=map.get("user_num") %>"><br>
-							강아지 번호: <input id="dog_num" name="dog_num" value="<%=map.get("dog_num")%>"><br>
-							강아지 이름: <input id="dog_name" name="dog_name" value="<%=map.get("acc_name")%>">
+							<!-- 예약자 번호: --> <input type="hidden" name="user_num" value="<%=map.get("user_num") %>"><br>
+							<!-- 강아지 번호: --> <input type="hidden" id="dog_num" name="dog_num" value="<%=map.get("dog_num")%>"><br>
+							<!-- 강아지 이름:  --><input type="hidden" id="dog_name" name="dog_name" value="<%=map.get("acc_name")%>">
 						<%}
 					
 					%>
@@ -122,7 +123,8 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 				<div class="bookadd__box2">
 					과  정 : <input type="text" name="petselect" value="<%=petselect%>" readonly="readonly"><br> 
 					지  점 : <input type="text" name="petcenter" value="<%=petcenter%>" readonly="readonly"><br> 
-					날  짜 : <input type="text" name="startday" value="<%=startday%>" readonly="readonly">
+					시작일 : <input type="text" name="startday" value="<%=startday%>" readonly="readonly"><br> 
+					종료일 : <input type="text" name="endday" value="<%=endday%>" readonly="readonly">
 					
 				</div>
 				
