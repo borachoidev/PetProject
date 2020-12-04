@@ -27,7 +27,7 @@ $(function(){
 			type:"post",
 			url:"MyPage/accDefaultAll.jsp",
 			success:function(){
-				alert("컨펌버튼을 최종적으로 클릭해야 수정됩니다!")
+				alert("컨펌버튼을 최종적으로 클릭해야 메인계정이 설정됩니다!")
 				
 			}
 		});
@@ -44,7 +44,7 @@ $(function(){
 			type:"post",
 			url:"MyPage/accDefault.jsp",
 			success:function(){
-				 alert("수정완료 :)")
+				 alert("설정완료 :)")
 				 location.reload();
 			}
 		});
