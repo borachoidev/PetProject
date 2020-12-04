@@ -18,7 +18,7 @@ public class ReviewDao {
 	public void insertSmart(ReviewDto dto) {
 		Connection conn=null;
 		PreparedStatement pstmt =null;
-		String sql="insert into review (id,title,content,writeday) values (?,?,?,now())";
+		String sql="insert into review (id,title,content,writeday,book_num) values (?,?,?,now(),?)";
 		
 		conn=db.getMyConnection();
 		try
@@ -28,6 +28,7 @@ public class ReviewDao {
 			pstmt.setString(1,dto.getId());
 			pstmt.setString(2,dto.getTitle());
 			pstmt.setString(3,dto.getContent());
+			pstmt.setString(4,dto.getBook_num());
 			
 			pstmt.execute();
 		} catch (SQLException e)
@@ -92,6 +93,7 @@ public class ReviewDao {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setWriteday(rs.getString("writeday"));
+				dto.setBook_num(rs.getString("book_num"));
 				
 				list.add(dto);
 				}
@@ -129,6 +131,7 @@ public class ReviewDao {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setWriteday(rs.getString("writeday"));
+				dto.setBook_num(rs.getString("book_num"));
 			}
 			
 		} catch (SQLException e)
@@ -220,6 +223,7 @@ public class ReviewDao {
 			dto.setTitle(rs.getString("title"));
 			dto.setContent(rs.getString("content"));
 			dto.setWriteday(rs.getString("writeday"));
+			dto.setBook_num(rs.getString("book_num"));
 			
 			list.add(dto);
 			}

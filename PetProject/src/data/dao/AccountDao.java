@@ -329,9 +329,6 @@ public class AccountDao {
 				dto.setMemo(rs.getString("memo"));
 				dto.setSel_acc(rs.getInt("sel_acc"));
 			
-			
-				
-				
 			}
 			
 			
