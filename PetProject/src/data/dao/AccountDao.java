@@ -99,7 +99,7 @@ public class AccountDao {
 		}
 		
 	
-	//기본강아지로 바꿔주기
+	//기본강아지로 수정하기
 		public int updateDefault(String dog_num)
 		{
 			int sel_acc=0;
@@ -198,6 +198,7 @@ public class AccountDao {
 					
 					pstmt.setString(5, dto.getPhoto());
 					pstmt.setString(6, dto.getMemo());
+					//pstmt.setInt(7, dto.getSel_acc());
 					
 					pstmt.setString(7, dto.getDog_num());
 					
@@ -258,7 +259,7 @@ public class AccountDao {
 		return list;
 	}
 	
-	//유저넘버로 받아온 강아지들 개별 계정
+	//유저넘버로 받아온 강아지들 계정
 	public AccountDto getData(String user_num)
 	{
 		AccountDto dto=new AccountDto();
@@ -300,7 +301,7 @@ public class AccountDao {
 		}
 		return dto;
 	}
-	//강아지넘버로 특정강아지 데이터뽑기
+	//강아지넘버로 특정강아지 개별 데이터뽑기
 	public AccountDto getDogData(String dog_num)
 	{
 		AccountDto dto=new AccountDto();
@@ -326,6 +327,7 @@ public class AccountDao {
 				dto.setBreed(rs.getString("breed"));
 				dto.setPhoto(rs.getString("photo"));
 				dto.setMemo(rs.getString("memo"));
+				dto.setSel_acc(rs.getInt("sel_acc"));
 			
 			
 				

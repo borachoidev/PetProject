@@ -3,5 +3,5 @@
 <%session.removeAttribute("loginOk"); 
 session.removeAttribute("myId"); 
 session.removeAttribute("accId"); 
-response.sendRedirect("../index.jsp");
+response.sendRedirect("../home.jsp");
 %>

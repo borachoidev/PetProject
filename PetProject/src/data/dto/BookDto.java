@@ -5,6 +5,7 @@ public class BookDto {
 	private String petcenter;
 	private String petselect;
 	private String startday;
+	private String endday;
 	private String user_num;
 	private String dog_num;
 	
@@ -32,6 +33,12 @@ public class BookDto {
 	}
 	public void setStartday(String startday) {
 		this.startday = startday;
+	}
+	public String getEndday() {
+		return endday;
+	}
+	public void setEndday(String endday) {
+		this.endday = endday;
 	}
 	public String getUser_num() {
 		return user_num;
