@@ -15,6 +15,10 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3c68a4aa3b82c817fb89aa2e592fe90a&libraries=services"></script>
 <style type="text/css">
+	body{
+		flex-direction: column;
+	}
+	
 	div.search{
 	
 	}
