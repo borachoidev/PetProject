@@ -6,6 +6,13 @@ public class ReviewDto {
 	private String content;
 	private String writeday;
 	private String id;
+	private String book_num;
+	public String getBook_num() {
+		return book_num;
+	}
+	public void setBook_num(String book_num) {
+		this.book_num = book_num;
+	}
 	public String getReview_num() {
 		return review_num;
 	}
