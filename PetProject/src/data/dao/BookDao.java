@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +15,6 @@ import mysql.db.MysqlConnect;
 
 public class BookDao {
 	MysqlConnect db = new MysqlConnect();
-	
-	
 	
 	
 	public List<HashMap<String, String>> getPuppyList(String id)
@@ -62,7 +59,7 @@ public class BookDao {
 	
 	public void insertBook(BookDto dto)
 	{
-		String sql = "insert into book (petcenter,petselect,startday,user_num,dog_num) values (?,?,?,?,?)";
+		String sql = "insert into book (petcenter,petselect,startday,endday,user_num,dog_num) values (?,?,?,?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		conn = db.getMyConnection();
@@ -72,8 +69,9 @@ public class BookDao {
 			pstmt.setString(1, dto.getPetcenter());
 			pstmt.setString(2, dto.getPetselect());
 			pstmt.setString(3, dto.getStartday());
-			pstmt.setString(4, dto.getUser_num());
-			pstmt.setString(5, dto.getDog_num());
+			pstmt.setString(4, dto.getEndday());
+			pstmt.setString(5, dto.getUser_num());
+			pstmt.setString(6, dto.getDog_num());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -84,70 +82,109 @@ public class BookDao {
 		}
 	}
 	
-	//관리자 예약목록
-	public List<UserDto> getAllBook()
+	
+	public List<HashMap<String, String>> getAllBook()
 	{
-		List<UserDto> list = new ArrayList<UserDto>();
+		String sql = "select u.id, u.user_name, u.hp, a.acc_name, a.breed, a.age, a.gender, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num order by book_num desc";
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select u.id, u.user_name, u.hp, a.acc_name, a.breed, a.age, a.gender, b.startday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num;";
 		conn = db.getMyConnection();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			db.dbClose(conn, pstmt, rs);
-		}
-		return list;
-	}
-	
-	sql="select endday from book where user_num=?;";
-	
-	1월1일 =
-	length = 6 or 5 / subString 
-	
-	public List<BookDto> getUserBook(String user_num)
-	{
-		List<BookDto> list = new ArrayList<BookDto>();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql= "select book_num, petcenter, petselect, startday, endday, dog_num from book where user_num=?;";
-		
-		conn = db.getMyConnection();
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user_num);
+			
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				BookDto dto=new BookDto();
-				dto.setBook_num(rs.getString("book_num"));
-				dto.setPetcenter(rs.getString("petcenter"));
-				dto.setPetselect(rs.getString("petselect"));
-				dto.setStartday(rs.getString("startday"));
-				dto.setDog_num(rs.getString("dog_num"));
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("id", rs.getString("id"));
+				map.put("user_name", rs.getString("user_name"));
+				map.put("hp", rs.getString("hp"));
+				map.put("acc_name", rs.getString("acc_name"));
+				map.put("breed", rs.getString("breed"));
+				map.put("age", rs.getString("age"));
+				map.put("gender", rs.getString("gender"));
+				map.put("startday", rs.getString("startday"));
+				map.put("endday", rs.getString("endday"));
+				map.put("petcenter", rs.getString("petcenter"));
+				map.put("petselect", rs.getString("petselect"));
+				map.put("book_num", rs.getString("book_num"));
 				
-
-				
-				list.add(dto);
+				list.add(map);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		}
+		finally 
+		{
 			db.dbClose(conn, pstmt, rs);
 		}
 		return list;
 	}
 	
+	public List<HashMap<String, String>> getUserBook(String id)
+	{
+		String sql = "select u.id, u.user_name, u.hp, a.acc_name, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num and u.id=? order by book_num desc";
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		conn = db.getMyConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			//바인딩
+			pstmt.setString(1, id);
+			//실행
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("user_name", rs.getString("user_name"));
+				map.put("hp", rs.getString("hp"));
+				map.put("acc_name", rs.getString("acc_name"));
+				map.put("startday", rs.getString("startday"));
+				map.put("endday", rs.getString("endday"));
+				map.put("petcenter", rs.getString("petcenter"));
+				map.put("petselect", rs.getString("petselect"));
+				map.put("book_num", rs.getString("book_num"));
+				
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally 
+		{
+			db.dbClose(conn, pstmt, rs);
+		}
+		return list;
+	}
 	
+	public void deleteBook(String num){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql ="delete from book where book_num=?";
+		conn = db.getMyConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, num);
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt);
+		}
+	}
 }
 
 
