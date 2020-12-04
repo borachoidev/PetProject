@@ -75,17 +75,14 @@
 	<input id="search_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 </div>
 <div class="layer">
-	<ul id="category">
+	<ul id="category" class="category">
         <li id="hospital" data-order="1"> 
-            <span class="local_hospital"></span><br>
             동물병원
         </li>  
         <li id="cafe" data-order="2"> 
-            <span class="local_cafe"></span><br>
             애견카페
         </li>  
         <li id="park" data-order="3"> 
-            <span class="fas fa-dog"></span><br>
             공원
         </li>      
     </ul>
@@ -410,8 +407,6 @@
 							var $ellipsis2 = $('<div class="ellipsis" />');
 							var $url = $('<a class="link" href="' +place_url+ '" target="_blank"/>').text("홈페이지");
 							var $ellipsis3 = $('<div class="ellipsis" />');
-							
-							
 							var $grade = $('<div class="grade" />');
 							var $star_rating = $('<div class="star_rating" data-rate="5">');
 							var $text = $('<div class="star-wrap">별점 : </div>')
@@ -421,7 +416,6 @@
 							var $star4 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
 							var $star5 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
 							var $starAverage = $('<div class="star-wrap" />');
-							
 							var $make_star = $('<div id="make_star" class="make_star" />');
 							var $makeStar = $('<select class="makeStar" id="makeStar" />').change(fillStars);
 							var $option1 = $('<option value="1" selected="selected"/>').text("1점");
@@ -463,7 +457,6 @@
 							
 							var content = $wrap[0];
 							
-							console.log(content);
 					        // 마커 위에 커스텀오버레이를 표시합니다
 					        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 					        var overlay = new kakao.maps.CustomOverlay({
