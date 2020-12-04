@@ -132,8 +132,6 @@
 			<td colspan="2" align="center">
 				<button type="submit" class="acc__btn btn-info"
 				style="width:100px;">저장하기</button>
-				<button type="button" class="btn btn-default" style="width:100px;"
-				onclick="history.back()">돌아가기</button>
 			</td>
 		</tr>
 
