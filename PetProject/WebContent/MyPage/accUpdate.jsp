@@ -19,9 +19,12 @@
 </style>
 <title>애견 정보들 수정하기</title>
 <%
+	String id=(String)session.getAttribute("myId");
 
-	String dog_num=request.getParameter("dog_num");
+	UserDao udao=new UserDao();
+	String user_num=udao.getNum(id);
 	
+	String dog_num=request.getParameter("dog_num");
 	
 	AccountDao adao=new AccountDao();
 	AccountDto dto=adao.getDogData(dog_num);
@@ -35,7 +38,18 @@ $(function() {
 	  $("#accBreed").val("<%=dto.getBreed()%>");
 	  $("#accAge").val("<%=dto.getAge()%>");
 	  $("#accGender").val("<%=dto.getGender()%>");
+	  $("#sel_acc").val("<%=dto.getSel_acc()%>");
 	  
+	  $('#accBreed').change(function() {
+		    $(this).val();
+		});
+		$('#accAge').change(function() {
+		    $(this).val();
+		});
+		$('#accGender').change(function() {
+		    $(this).val();
+		});
+		
 	});
 </script>
 </head>
@@ -45,6 +59,7 @@ $(function() {
 <div class="acc__update-form">
 	<form action="MyPage/accUpdateAction.jsp" method="post" enctype="multipart/form-data"
 	class="form-inline">
+		<input type="hidden" name="user_num" value="<%=dto.getUser_num()%>">
 		<input type="hidden" name="dog_num" value="<%=dto.getDog_num()%>">
 		<table class="table table-bordered" style="width: 600px;">
 		<tr>
@@ -105,6 +120,15 @@ $(function() {
   			</select></td>
 		</tr>
 		<tr>
+			<td style="width: 80px;background-color:#66cdaa;">
+			<b>메인유무</b></td>
+			<td><select name="sel_acc" id="sel_acc" disabled>
+			<option disabled selected value>메인선택</option>
+			<option value=0>일반계정</option>
+			<option value=1>메인계정</option>
+  			</select></td>
+		</tr>
+		<tr>
 			<td style="width: 150px;background-color:#66cdaa;">
 			<b>사진</b></td>
 			<td>
@@ -135,17 +159,5 @@ $(function() {
 	
 	</form>
 </div>
-<script type="text/javascript">
-$('#accBreed').change(function() {
-    $(this).val();
-});
-$('#accAge').change(function() {
-    $(this).val();
-});
-$('#accGender').change(function() {
-    $(this).val();
-});
-
-</script>
 </body>
 </html>
