@@ -81,7 +81,7 @@ if(!a.getId().equals("admin")){%>
 		<th><%=a.getUser_name()%></th>
 		<th><%=a.getLvl()==1?"분양회원":"일반회원"%></th>
 		<td>
-			<button class="detail-btn">
+			<button class="detail-btn button">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 				  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
@@ -107,12 +107,12 @@ if(!a.getId().equals("admin")){%>
 					<option value="0">일반회원</option>
 					<option value="1">분양회원</option>	
 			</select>
-			<button type="button" class="lvl__change-btn">수정</button>
+			<button type="button" class="lvl__change-btn button">수정</button>
 		</div>
 		</td>
 		<td>
 			<input type="hidden" value="<%=a.getUser_num()%>" class="userNum">
-			<button type="button" class="user__delete-btn">회원강퇴</button>
+			<button type="button" class="user__delete-btn button">회원강퇴</button>
 		</td>
 	</tr>
 	
