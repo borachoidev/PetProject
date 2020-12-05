@@ -31,30 +31,45 @@ ul li {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	max-width: 86.5%;
 	margin: 2% 13.5% 5% 13.5%;
-	padding: 0 1.5%;
 }
 
-.mung__nav__acc {
-	width: 30%;
+.mung__logo {
+	width: 25%;
 }
 
-.mung__add-btn {
-	font-size: 1.5em;
-}
-
-.mung__add-btn:hover {
-	color: #ffc107;
+.mung__logo-img {
+	width: 100%;
 }
 
 .mung__nav__search {
-	width: 40%;
+	width: 50%;
+	max-height:70%;
 	text-align: center;
 }
 
+#mung__searchTag {
+	width: 50%;
+	height:80%;
+	border: 1px solid #ddd;
+	outline: none;
+	height: 100%; 
+	border-radius: 10px;
+	padding: 2% 5%;
+	text-align: center;
+}
+
+#mung__searchTag:focus {
+	box-shadow: 1px 1px .2em #ffc107, -1px -1px .2em #ffc107;
+	background-color:transparent;
+	caret-color: #ffc107;
+	border-color: white;
+}
+
 .mung__nav__btn {
-	width: 30%;
+	width: 25%;
 	text-align: right;
 }
 
@@ -139,30 +154,39 @@ ul li {
 	border-style: none;
 }
 
+.card-img-overlay {
+	height: 100%;
+	padding:45% 0;
+	font-size: 1.5em;
+}
+
 /* 카드이미지 박스-마우스오버시 추가할 효과 */
 .mung__img-box__hover {
     background-color: black;
     color: white;
 }
 
-/* 카드텍스트 */
-.mung__post-text {
-	display: none;
-}
 
 /* 카드텍스트-마우스오버시 적용할 효과 */
 .mung__post-text__hover {
 	text-align: center;
-	padding:8rem 0;
 	
 }
 
-.card-img-overlay {
-	padding: 0;
+/* 카드텍스트 */
+.mung__post-text {
+	display: none;
+	height: 10%;
+
+}
+
+.mung__post-text span{
+	margin-right: 5%;
+
 }
 
 .mung__post__icon {
-	margin-left: 10px;
+	margin-left: 5%;
 }
 
 /* 로그인한 계정 프로필, 게시글작성한 계정 프로필 */
@@ -174,7 +198,7 @@ ul li {
 	border: 1px solid #ddd;
 	padding: 0.08em;
 }
- 
+     
 /* 게시글에 댓글작성한 계정 프로필 */     
 .mung__profile-sm {
 	width: 30px;
@@ -309,7 +333,7 @@ div.mung__post__modal {
 	width: 100%;
 	height: 10%;
 	border-bottom: 1px solid #ddd;
-	padding: 1% 1em;
+	padding: 3% 1em;
 	align-items: center;
 }
 
@@ -356,24 +380,6 @@ div.mung__post__modal {
 	display: inline-flex;
 	margin-left: 1em;
 	white-space: nowrap;
-}
-
-/* 검색창 */
-#mung__searchTag {
-	width: 100%;
-	border: 1px solid #ddd;
-	outline: none;
-	height: 100%; 
-	border-radius: 10px;
-	padding: 2% 5%;
-	text-align: center;
-}
-
-#mung__searchTag:focus {
-	box-shadow: 1px 1px .2em #ffc107, -1px -1px .2em #ffc107;
-	background-color:transparent;
-	caret-color: #ffc107;
-	border-color: white;
 }
 
 /* 모달창 close */
@@ -733,27 +739,15 @@ function insertComm(comm_num,content,dog_num) {
 <div id="mumg__container">
 	<!-- 멍스타그램 네비바 -->
 	<ul id="mung__nav">
-		<!-- 로그인한 계정 정보 -->
-<%
-		if(loginOk!=null && accId!="no") {
-%>		
-		<li class="mung__nav__acc">
-			<a href="index.jsp?main=Mung/mungAccount.jsp">
-				<img class="mung__profile" src="AccSave/<%=accDto.getPhoto()%>">
-				<b><%=accId %>(<%=myId %>)</b>
-			</a>
-			<a class="mung__add-btn" href="index.jsp?main=Mung/mungPostAdd.jsp">
-				<svg class="mung__post__icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-				  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-				</svg>
-			</a>
+		<li class="mung__logo">
+			<img src="Image/mung_logo.jpg" class="mung__logo-img">
 		</li>
 		<!-- 검색창 -->
 		<li class="mung__nav__search">
-			<input type="text" id="mung__searchTag"  placeholder="#<%=tag%>">
+			<input type="text" id="mung__searchTag"  placeholder="#     검색">
 		</li>
 		<!-- 메뉴 버튼 -->
+		<!-- 로그인한 계정 정보 -->
 		<li class="mung__nav__btn">
 			<a href="index.jsp?main=Mung/mungMain.jsp">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -761,11 +755,9 @@ function insertComm(comm_num,content,dog_num) {
 				  <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
 				</svg>
 			</a>
-			<a href="index.jsp?main=Mung/mungChat.jsp">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cursor" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				  <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
-				</svg>
-			</a>
+<%
+		if(loginOk!=null && accId!="no") {
+%>				
 			<a id="mung__accListBtn" data-toggle="modal" data-target="#mung__accList">
 				<svg class="mung__acc-btn" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
@@ -793,11 +785,14 @@ function insertComm(comm_num,content,dog_num) {
 			             <span aria-hidden="true">&times;</span>
 			          </button>
 				</div>
-			</div>	
-		</li>
+			</div>		
+			<a href="index.jsp?main=Mung/mungAccount.jsp">
+				<img class="mung__profile-sm" src="AccSave/<%=accDto.getPhoto()%>">
+			</a>
 <%
 		}
 %>
+		</li>
 	</ul>
 	
 <!-- 게시글 목록 카드이미지 -->
