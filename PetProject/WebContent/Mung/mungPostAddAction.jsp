@@ -43,7 +43,7 @@
 				}
 			}	
 		}
-		String content=multi.getParameter("content").replaceAll("\\p{Z}", "");;		
+		String content=multi.getParameter("content");		
 		String tag=multi.getParameter("tag");	
 		
 		//데이터 DB에 추가

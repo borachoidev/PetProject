@@ -16,7 +16,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style type="text/css">
-/* bg-dark text-white */
 #mumg__container {
 	width: 100%;
 	font-size: 0.8em;
@@ -73,12 +72,16 @@ ul li {
 	text-align: right;
 }
 
-.mung__nav__btn a {
+.mung__nav__btn a{
 	font-size: 1.5em;
 	margin: 2% 0.5em;
 }
 
 .mung__nav__btn a:hover {
+	color: #ffc107;
+}
+
+#mung__accListBtn:hover {
 	color: #ffc107;
 }
 
@@ -104,10 +107,6 @@ ul li {
 .mung__accId {
 	padding: 5% 0;
 	border-radius: 5px;
-}
-
-.mung__acc-btn:hover {
-	color: #ffc107;
 }
 
 .mung__accId:hover {
@@ -758,7 +757,7 @@ function insertComm(comm_num,content,dog_num) {
 %>				
 			
 			<a id="mung__accListBtn" data-toggle="modal" data-target="#mung__accList">
-				<svg class="mung__acc-btn" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
 				  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
 				</svg>

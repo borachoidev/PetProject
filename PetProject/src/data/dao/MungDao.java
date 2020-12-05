@@ -427,7 +427,7 @@ public class MungDao {
 			pstmt.setString(1, comm_num);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				cnt=Integer.parseInt(rs.getString("comm_num"));
+				cnt=Integer.parseInt(rs.getString(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
