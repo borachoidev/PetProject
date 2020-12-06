@@ -19,6 +19,7 @@
 #mumg__container {
 	width: 100%;
 	font-size: 0.8em;
+	margin-bottom: 30%; 
 }
 
 ul li {
@@ -72,7 +73,7 @@ ul li {
 	text-align: right;
 }
 
-.mung__nav__btn a {
+.mung__nav__btn a{
 	font-size: 1.5em;
 	margin: 2% 0.5em;
 }
@@ -223,6 +224,7 @@ ul li {
 	align-items: center;
     justify-content: center;
     border: 0;
+    margin-bottom: 5%; 
 }     
 
 /* 모달 바디 */
@@ -242,16 +244,15 @@ div.mung__post__modal {
 	display: flex;
 	justify-content: center;
 	align-items: center; 
-	background-color: #121212;
 	height: 100%;
 }
 
 .mung__modal__text {
-	padding-left:0 ;
+	padding-left: 0;
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;	
-	max-height: 100%;
+	height: 100%;
 }
 
 /* 모달 텍스트 헤더 */
@@ -274,7 +275,6 @@ div.mung__post__modal {
 	width: 100%;
 	height: 60%;
 	border-bottom: 1px solid #ddd;
-	padding: 0 0.8em;
 	overflow-y: auto;
 	overflow-x: hidden;
 	align: top;
@@ -299,8 +299,7 @@ div.mung__post__modal {
 
 /* 댓글 목록 */
 #mung__modal__comment {
-	margin: 1.5em 0 0 0;
-	psdding: 0 0.8em;
+	padding: 1.5em 0.8em;
 	width: 90%;
 }
 
@@ -394,7 +393,39 @@ div.mung__post__modal {
 	color: #9a0007;
 }
 
+@media screen and (max-width: 990px) {
+	.mung__modal__textBox,
+	.mung__modal__content-box,
+	.mung__modal__addComm,
+	.mung__modal__content-box,
+	#mung__likesIcon,
+	#mung__delPost {
+		display: none;
+	}
 
+	.modal-size {
+		margin-top: 5%;
+	}
+	
+	.mung__modal__img {
+		padding: 5% 25% 0 25%;
+	}
+	
+	.mung__modal__acc  {
+		padding: 3% 25%;
+		border: none;
+	}
+	
+	.mung__modal_likes{
+		padding: 0 27% 5% 27%;
+		font-size: 0.6em;
+		font-weight: normal;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+	
+}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -991,7 +1022,7 @@ function insertComm(comm_num,content,dog_num) {
 				</div>
         	</div>
         	<!-- 텍스트 영역 -->
-	        <div class="mung__modal__text col-4">
+	        <div class="mung__modal__text col-lg-4">
 	        	<!-- 게시글 작성한 계정 -->
 	        	<ul class="mung__modal__acc">
 	        		<!-- 프로필 -->
