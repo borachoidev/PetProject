@@ -20,11 +20,95 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 	}
-
-.owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled {
-    display: none;
+#bestReview{
+width:100%;
+display:flex;
+justify-content: center;
+}	
+.carousel{
+width:70%;
 }
+#totalReview{
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content: center;
+align-items: center;
+}
+
+#totalReview table{
+width:70%;}
+.review__carousel{
+display: flex;
+flex-direction: row;
+justify-content:space-between;
+align-items: flex-start;
+height: 40%;
+padding:10%;
+}
+.review__carousel-btn{
+background-color: #ffb900;
+width:30px;
+height:30px;
+border-radius: 30px;
+}
+
+
+.carousel-control-next, .carousel-control-prev{
+top:50%;}
+
+.section1, .section2{
+    background-position: center center;
+    background-size: 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+.section1{
+background-image: url('Image/back1.jpg');
+}
+.section2{
+background-image: url('Image/back4.jpg');
+}
+
+.item {
+	height: 20vh;
+	width:100%;
+	background-color: white;
+ 
+}
+.item:nth-child(1){
+    background-color: transparent;
+    height: 45vh;
+  }
+  
+.program{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.program__description
+{
+width:60%;
+color:#797979;}  
+
+.program__title h1{
+color:#ffb900;
+}
+
+.program__title h2{
+color:#797979;
+}
+
+.program__description {
+
+}
+
 </style>
     <script>
   const showing_class = "showing";
@@ -69,61 +153,107 @@ console.log(target)
 document.getElementById("carouselControls").innerHTML=target
 
 
+
 	  
   }
 
-  
+  $(function(){
+		$(".carousel-item").eq(0).addClass("active");
+	})
 
   </script>
 </head>
 <body>
+
 <div class="review__container">
 <%
 ReviewDao db=new ReviewDao();
 List<ReviewDto> best=db.getBestReview();
 %>
+<div class="section1">
+		   <div class="item"><!-- 사진표시를 위한div --></div>
+		   <div class="item program" id="program1">
+			   <div  class="program__title"><h1>Reviews</h1> <h2>베스트 리뷰</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription1">
+			   펫앤미와 함께한 반려견과 보호자분들의 솔직한 리뷰를 보세요. 
+			    </div>
+		</div>    
+</div>
+
 <!-- best리뷰 -->
 	<div id="bestReview">
-		<div class="carousel slide" id="carouselControls" data-interval="false" >
-		  <div class="carousel-inner">
-		  <!-- 캐러셀 아이템 -->
-		    <div class="carousel-item active">
-			      	<div class='reviews__list-item'>
-					    <header>
-					    <h3 class='review__title'><%= best.get(0).getTitle()%></h3>
-					    <h4 class='review__author'><%= best.get(0).getId()%></h4>
-					    </header>
-					    <div class='review__body'>
-					   <%= best.get(0).getContent()%>
-					    </div>
-					</div>
-		    </div>
-		    <% //for 반복문
-		    for(int i=1;i<best.size();i++){%>
-		    <div class="carousel-item">
-		      	<div class='reviews__list-item'>
-				    <header>
-				    <h3 class='review__title'><%= best.get(i).getTitle()%></h3>
-				    <h4 class='review__author'><%= best.get(i).getId()%></h4>
-				    </header>
-				    <div class='review__body' >
-				  <%= best.get(i).getContent()%>
-				    </div>
-				</div>
-		    </div>
-		    <% }%>
-		  </div>
-		  <!-- 캐러셀 이동버튼 -->
-		  <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
-		</div>
-	</div>
+		<div id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="false">
+	   		  <!-- 캐러셀 아이템 -->
+	   		<div class="carousel-inner">  
+	              <% //for 반복문
+	              for(int i=0;i<best.size();i++){%>
+	          <div class="carousel-item">
+	                <div class="review__carousel">
+	                   <div class='reviews__list-item'>
+	                      <header>
+	                     <div>
+	                     <%for(int j=0;j<5;j++){ %>
+		                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+							</svg>
+						<%} %>	
+	                     </div>
+	                      <h3 class='review__title'><%= best.get(i).getTitle()%></h3>
+	                      <h4 class='review__author'><%= best.get(i).getId()%></h4>
+	                      </header>
+	                      <div class='review__body' >
+	                    <%= best.get(i).getContent()%>
+	                      </div>
+	                  </div>
+	                  <%if(i+1<best.size()){%>
+	                  <div class='reviews__list-item'>
+	                      <header>
+	                      <div>
+	                     <%for(int j=0;j<5;j++){ %>
+		                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+							</svg>
+						<%} %>	
+	                      </div>
+	                      <h3 class='review__title'><%= best.get(i+1).getTitle()%></h3>
+	                      <h4 class='review__author'><%= best.get(i+1).getId()%></h4>
+	                      </header>
+	                      <div class='review__body' >
+	                    <%= best.get(i+1).getContent()%>
+	                      </div>
+	                  </div>
+
+	                 <% }
+	                  
+	              %>
+	          	</div>
+	          </div>
+	              <% 
+	             i=i+1;
+	              }
+	              %>
+	             
+	        </div>
+	   
+	    <a class="carousel-control-prev review__carousel-btn" href="#carouselControls" role="button" data-slide="prev">
+	      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	      <span class="sr-only">Previous</span>
+	    </a>
+	    <a class="carousel-control-next review__carousel-btn" href="#carouselControls" role="button" data-slide="next">
+	      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	      <span class="sr-only">Next</span>
+	    </a>
+	 </div>
+  </div>
+<div class="section2">
+		   <div class="item"><!-- 사진표시를 위한div --></div>
+		   <div class="item program" id="program2">
+			   <div  class="program__title"><h1>Reviews</h1> <h2>이용후기</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription1">
+			   다양한 반려견, 보호자분들의 모든 후기를 보실수 있습니다.
+			    </div>
+		</div>    
+</div>
 	
 	<!-- 전체리뷰 -->
 	<div id="totalReview">
@@ -168,12 +298,12 @@ List<ReviewDto> best=db.getBestReview();
 		//각 글에 보여질 번호구하기(총 100개라면 100부터 출력함)
 		no=totalCount-((currentPage-1)*perPage);
 	%>
-	 <b>총 <span style="color: red;"><%=totalCount%></span>
-	 개의 글이 있습니다</b>
+	 <b>총 <span style="color: #ffb900;"><%=totalCount%></span>
+	 개의 리뷰</b>
 	 
 	 <br><br>
-	 <div >
-	 	<table class="table ">
+	
+	 	<table class="table">
 	 		<tr>
 	 		 	<td>번호</td>
 	 		 	<td>제 목</td>
@@ -206,7 +336,7 @@ List<ReviewDto> best=db.getBestReview();
 	 %>
 	
 	    </table>
-	</div>    
+	  
 	    <!-- 페이징처리 -->
 	     <div style="width: 700px;" class="text-center">
 		 <ul class="pagination">
@@ -225,7 +355,7 @@ List<ReviewDto> best=db.getBestReview();
 		 {%>
 			<li>
 			<a 
-			style="color:<%=currentPage==i?"red":"black"%>"
+			style="color:<%=currentPage==i?"#ffb900":"#ddd"%>"
 			href="index.jsp?main=Review/reviewMain.jsp?pageNum=<%=i%>"><%=i%></a>
 			</li> 
 		 <%}
@@ -245,5 +375,7 @@ List<ReviewDto> best=db.getBestReview();
 	</div>	
 
 </div>
+
+
 </body>
 </html>
