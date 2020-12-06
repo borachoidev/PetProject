@@ -8,17 +8,7 @@
 <script src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%=request.getContextPath()%>/se2/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" type="text/javascript" charset="utf-8"></script>
 <style type="text/css">
-button {
-	padding: 0.5em 1em;
-	margin: 0.4em 0.15em;
-	border: 1px solid #dbdbdb;
-	cursor: pointer;
-	color: #464646;
-	border-radius: 0.7em;
-	vertical-align: middle;
-	font-size: 1em;
-	line-height: 1.25em;
-	background-color: #efefef;
+
 }
 
 </style>
@@ -27,6 +17,7 @@ button {
 <body>
 <%
 String id=(String)session.getAttribute("myId");
+String book_num=request.getParameter("book_num");
 %>
 <div>
 <fieldset style="width: 800px;">
@@ -37,8 +28,8 @@ String id=(String)session.getAttribute("myId");
 	 <table class="table">
 	 	<tr>
 
-	 		<td>
-	 			<input type="text" class="form-control"
+	 		<td><input type="hidden" value="<%=book_num%>" name="book_num">
+	 			<input type="text" class="all__form readonly"
 	 			  style="width: 200px;" required="required"
 	 			  name="id" value="<%=id%>" readonly>		 			  
 	 		</td>
@@ -46,7 +37,7 @@ String id=(String)session.getAttribute("myId");
 	 	<tr>
 	 		
 	 		<td>
-	 			<input type="text" class="form-control"
+	 			<input type="text" class="all__form"
 	 			  style="width: 100%;" required="required"
 	 			  name="title" placeholder="제목">		 			  
 	 		</td>
@@ -55,7 +46,7 @@ String id=(String)session.getAttribute("myId");
 	 	<tr>
 	 		
 	 		<td>
-	 		  <textarea class="form-control"	 			 
+	 		  <textarea class="all__form"	 			 
 	 			 style="width:100%; height:300px; display:none;"
 	 			 name="content" id="content"></textarea>
 	 	</tr>
@@ -63,7 +54,7 @@ String id=(String)session.getAttribute("myId");
 	 		<td align="center">
 	 			<button type="button"
 	 			  style="width: 100px;"
-	 			  onclick="submitContents(this)">리뷰작성</button>
+	 			  onclick="submitContents(this)" class="button">리뷰작성</button>
 	 			  
 	 		</td>		 		
 	 	</tr>
