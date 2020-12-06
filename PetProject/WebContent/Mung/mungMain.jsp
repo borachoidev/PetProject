@@ -19,7 +19,6 @@
 #mumg__container {
 	width: 100%;
 	font-size: 0.8em;
-	margin-bottom: 30%; 
 }
 
 ul li {
