@@ -511,4 +511,30 @@ public class MungDao {
 		}		
 		return list;
 	}
+	
+	//계정별 총 좋아요 개수
+	public int getAccLikes(String dog_num) {
+		int totLikes=0;
+		String sql="select sum(likes) from mung_post where dog_num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dog_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totLikes=Integer.parseInt(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		
+		return totLikes;
+	}
 }
