@@ -14,85 +14,48 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3c68a4aa3b82c817fb89aa2e592fe90a&libraries=services"></script>
-<style type="text/css">
-	body{
-		flex-direction: column;
-	}
-	
-	div.search{
-	
-	}
-	
-	div.layer{
-		text-align: center; 	
-	}
-	
-	div.map{
-		width: 900px; height: 800px; 
-		border-radius: 20px; 
-		line-height: 800px; 
-	}
-	
-	.btn_add{
-		width: 60px;
-		height: 25px;
-	}
-	
-	.star_frm{
-		display: block;
-	}
-	
-	.rating i{
-		color: gray;
-	}
-	
-	.star{
-		color:orange;
-	}
-	.star_rating .star{
-		width: 0;
-		overflow:hidden;
-	}
-	.star_rating .star-wrap{
-		display:inline-block;
-		vertical-align: middle;
-	}
-	
-   	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 142px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: auto;}
-    .info .desc {position: relative;margin: 10px 0 0 90px;height: 95px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: hidden;white-space: nowrap;}
-    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}
-	
-</style>
+<link rel="stylesheet" href="Walk/map.css" type="text/css">
 </head>
 <body>
+<div id="mapcontainer">
 <div class="search">
-	<input type="text" id="roadAddress" placeholder="도로명주소">&nbsp;
-	<input id="search_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+	<input type="text" id="roadAddress" placeholder="도로명주소 검색" readonly>&nbsp;
+	<button id="search_btn" type="button" onclick="execDaumPostcode()" class="btn_search button">검색</button>
 </div>
-<div class="layer">
-	<ul id="category" class="category">
-        <li id="hospital" data-order="1"> 
-            동물병원
+<div class="map_wrap">
+	<ul id="category" class="category list-group list-group-horizontal">
+        <li id="hospital" class="list-group-item" data-order="1"> 
+        	<i class='fas fa-hospital' style='font-size:1.5rem'></i><br>
+            <b>동물병원</b>
         </li>  
-        <li id="cafe" data-order="2"> 
-            애견카페
+        <li id="cafe" class="list-group-item" data-order="2"> 
+        	<i class='fas fa-coffee' style='font-size:1.5rem;'></i><br>
+            <b>애견카페</b>
         </li>  
-        <li id="park" data-order="3"> 
-            공원
+        <li id="park" class="list-group-item" data-order="3">
+        	<i class='fas fa-dog' style='font-size:1.5rem;'></i><br>
+            <b>공원</b>
         </li>      
     </ul>
 	<div class="map" id="map"></div>
+	<div class="custom_typecontrol radius_border">
+        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
+        <span id="btnSkyview" class="unselected_btn" onclick="setMapType('skyview')">스카이뷰</span>
+    </div>
+    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+    <div class="custom_zoomcontrol radius_border"> 
+        <span onclick="zoomIn()"><i class='fas fa-plus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>  
+        <span onclick="zoomOut()"><i class='fas fa-minus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
+    </div>
+    <div class="hAddr">
+        <span class="title">지도중심기준 행정동 주소정보</span>
+        <span id="centerAddr"></span>
+    </div>
+    <div class="radius_border current_pos" onclick="panTo()">
+    	<span><i class='fas fa-crosshairs' style='position: relative; top: 5px; color: #777777; font-size:24px'></i></span>
+    </div>
 </div>
-
+</div>
 <script>
 	var yPos = 33.45990031884484;
 	var xPos = 126.54625224494492;
@@ -110,10 +73,12 @@
 	var geocoder = new kakao.maps.services.Geocoder();
 	
 	//마커를 미리 생성
-    var marker = new kakao.maps.Marker({
+    var currentMarker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(yPos, xPos),
         map: map
     });
+	
+	var infoWindow;
 	
 	//주소검색시 지도 새로고침
 	function execDaumPostcode() {
@@ -138,10 +103,9 @@
                         // 지도 중심을 변경한다.
                         map.setCenter(coords);
                         // 마커를 결과값으로 받은 위치로 옮긴다.
-                        marker.setPosition(coords);
+                        currentMarker.setPosition(coords);
                         
                         //alert("검색성공: " + yPos + ", " + xPos + ", " + addr);
-                        
                     }
                 });
             }
@@ -177,7 +141,7 @@
 	            // 지도 중심을 변경한다.
 	            map.setCenter(coords);
 	            // 마커를 결과값으로 받은 위치로 옮긴다.
-	            marker.setPosition(coords);
+	            currentMarker.setPosition(coords);
 	            
 	            //alert("비로그인시: " + yPos + ", " + xPos + ", " + addr);
 	            
@@ -205,7 +169,7 @@
 					// 지도 중심을 변경한다.
 					map.setCenter(coords);
 					// 마커를 결과값으로 받은 위치로 옮긴다.
-					marker.setPosition(coords);
+					currentMarker.setPosition(coords);
 					
 					//alert("로그인상태: " + yPos + ", " + xPos + ", " + addr);
 					
@@ -235,7 +199,7 @@
 	                // 지도 중심을 변경한다.
 	                map.setCenter(coords);
 	                // 마커를 결과값으로 받은 위치로 옮긴다.
-	                marker.setPosition(coords);
+	                currentMarker.setPosition(coords);
 	                
 	                //alert("위치미동의계정: " + yPos + ", " + xPos + ", " + addr);
 	                
@@ -270,10 +234,19 @@
 			removeMarkers();
 			closeOverlays();
 			
+			/*
+			var curr_mark = {curr_latlng: new kakao.maps.LatLng(yPos, xPos)};
+			var currentMarker = new kakao.maps.Marker({
+		        position: curr_mark.curr_latlng // 마커를 표시할 위치
+		    });
+			*/
+			
 		    var callback = function(result, status) {
 		        if (status === kakao.maps.services.Status.OK) {
 		        	// 마커 이미지의 이미지 주소입니다
 		            var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+		            
+		            selectedMarker = null;
 		            
 		         	// 마커 이미지의 이미지 크기 입니다
 		            var imageSize = new kakao.maps.Size(24, 35); 
@@ -413,7 +386,7 @@
 							var $ellipsis3 = $('<div class="ellipsis" />');
 							var $grade = $('<div class="grade" />');
 							var $star_rating = $('<div class="star_rating" data-rate="5">');
-							var $text = $('<div class="star-wrap">별점 : </div>')
+							var $text = $('<div class="star-wrap">별점 :&nbsp;</div>')
 							var $star1 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
 							var $star2 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
 							var $star3 = $('<div class="star-wrap"><div class="star"><i class="fas fa-star"></i></div></div>');
@@ -427,15 +400,15 @@
 							var $option3 = $('<option value="3" />').text("3점");
 							var $option4 = $('<option value="4" />').text("4점");
 							var $option5 = $('<option value="5" />').text("5점");
-							var $rating = $('<span class="rating"><i class="fas fa-star"></i>' +
+							var $rating = $('<span class="rating">&nbsp;&nbsp;<i class="fas fa-star"></i>' +
 							'<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>' +
-							'<i class="fas fa-star"></i></span>');
+							'<i class="fas fa-star"></i>&nbsp;&nbsp;</span>');
 							var $star = $('<i class="fas fa-star" />');
 							var $overxPos=$('<input type="hidden" value="'+x+'">');
 							var $overyPos=$('<input type="hidden" value="'+y+'">');
-							var $btn_add = $('<button type="button" id="btn_add" class="btn_add btn-info" />').text("별점추가");
+							var $btn_add = $('<button type="button" id="btn_add" class="btn_add button" />').text("별점추가");
 							$btn_add.click(ajax);
-							
+							 
 							$wrap.append($info);
 							$info.append($title).append($body);
 							$title.append($close);
@@ -480,19 +453,19 @@
 						    (function(marker, overlay) {
 						        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
 						        kakao.maps.event.addListener(marker, 'mouseover', function() {
-						            // 색변경
+						        	
 						        });
 	
 						        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
 						        kakao.maps.event.addListener(marker, 'mouseout', function() {
-						            // 색변경
+						        	
 						        });
 						        
 						     	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
 								kakao.maps.event.addListener(marker, 'click', function() {
 									closeOverlays();
 								    overlay.setMap(map);
-								    getStarAverage()
+								    getStarAverage();
 								});
 						    })(marker, overlay);
 							
@@ -505,6 +478,7 @@
 		            for (var i = 0; i < markers.length; i++) {
 		                // LatLngBounds 객체에 좌표를 추가합니다
 		                bounds.extend(markers[i].getPosition());
+		                bounds.extend(currentMarker.getPosition());
 		            }
 		            map.setBounds(bounds);
 			            
@@ -535,11 +509,69 @@
 		markers = [];
 	};
 	
+	// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+	function setMapType(maptype) { 
+	    var roadmapControl = document.getElementById('btnRoadmap');
+	    var skyviewControl = document.getElementById('btnSkyview'); 
+	    if (maptype === 'roadmap') {
+	        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+	        roadmapControl.className = 'selected_btn';
+	        skyviewControl.className = 'unselected_btn';
+	    } else {
+	        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+	        skyviewControl.className = 'selected_btn';
+	        roadmapControl.className = 'unselected_btn';
+	    }
+	}
+	
+	// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomIn() {
+	    map.setLevel(map.getLevel() - 1);
+	}
+	
+	// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomOut() {
+	    map.setLevel(map.getLevel() + 1);
+	}
+	
+	// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+	kakao.maps.event.addListener(map, 'idle', function() {
+	    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+	});
+	
+	function searchAddrFromCoords(coords, callback) {
+	    // 좌표로 행정동 주소 정보를 요청합니다
+	    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+	}
+
+	// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	function displayCenterInfo(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	        var infoDiv = document.getElementById('centerAddr');
+
+	        for(var i = 0; i < result.length; i++) {
+	            // 행정동의 region_type 값은 'H' 이므로
+	            if (result[i].region_type === 'H') {
+	                infoDiv.innerHTML = result[i].address_name;
+	                break;
+	            }
+	        }
+	    }    
+	}
+	
+	function panTo() {
+	    // 이동할 위도 경도 위치를 생성합니다 
+	    var moveLatLon = new kakao.maps.LatLng(yPos, xPos);
+	    
+	    map.setLevel('3');
+	    // 지도 중심을 부드럽게 이동시킵니다
+	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+	    map.panTo(moveLatLon);  
+	}    
+	
 </script>
 </body>
 </html>
-
-
 
 
 
