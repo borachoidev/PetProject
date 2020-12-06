@@ -14,12 +14,13 @@
 </head>
 <body>
 <%
+	String myid=(String)session.getAttribute("myId");
 	String num=request.getParameter("num");	
 	String pageNum=request.getParameter("pageNum");
 	ReviewDao db=new ReviewDao();
 	//번호에 해당하는 dto 가져오기
 	ReviewDto dto=db.getData(num);
-	
+	System.out.println(dto.getId());
 	
 %>	
 <table class="table">
@@ -28,7 +29,7 @@
 			<b><%=dto.getTitle()%></b>
 		</td>
 		<td>
-			<span style="color: #ccc;font-size: 9pt;">
+			<span style="color: #ccc;font-size: .7em;">
 			<%=dto.getWriteday() %></span>
 		</td>
 	</tr>
@@ -43,7 +44,11 @@
 	</tr>
 	<tr>
 		<td colspan="2" align="right">
-			<button type="button"
+		<%if(myid!=null&&dto.getId().equals(myid)){ %>
+			<button type="button"  class="button"
+			  onclick="location.href='Review/deleteReview.jsp?reviewNum=<%=dto.getReview_num() %>&pageNum=<%=pageNum%>'">삭제</button>	
+			<% }%>
+			<button type="button" class="button"
 			  onclick="location.href='index.jsp?main=Review/reviewMain.jsp?pageNum=<%=pageNum%>'">글목록</button>	
 		</td>
 	</tr>	
