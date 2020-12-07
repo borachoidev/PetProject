@@ -13,11 +13,6 @@ String id=(String)session.getAttribute("myId");
 UserDao udao=new UserDao();
 String user_num=udao.getNum(id);
 
-BookDao bdao=new BookDao();
-List<HashMap<String,String>> plist = bdao.getPastBook(user_num);
-
-String book_num=bdao.getBook(user_num);
-
 ReviewDao rdao=new ReviewDao();
 String review_num=rdao.getReview(user_num);
 
