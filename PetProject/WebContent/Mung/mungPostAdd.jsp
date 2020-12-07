@@ -85,6 +85,13 @@ ul li {
 	color: #ffc107;
 }
 
+/* 모달창 close */
+.mung__close-btn {
+	font-size: 1em;
+	color: white;
+	cursor: pointer;
+}
+
 .mung__acc-modal {
 	width: 100%;
 }
@@ -116,6 +123,16 @@ ul li {
 	
 .mung__post__icon {
 	margin-left: 5%;
+}
+
+/* 계정전환목록 프로필 */
+.mung__profile {
+	width: 40px;
+	height: 40px;
+	border-radius: 40px;
+	margin: 0 1%;
+	border: 1px solid #ddd;
+	padding: 0.08em;
 }
 
 /* 로그인한 계정 프로필 */
@@ -217,14 +234,19 @@ ul li {
 }
 
 .mung__add-icon {
-	width: 10%;
-	margin: 7% 0 0 10%;
+	width: 30%;
+	margin-left: 10%;
 	align-content: center;
 	font-size: 3em;
 	color: #ffd479;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: nowrap;
 }
 
 #mung__addBtn {
+	font-size: 0.3em;
 	align-self: center;
 	border: none;
 	white-space: nowrap;
@@ -475,8 +497,8 @@ function readUrl(input,idx,file) {
 					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 					</svg>
+					<button type="submit" id="mung__addBtn">게시글 등록</button>		
 				</div>
-				<button type="submit" id="mung__addBtn">게시글 등록</button>		
 			</article>
 		</form>
 	</div>
