@@ -26,9 +26,13 @@
 width:100%;
 display:flex;
 justify-content: center;
+flex-direction:column;
+align-items: center;
+margin: 0px 0px 5vh 0;
 }	
 .carousel{
 width:70%;
+height: 40%;
 }
 #totalReview{
 width:100%;
@@ -46,7 +50,7 @@ flex-direction: row;
 justify-content:space-between;
 align-items: flex-start;
 height: 40%;
-padding:10%;
+padding:5% 10%;
 }
 .review__carousel-btn{
 background-color: #ffb900;
@@ -81,7 +85,7 @@ background-image: url('Image/back4.jpg');
 }
 .item:nth-child(1){
     background-color: transparent;
-    height: 45vh;
+    height: 50vh;
   }
   
 .program{
@@ -107,6 +111,18 @@ color:#797979;
 
 .program__description {
 
+}
+
+.review__total-btn{
+	padding: 0.5em 1em;
+	margin: 0.4em 0.15em;
+	cursor: pointer;
+	color: white;
+	background-color:#ffc400;
+	border-radius: 20em;
+	vertical-align: middle;
+	font-size: 1em;
+	/* line-height: 1.25em; */
 }
 
 </style>
@@ -182,6 +198,7 @@ List<ReviewDto> best=db.getBestReview();
 
 <!-- best리뷰 -->
 	<div id="bestReview">
+	   
 		<div id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="false">
 	   		  <!-- 캐러셀 아이템 -->
 	   		<div class="carousel-inner">  
@@ -243,7 +260,10 @@ List<ReviewDto> best=db.getBestReview();
 	      <span class="carousel-control-next-icon" aria-hidden="true"></span>
 	      <span class="sr-only">Next</span>
 	    </a>
+	 
 	 </div>
+	<div><a href='#totalReview' class="review__total-btn ">전체리뷰보러가기</a></div>
+	    
   </div>
 <div class="section2">
 		   <div class="item"><!-- 사진표시를 위한div --></div>
