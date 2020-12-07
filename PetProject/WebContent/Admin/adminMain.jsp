@@ -38,13 +38,6 @@ body {
   height: 45px;
 }
 
-.main-section {
-  height: 100%;
-}
-a {
-  text-decoration: none;
-  color: #e1e2fa;
-}
 
 .main-section{
   background: #F6F6F6;
@@ -90,13 +83,6 @@ a {
 }
 </style>
 
-<script type="text/javascript">
-</script>
-
-<%
-
-String id=(String)session.getAttribute("myId");
-%>
 <title>펫앤미 - 관리자 페이지</title>
 </head>
   <body>
@@ -106,9 +92,8 @@ String id=(String)session.getAttribute("myId");
         <div class="logo">
         	<b>관리자페이지</b>
         </div>
-        
-        
       </div>
+      
       <div class="main-content">
         <div class="main-section">
         <div><br><br><br><br><br></div>
@@ -116,22 +101,23 @@ String id=(String)session.getAttribute("myId");
             <div class="status"></div>
             <div class="card-content">회원관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/memberList.jsp"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/memberList.jsp"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
           </div>
           <div class="card">
             <div class="status"></div>
             <div class="card-content">예약관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/bookingList.jsp"><i class="fa fa-server" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/bookingList.jsp"><i class="fa fa-server" aria-hidden="true"></i></a>
           </div>
             <div class="card">
             <div class="status"></div>
             <div class="card-content">후기글 관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/reviewList.jsp"><i class="fa fa-desktop" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/reviewList.jsp"><i class="fa fa-desktop" aria-hidden="true"></i></a>
           </div>
-            </div>
           </div>
+          </div>
+          
         </div>
      
 </body>

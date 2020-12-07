@@ -123,6 +123,7 @@ int cnt=rdao.isReviewCheck(user_num);
 </head>
 <body>
 <div id="acc_booklist">
+	<br><br>
 	<h4><b>현재 진행 중인 훈련들</b></h4>
 	<table class="table table-bordered" style="width:900px;">
 	<tr bgcolor="#ffc400">
