@@ -14,6 +14,9 @@ width:30vw;
 height:20vh;
 }
 
+.acc__add-form {
+	margin-top: 5%;
+}
 
 </style>
 <title>애견 등록하기</title>

@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+#myPage__container {
+	margin-top: 5%;
+	align-content: center;
+}
+
 .avatar{
 width:80px;
 height:80px;
@@ -22,13 +27,32 @@ border-radius: 100px;
 max-width:80px;
 }
 
-td,tr{
-vertical-align: center;
+.myPage__table td,.myPage__table tr{
+text-align: center;
+white-space: nowrap;
 }
 
 .acc__acc-del{
 border: none;
-background-color:#ff8e00; 
+white-space: nowrap;
+}
+
+.myPage__update-title {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	
+}
+
+.myPage__add-btn {
+	border: none;
+	background-color:#ff8e00;
+	white-space: nowrap; 
+}
+
+.acc__set-default {
+	white-space: nowrap;
 }
 
 </style>
@@ -83,14 +107,19 @@ $(function(){
 <body>
 
 
-<div id="acc_update-list">
-	<h4><b>강아지 계정리스트</b></h4>
-	<table class="table">
-	<tr >
+<div id="myPage__container">
+	<header class="myPage__update-title">
+		<h4><b>반려견 계정 관리</b></h4>
+		<a href="index.jsp?main=MyPage/accAdd.jsp">
+			<button class="myPage__add-btn">+ 반려견 등록</button>
+		</a>
+	</header>	
+	<table class="myPage__table table">
+	<tr>
 		<td align="center">이름</td>
 		<td align="center">견종</td>
 		<td align="center">성별</td>
-		<td align="center">메인계정으로 설정</td>
+		<td align="center">계정설정</td>
 		<td align="center">계정삭제</td>
 	</tr>
 	
@@ -99,21 +128,21 @@ $(function(){
 		{%>
 		<input type="hidden" name="dog_num" id="dog_num" value="<%=dto.getDog_num()%>">
 		<tr bgcolor="white">
-		<td align="center"> <a dog_num="<%=dto.getDog_num()%>" style="width:60px;cursor:pointer;"   name="accName" class="acc_dogdetail"><%=dto.getAcc_name()%>
+		<td align="center"> <a dog_num="<%=dto.getDog_num()%>" style="cursor:pointer;vertical-align: middle;"   name="accName" class="acc_dogdetail"><b><%=dto.getAcc_name()%></b>
 		<div class="avatar"><img src="AccSave/<%=dto.getPhoto()%>" align="center"></div></a></td>
-		<td style="width:120px;" align="center" name="accBreed"><%=dto.getBreed()%></td>
-		<td style="width:120px;" align="center" name="accGender"><%=dto.getGender()%></td>
+		<td style="vertical-align: middle;" align="center" name="accBreed"><%=dto.getBreed()%></td>
+		<td style="vertical-align: middle;" align="center" name="accGender"><%=dto.getGender()%></td>
 		<input type="hidden" id="sel_acc" name="sel_acc" value="<%=dto.getSel_acc()%>">
 		<%if(dto.getSel_acc()==0){ %>
-		<td style="width:120px;" align="center">
+		<td style="vertical-align: middle;" align="center">
 			<button dog_num2="<%=dto.getDog_num()%>" user_num="<%=dto.getUser_num()%>" type="button" class="acc__set-default button" >메인으로</button>
 		</td>
 		<%}else{%>
-			<td id="acc_sel-defaultAcc">
-			메인강아지
+		<td id="acc_sel-defaultAcc" style="vertical-align: middle;">
+			메인
 		</td>
 		<%} %>
-		<td>
+		<td style="vertical-align: middle;">
 		<button type="button" class="acc__acc-del" onclick="location.href='MyPage/accDelete.jsp?dog_num=<%=dto.getDog_num()%>'">삭제하기</button>
 		</td>
 		</tr>
