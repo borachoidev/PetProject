@@ -261,6 +261,66 @@ public class ReviewDao {
 		}
 	}
 	
+	public int isReviewCheck(String user_num)
+	{
+		int cnt=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select count(*) from review left join book on review.book_num = book.book_num where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?";
+		conn=db.getMyConnection();
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				cnt=rs.getInt(1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		
+		return cnt;
+		
+	}
+	
+	public String getReview(String user_num) {
+		
+		String review_num="";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+				
+		String sql="select r.review_num from account_tb a, book b, review r where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and b.book_num=r.book_num and a.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				review_num=rs.getString("review_num");
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			db.dbClose(conn, pstmt,rs);
+		}
+			
+		return review_num;
+		
+	}
+	
 	
 		
 }

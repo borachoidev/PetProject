@@ -133,7 +133,7 @@ padding-left:1.5vw;
 				<a class="menuLink" href="index.jsp?main=Mung/mungMain.jsp"> 커뮤니티 </a> 
 				<ul class="menu__community submenu">
 					<li><a class="submenuLink"  href="index.jsp?main=Mung/mungMain.jsp"> 멍스타그램 </a></li>
-					<li><a class="submenuLink" href="index.jsp?main=Walk/walkMain.jsp"> 산책친구 </a></li>
+					<li><a class="submenuLink" href="index.jsp?main=Walk/walkMain.jsp"> 우리동네 애견시설</a></li>
 				</ul>
 			</li>
 			<li class="topMenuLi">

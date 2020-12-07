@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+#roadAddress{
+		margin-top: 20px;
+		width: 30%;
+	}
+	
+	.btn_search{
+		width: 12%;
+	}
+	
+	ul.category{
+		width: 100%;
+	}
+
+	li.list-group-item{
+		width: 33.3%;
+	}
+	
+	li.list-group-item:hover{
+		cursor: pointer;
+		background-color: #ffc400;
+	}
+	
+	#mapcontainer{
+		display:flex;
+		flex-direction: column;
+		min-width: 500px;
+	}
+	
+	div.map_wrap{
+		width: 900px;
+		height: 900px;
+		text-align: center; 	
+	}
+	
+	div.map{
+		width: 100%; 
+		height: 70%;
+		border-radius: 20px; 
+		z-index:0;
+	}
+	
+	.btn_add{
+		width: 60px;
+		height: 25px;
+	}
+	
+	.star_frm{
+		display: block;
+	}
+	
+	.rating i{
+		color: gray;
+	}
+	
+	.star{
+		color:orange;
+	}
+	
+	.star_rating .star{
+		width: 0;
+		overflow:hidden;
+	}
+	
+	.star_rating .star-wrap{
+		display:inline-block;
+		vertical-align: middle;
+	}
+	
+	select.makeStar{
+		width: 3rem;
+		background-color: #ffc400;
+		color: white;
+		padding-left: 7px;
+	}
+	
+	select.makeStar:hover{
+		cursor: pointer;
+	}
+	
+	.star_rating span.rating{
+		padding: 5px;
+		padding: 5px;
+	}
+	
+   	.wrap {position: absolute;left: 28px;bottom: 30px;width: 268px;height: 142px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Noto Sans KR', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 257px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 1px 1px 10px #888;}
+    .info .title {padding-left: 8px; padding-top: 1px; height: 30px;background: #ffc400;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 8px;right: 15px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 7px;height: 95px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: hidden;white-space: nowrap;}
+    .info:after {content: '';position: absolute;margin-left: -27px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+	
+	.radius_border{border:1px solid #919191;border-radius:5px;}     
+	.custom_typecontrol {position:relative;top:-625px;left:760px;overflow:hidden;width:140px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Noto Sans KR', sans-serif;}
+	.custom_typecontrol span {display:block;width:69px;height:30px;float:left;text-align:center;line-height:30px;cursor:pointer;}
+	.custom_typecontrol .unselected_btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+	.custom_typecontrol .unselected_btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+	.custom_typecontrol .unselected_btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+	.custom_typecontrol .selected_btn:hover {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}   
+	.custom_zoomcontrol {position:relative;top:-610px;left:860px; width:36px;height:80px;overflow:hidden;z-index:1;background-color:#f5f5f5;} 
+	.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;background:#fff;background:linear-gradient(#fff,  #e6e6e6);}     
+	.custom_zoomcontrol span:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+	.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}
+	div.current_pos {position:relative;top:-650px;left:860px; width: 36px; height: 36px; colorbackground:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+	div.current_pos:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+	div.current_pos:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}
+	
+	.title {font-weight:bold;display:block;}
+    .hAddr {position:relative;top:-735px; left:10px; width: 27%; border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}

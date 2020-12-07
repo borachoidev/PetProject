@@ -49,9 +49,6 @@ background-image: url('Image/back3.jpg');
 
 }
 
-.program__description
-{
-width:60%;}
 
 .location__info{
 padding:1em;
@@ -64,7 +61,7 @@ padding:1em;
 }
 
 .program__title h1{
-color:#424242;
+color:#ffb900;
 }
 
 .program__title h2{
@@ -73,6 +70,7 @@ color:#797979;
 
 .program__description {
 color:#797979;
+width:60%;
 }
 
 

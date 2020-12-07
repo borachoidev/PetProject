@@ -226,84 +226,116 @@ public class BookDao {
 	}
 	
 	
-	public List<BookDto> getCurrentBook(String user_num)
+	public List<HashMap<String, String>> getCurrentBook(String user_num)
 	   {
-	      String sql="select * from book where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and user_num=?;";
-	      List<BookDto> list=new ArrayList<BookDto>();
-	      Connection conn=null;
-	      PreparedStatement pstmt=null;
-	      ResultSet rs=null;
-	      conn=db.getMyConnection();
-	      
-	      
-	      try {
-	         pstmt=conn.prepareStatement(sql);
-	         pstmt.setString(1, user_num);
-	         rs=pstmt.executeQuery();
+	      String sql="select b.book_num,b.petcenter,b.petselect,b.startday,b.endday,a.acc_name from account_tb a, book b where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and a.dog_num=b.dog_num and a.user_num=?";
+	      List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			conn = db.getMyConnection();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, user_num);
+				rs=pstmt.executeQuery();
 	         //바인딩
 	         while(rs.next())
 	         {
-	        	BookDto dto=new BookDto();
-	        	dto.setBook_num(rs.getString("book_num"));
-				dto.setPetcenter(rs.getString("petcenter"));
-				dto.setPetselect(rs.getString("petselect"));
-				dto.setStartday(rs.getString("startday"));
-				dto.setEndday(rs.getString("endday"));
-				dto.setDog_num(rs.getString("dog_num"));
-				dto.setUser_num(rs.getString("user_num"));
+	        	 HashMap<String, String> map = new HashMap<String, String>();
+					map.put("book_num", rs.getString("book_num"));
+					map.put("petcenter", rs.getString("petcenter"));
+					map.put("petselect", rs.getString("petselect"));
+					map.put("startday", rs.getString("startday"));
+					map.put("endday", rs.getString("endday"));
+					map.put("acc_name", rs.getString("acc_name"));
+					
+					//list에 추가
 	            
 	            
-	            list.add(dto);
-	         }
-	         
-	      } catch (SQLException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }finally {
-	         db.dbClose(conn, pstmt);
-	      }
-	      return list;
-	   }
+				list.add(map);
+				
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			return list;
+		}
 	
-		public List<BookDto> getPastBook(String user_num)
+	public List<HashMap<String, String>> getPastBook(String user_num)
 	   {
-	      String sql="select * from book where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?;";
-	      List<BookDto> list=new ArrayList<BookDto>();
-	      Connection conn=null;
-	      PreparedStatement pstmt=null;
-	      ResultSet rs=null;
-	      conn=db.getMyConnection();
-	      
-	      
-	      try {
-	         pstmt=conn.prepareStatement(sql);
-	         pstmt.setString(1, user_num);
-	         rs=pstmt.executeQuery();
-	         
+	      String sql="select b.user_num, b.book_num,b.petcenter,b.petselect,b.startday,b.endday,a.acc_name from account_tb a, book b where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and a.user_num=?";
+	      List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			conn = db.getMyConnection();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, user_num);
+				rs=pstmt.executeQuery();
 	         //바인딩
 	         while(rs.next())
 	         {
-	        	 BookDto dto=new BookDto();
-	        	dto.setBook_num(rs.getString("book_num"));
-				dto.setPetcenter(rs.getString("petcenter"));
-				dto.setPetselect(rs.getString("petselect"));
-				dto.setStartday(rs.getString("startday"));
-				dto.setEndday(rs.getString("endday"));
-				dto.setDog_num(rs.getString("dog_num"));
-				dto.setUser_num(rs.getString("user_num"));
+	        	 HashMap<String, String> map = new HashMap<String, String>();
+	        	 	map.put("user_num", rs.getString("user_num"));
+					map.put("book_num", rs.getString("book_num"));
+					map.put("petcenter", rs.getString("petcenter"));
+					map.put("petselect", rs.getString("petselect"));
+					map.put("startday", rs.getString("startday"));
+					map.put("endday", rs.getString("endday"));
+					map.put("acc_name", rs.getString("acc_name"));
+					
+					//list에 추가
 	            
 	            
-	            list.add(dto);
-	         }
-	         
-	      } catch (SQLException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }finally {
-	         db.dbClose(conn, pstmt);
-	      }
-	      return list;
-	   }
+				list.add(map);
+				
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			return list;
+		}
+	
+	public String getBook(String user_num) {
+		
+		String book_num="";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select b.book_num from book b,account_tb a where str_to_date(endday, '%Y/%m/%d') < now() and b.dog_num=a.dog_num and b.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				book_num=rs.getString("book_num");
+			
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			db.dbClose(conn, pstmt,rs);
+		}
+			
+		return book_num;
+		
+	}
 	
 	
 }

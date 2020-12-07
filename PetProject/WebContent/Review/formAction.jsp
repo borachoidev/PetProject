@@ -24,11 +24,13 @@
 		String title=multi.getParameter("title");
 		String id=multi.getParameter("id");
 		String content=multi.getParameter("content");
+		String book_num=multi.getParameter("book_num");
 		
 		ReviewDto dto=new ReviewDto();
 		dto.setContent(content);
 		dto.setId(id);
 		dto.setTitle(title);
+		dto.setBook_num(book_num);
 		
 		db.insertSmart(dto);
 		int num=db.getMaxNum();
