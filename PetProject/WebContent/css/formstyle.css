@@ -34,11 +34,12 @@ button {
 	margin: 0.4em 0.15em;
 	cursor: pointer;
 	color: white;
-	background-color:#ffd479;
+	background-color:#efefef;
 	border-radius: 20em;
 	vertical-align: middle;
 	font-size: 1em;
 	line-height: 1.25em;
+	border:none;
 }
 select {
 	padding: 0 2em 0 1em;
