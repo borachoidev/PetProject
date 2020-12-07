@@ -118,6 +118,16 @@ ul li {
 	margin-left: 5%;
 }
 
+/* 계정전환목록 프로필 */
+.mung__profile {
+	width: 40px;
+	height: 40px;
+	border-radius: 40px;
+	margin: 0 1%;
+	border: 1px solid #ddd;
+	padding: 0.08em;
+}
+
 /* 로그인한 계정 프로필 */
 .mung__profile-sm {
 	width: 30px;
@@ -216,15 +226,8 @@ ul li {
 	border: 2px solid #ffd479;
 }
 
-.mung__add-icon {
-	width: 10%;
-	margin: 7% 0 0 10%;
-	align-content: center;
-	font-size: 3em;
-	color: #ffd479;
-}
-
 #mung__addBtn {
+	margin: 7% 0 0 10%;
 	align-self: center;
 	border: none;
 	white-space: nowrap;
@@ -470,11 +473,6 @@ function readUrl(input,idx,file) {
 					<textarea class="mung__add-content" name="content" required="required"></textarea><br><br>
 					<label>Tag</label><br>
 					<textarea type="text" placeholder="단어 앞에 #를 붙여주세요" name="tag" id="mung__addTag"></textarea>
-				</div>
-				<div class="mung__add-icon">
-					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-					</svg>
 				</div>
 				<button type="submit" id="mung__addBtn">게시글 등록</button>		
 			</article>

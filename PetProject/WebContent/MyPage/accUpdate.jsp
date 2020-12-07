@@ -10,6 +10,10 @@
 <meta charset="UTF-8">
 <!--general stylesheet-->
 <style type="text/css">
+.acc__update-form {
+	margin-top: 5%;
+}
+
 textarea.acc__memo{
 resize: none;
 width:30vw;
