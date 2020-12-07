@@ -4,29 +4,48 @@ import java.sql.Timestamp;
 
 public class AdoptDto {
 	private String adopt_num;
-	private String title;
+	private String content;
 	private String age;
 	private String gender;
 	private String breed;
 	private String vaccine;
 	private String commt;
 	private String photo;
-	private String content;
 	private int likes;
-	private Timestamp wrteday;
-	private String id;
+	private Timestamp writeday;
+	private String adopt_name;
+	private String comm_num;
+	public String getComm_num() {
+		return comm_num;
+	}
+	public void setComm_num(String comm_num) {
+		this.comm_num = comm_num;
+	}
+	public String getAdopt_name() {
+		return adopt_name;
+	}
+	public void setAdopt_name(String adopt_name) {
+		this.adopt_name = adopt_name;
+	}
 	private String user_name;
+	private String user_num;
+	public String getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(String user_num) {
+		this.user_num = user_num;
+	}
 	public String getAdopt_num() {
 		return adopt_num;
 	}
 	public void setAdopt_num(String adopt_num) {
 		this.adopt_num = adopt_num;
 	}
-	public String getTitle() {
-		return title;
+	public String getContent() {
+		return content;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getAge() {
 		return age;
@@ -64,29 +83,17 @@ public class AdoptDto {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
 	public int getLikes() {
 		return likes;
 	}
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public Timestamp getWrteday() {
-		return wrteday;
+	public Timestamp getWriteday() {
+		return writeday;
 	}
-	public void setWrteday(Timestamp wrteday) {
-		this.wrteday = wrteday;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
+	public void setWriteday(Timestamp writeday) {
+		this.writeday = writeday;
 	}
 	public String getUser_name() {
 		return user_name;
