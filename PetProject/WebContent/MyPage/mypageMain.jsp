@@ -31,6 +31,8 @@
    justify-content: space-between;
    flex-direction: row;
    align-content: center;
+   
+  
 }
 
 .myPage__my-menu {
@@ -39,9 +41,15 @@
    flex-direction: column;
    width: 50%;
    height: 100%;
-   border: 1px solid #efebe9;
+   border: 1px solid #EAEAEA;
    margin: 0 2%;
    padding: 2%;
+   
+  border-bottom: 2px solid #ffc400;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.10),
+     0px 5px 10px rgba(0,0,0,0.05),
+     0px 10px 10px rgba(0,0,0,0.05),
+     0px 20px 10px rgba(0,0,0,0.05);
 }
 
 .myPage__info-box img {
@@ -66,6 +74,11 @@
    padding: 2%;
    align-items: center;
    font-size: 0.9em;
+   border-bottom: 2px solid #ffc400;
+   box-shadow: 0px 0px 10px rgba(0,0,0,0.10),
+     0px 5px 10px rgba(0,0,0,0.05),
+     0px 10px 10px rgba(0,0,0,0.05),
+     0px 20px 10px rgba(0,0,0,0.05);
 }
 
 .myPage__box p {
