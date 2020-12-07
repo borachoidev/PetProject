@@ -25,8 +25,7 @@ String user_num=dao.getNum(myId);
    <div class="">
    <form action="Adopt/addaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
-      <table class="" style="width: 1000px;">
-         <caption><b>강아지 등록</b></caption>
+      <table class="" style="width: 600px;">
          <tr>
             <td>
                <span>이름</span>
@@ -95,7 +94,7 @@ String user_num=dao.getNum(myId);
          <tr>
             <td>
                <textarea name="content" required="required"
-               style="width: 800px; height: 150px;"></textarea>
+               style="width: 600px; height: 150px;"></textarea>
             </td>
          </tr>   
          <tr>
@@ -105,7 +104,7 @@ String user_num=dao.getNum(myId);
          </tr>
          <tr>
             <td colspan="2" align="center">
-               <button type="submit" class="btn btn-info"
+               <button type="submit" class="btn btn-outline-primary""
                style="width: 100px;">등록</button>
             </td>
          </tr>   

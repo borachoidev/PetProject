@@ -1,3 +1,5 @@
+<%@page import="data.dao.AdoptDao"%>
+<%@page import="data.dto.AdoptDto"%>
 <%@page import="data.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,29 +16,31 @@
 String myId=(String)session.getAttribute("myId"); 
 String id=request.getParameter("id");
 String pass=request.getParameter("pass");
-
+String adopt_num=request.getParameter("adopt_num");
 
 UserDao dao=new UserDao();
 String user_num=dao.getNum(myId);
+
+AdoptDao adao=new AdoptDao();
+AdoptDto dto=adao.getData(adopt_num);
 
 %>
 
 <body>
    <div class="">
-   <form action="./updateaction.jsp" method="post"
+   <form action="Adopt/updateaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
-      <table class="" style="width: 1000px;">
-         <caption><b>강아지 정보 수정</b></caption>
+      <table class="" style="width: 600px;">
          <tr>
             <td>
                <span>이름</span>
-               <input type="text" name="adopt_name" style="width: 75px;" required="required">
+               <input type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" style="width: 75px;"required="required">
             </td>
          </tr>
          <tr>
             <td>
                <span>견종</span>
-               <input type="text" name="breed" style="width: 75px;" required="required">
+               <input type="text" name="breed" value="<%=dto.getBreed()%>" style="width: 75px;" required="required">
             </td>
          </tr>
           <tr>
@@ -94,8 +98,8 @@ String user_num=dao.getNum(myId);
          </tr>
          <tr>
             <td>
-               <textarea name="content" required="required"
-               style="width: 400px; height: 150px;"></textarea>
+               <textarea name="content" required="required" value="<%=dto.getContent()%>"
+               style="width: 600px; height: 150px;"></textarea>
             </td>
          </tr>   
          <tr>

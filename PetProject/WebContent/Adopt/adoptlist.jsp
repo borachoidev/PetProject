@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+
    img.photo{
       width: 200px;
       height: 230px;
@@ -21,13 +22,13 @@
       justify-content: center;
       flex-direction: column;
    }
-  .footer{
+  div.footer{
 	  display: flex;
 	  justify-content: flex-end ;
 	  flex-direction: row;
 	  margin: 0px 0px;
    }
-   #btn__add{
+   #adopt__add{
    	 display: inline;
    }
 </style>
@@ -48,7 +49,7 @@
 AdoptDao dao=new AdoptDao();
 //세션으로 부터 key, value 가져오기
 int totalCount=dao.getTotalCount();
-int perPage=8;//한페이지당 보여질 글의 갯수
+int perPage=10;//한페이지당 보여질 글의 갯수
 int perBlock=3;//한블럭당 출력할 페이지의 갯수
 int totalPage;//총 페이지의 갯수
 int startPage;//각 블럭당 시작페이지 번호
@@ -69,7 +70,7 @@ totalPage=totalCount/perPage+(totalCount%perPage>0?1:0);
 //예:한페이지당 3개만 볼 경우 현재 페이지가 2라면 sp:1, ep:3
 //현재 페이지가 7이라면 sp:3, ep:9
 startPage=(currentPage-1)/perBlock*perBlock+1;
-endPage=startPage+perBlock-1;
+endPage=startPage+perBlock+1;
 //마지막 블럭은 endPage를 totalPage로 해놔야한다
 if(endPage>totalPage)
 	endPage=totalPage;
@@ -90,9 +91,14 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 
 %>
 <body>
-	<div id="adopt__container">
+	<div id="adop__container">
 		<header>
-			<h2>가정 분양 게시판</h2>
+			<div id="category">
+			<h1>
+			<button type="button" class="btn btn-outline-light text-dark" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
+			<button type="button" class="btn btn-outline-light text-dark" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
+			</h1>
+			</div>
 		</header>
 		<main>
 			<div class="board">
@@ -117,7 +123,7 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 			         </a>
 			         </td>
 			         <%
-			         if((e+1)%4==0)
+			         if((e+1)%5==0)
 			         {%>
 			       </tr>
 	     	       <tr>
@@ -129,13 +135,13 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 						<%
 						if(totalCount>0)
 						{%>
-						<ul class="pagination" style="width:500px;">
+						<ul class="pagination">
 						<%
 							//이전
 							if(startPage>1)
 							{%>
-								<li><a href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=startPage-1%>">
-								이전</a></li>
+								<li class="page-item disabled"><a class="page-link" 
+								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=startPage-1%>">Previous</a></li>
 							<%}
 							for(int i=startPage;i<=endPage;i++)
 							{
@@ -143,7 +149,7 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 								
 								if(e==currentPage)
 								{%>
-										<a href="<%=url%>"><%=i%>&nbsp;</a>
+									<li class="page-item"><a class="page-link" href="<%=url%>"><%=i%></a></li>
 									<%}else{%>
 										<a href="<%=url%>"><%=i%>&nbsp;</a>
 									<%}
@@ -151,13 +157,13 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 							//다음 
 							if(endPage<totalPage)
 							{%>
-								<a href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">
-								다음</a>
+								<li class="page-item"><a class="page-link" 
+								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">Next</a></li>
 							<%}
 						%>
 							</ul>	
-						<div id="btn__add">
-						  <button type="button" class="btn btn-info"style="width: 150px;"
+						<div id="adopt__add">
+						  <button type="button" class="btn btn-outline-primary"style="width: 110px;"
 						  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">강아지 등록</button>
 						   <%String loginOk=(String)session.getAttribute("loginOk");	
 							String myId=(String)session.getAttribute("myId"); 

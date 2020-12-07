@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="data.dto.AdoptCommentDto"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -11,6 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+	#category span:hover{
+		background:#F7CA18;
+		cursor: pointer;
+	}
    img.photo{
       width: 200px;
       height: 230px;
@@ -36,9 +41,8 @@
    $(function(){
       $("a.godetail").click(function(e){
          e.preventDefault();        
-         var adopt_num=$(this).attr("adopt_num");
-         var user_num=$(this).attr("user_num");
-         location.href="index.jsp?main=Adopt/detailpage2.jsp?adopt_num="+adopt_num+"&user_num="+user_num;
+         var getDesertionNo=$(this).attr("DesertionNo");
+         location.href="index.jsp?main=Adopt/detailpage2.jsp?desertionNo="+getDesertionNo;
       });
    });
 </script>
@@ -48,7 +52,8 @@
 
 request.setCharacterEncoding("utf-8");
 Abandon dao = new Abandon();
-
+ArrayList<AbandonDto> list=dao.getAbandonList();
+/* 
 //세션으로 부터 key, value 가져오기
 int totalCount=60;
 int perPage=8;//한페이지당 보여질 글의 갯수
@@ -83,11 +88,11 @@ start=(currentPage-1)*perPage;
 
 //마지막 글 번호는 총 글수와 같은 번호여야 한다
 int no=totalCount-(currentPage-1)*perPage;
-
+ */
 //출력할 목록 가져오기
-List<AbandonDto> list = dao.getAbandonList();
-/* List<AdoptDto> list=dao.getAlldogs(start, perPage); */
 
+/* List<AdoptDto> list=dao.getAlldogs(start, perPage); */
+ 
 /* String adopt_num=request.getParameter("adopt_num"); */
 
 /* AdoptDto adto=dao.getData(adopt_num); */
@@ -96,7 +101,12 @@ List<AbandonDto> list = dao.getAbandonList();
 <body>
 	<div id="adopt__container">
 		<header>
-			<h2>유기견 분양 게시판</h2>
+			<div id="category">
+			<h2>
+			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
+			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
+			</h2>
+			</div>
 		</header>
 		<main>
 			<div class="board">
@@ -119,14 +129,14 @@ List<AbandonDto> list = dao.getAbandonList();
 			         </a>
 			         </td>
 			         <%
-			         if((e+1)%4==0)
+			         if((e+1)%5==0)
 			         {%>
 			       </tr>
 	     	       <tr>
 			         <%}e++;}%>   
 	     		   </tr>
 	    		</table>
-				<!-- 페이징 처리 --> 
+				<%-- <!-- 페이징 처리 --> 
 					<div class="footer">
 						<%
 						if(totalCount>0)
@@ -162,7 +172,7 @@ List<AbandonDto> list = dao.getAbandonList();
 						</div>
 					<%}
 					%>
-					</div>
+					</div> --%>
 		
 			</div>
 		</main>

@@ -12,15 +12,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
    #adopt__detail{
    	display: flex;
    	justify-content: center;
    	flex-direction: column;
    }
+   
+   #btn_likes{
+   cursor: pointer;
+   }
 </style>
 <script type="text/javascript">
    $(function(){
-      $("span.delete").click(function(){
+	 $("span.delete").click(function(){
     	  var a=confirm("삭제하려면[확인]을 눌러주세요")
     	  if(a){
     		  var idx=$(this).attr("idx");
@@ -36,9 +41,9 @@
     	  }
       });
  
- 	  $("button.likes").click(function(){
+ 	  $("span.likes").click(function(){
     	  var adopt_num=$(this).attr("adopt_num");
-    	  var a=confirm("좋아요")
+    	  var a=confirm("좋아요를 누르시겠습니까?")
     	  if(a){
     		  $.ajax({
     		 	 type:"get",
@@ -90,10 +95,12 @@
 <body>
 	<div id="adopt__detail">
 		<header>
-			<h2>분양 정보</h2>
+			<h2>분양 정보</h2>			 
+			<span class="likes"id="btn_likes"
+			 style="width: 50px; font-size: 20px;" adopt_num="<%=adopt_num%>">💛<%=dto.getLikes() %></span>		
 		</header>
 	  	<main>	
-	  	 <table style="width: 1000px;">
+	  	 <table class="detailtable table table-bordered" style="width: 800px;" >
 	      <tr>
 	         <td class="photo" rowspan="6" style="width: 500px;">
 	               <img src="adoptsave/<%=photo%>">         
@@ -109,21 +116,25 @@
 	         		<td>성별 : <%=dto.getGender() %></td>   
 	         </tr>
 	         <tr>		  
-	         		<td>나이 : <%=dto.getAge() %>개월 </td>  
+	         		<td>나이 : <%=dto.getAge() %></td>  
 	         </tr>
 	         <tr>		
 	         		<td><%=dto.getVaccine() %></td>
 	         </tr>
+		</table>
+	         <div style="text-align:center; width: 600px;">
 	         <tr>		
-	         		<td><pre><%=dto.getContent() %></pre></td>
+	         		<td><%=dto.getContent() %></td>
 	         </tr>
-	</table>
+	         </div>
+
 	<table>
 		<ul>
-			 <button type="button" class="likes"id="btn_likes"
-			 style="width: 50px;" adopt_num="<%=adopt_num%>">💛</button><%=dto.getLikes() %>			         
-	   	<%-- <div class="comment">댓글<%=alist.size() %></div> --%>
+		
 	     <%if(loginOk!=null){//이부분은 로그인 상태에서만 보이게 하기 %>
+         
+	   	<%-- <div class="comment">댓글<%=alist.size() %></div> --%>
+	   		<%}%>
 	     <div>
 	     	<div class="commentlist">
 	     		<%
@@ -141,55 +152,65 @@
 	     		%>
 	     			<span class="awriteday">
 	     			<%=adto.getWriteday()%></span>
-	     			<span class="glyphicon glyphicon-remove delete"
-	     			idx="<%=adto.getIdx()%>">삭제</span>
+	     			<span class="delete"
+	     			idx="<%=adto.getIdx()%>">×</span>
 	     		<%	
 	     		}
 	     		%>
 
 	     		<br>
-	     		
+	     		<%}%>
+	     
+	
 	     	</div> 
 	     </div>
 	 	</ul>
-	     	<%}
-	     }
-	     %>
 	</div>
-	     <form action="Adopt/commentadd.jsp" method="post" class="form-inline">
+	     <form action="Adopt/commentadd.jsp" method="post" class="form-inline" style="text-align:center">
 	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
 	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
 	      	<input type="hidden" name="comm_num" value="<%=dto.getAdopt_num()%>">
 	      	<input type="hidden" name="id" value="<%=myId%>">
 	      	<div class="form-group">
+	      	<%if(loginOk!=null){ %>
 	      	<span>
 	      		<input type="text" name="content" required="required" placeholder="댓글을 입력해주세요"
 	      		style="width:500px;">
+	      	</span>	
+	      	<%}
+	      	%>
+	      	<span>
+	      	<%if(loginOk==null){ %>
+	      		<span>
+	      		<input type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
+	      		style="width:500px;" readonly>
+	      		<%} %>
 	      	</span>	
 	      	<span>
 	      		<button type="submit">저장</button>	
 	      	</span>
 	      	</div>  	
 	      </form>
+	     
 	     </table>
-	      	
+	   	</main>		
+	   		      	
 	     	 <div>
 	      	 <%
 	     	  if(myId!=null && myId.equals(id)){
 	    		%>   	   
 	     	     <button type="button"
-			       class="btn btn-info btn-lg" id="btn-del"
+			       class="btn btn-outline-danger" id="btn-del"
 			       style="width: 100px;"
 			       onclick="location.href='Adopt/deleteaction.jsp?adopt_num=<%=dto.getAdopt_num()%>'">글 삭제</button> 
 			     <button type="button"
-			       class="btn btn-info btn-lg" id="btn-update"
+			       class="btn btn-outline-warning" id="btn-update"
 			       style="width: 100px;"
-			       onclick="location.href='Adopt/adoptUpdate.jsp?adopt_num=<%=dto.getAdopt_num()%>'">글 수정</button> 
+			       onclick="location.href='index.jsp?main=Adopt/adoptUpdate.jsp?adopt_num=<%=dto.getAdopt_num()%>'">글 수정</button> 
 			          
 	      	  <%}	 
 		  	  %>                            
-	   		 </div>
-	   	</main>			 
+	   		 </div>	 
 	</div>
 </body>
 </html>
