@@ -1,3 +1,7 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="data.dao.BookDao"%>
+<%@page import="data.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,8 +20,14 @@
 
 <body>
 <%
+
 String id=(String)session.getAttribute("myId");
-String book_num=request.getParameter("book_num");
+UserDao udao=new UserDao();
+String user_num=udao.getNum(id);
+
+BookDao bdao=new BookDao();
+List<HashMap<String,String>> plist = bdao.getPastBook(user_num);
+String book_num=bdao.getBook(user_num);
 %>
 <div>
 <fieldset style="width: 800px;">
