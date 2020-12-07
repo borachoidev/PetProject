@@ -137,10 +137,10 @@ padding-left:1.5vw;
 				</ul>
 			</li>
 			<li class="topMenuLi">
-				<a class="menuLink" href="index.jsp?main=Adopt/adoptMain.jsp"> 분양 </a> 
+				<a class="menuLink" href="index.jsp?main=Adopt/adoptlist.jsp"> 분양 </a> 
 				<ul class="menu__adopt submenu">
-					<li><a class="submenuLink" href="index.jsp?main=Adopt/adoptMain.jsp"> 가정분양 </a></li>
-					<li><a class="submenuLink" href="index.jsp?main=Adopt/adoptMain.jsp"> 유기견분양 </a></li>
+					<li><a class="submenuLink" href="index.jsp?main=Adopt/adoptlist.jsp"> 가정분양 </a></li>
+					<li><a class="submenuLink" href="index.jsp?main=Adopt/abandonlist.jsp"> 유기견분양 </a></li>
 				</ul>
 			</li>
 		</ul>
