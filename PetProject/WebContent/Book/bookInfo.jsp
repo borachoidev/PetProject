@@ -7,17 +7,69 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
+		margin-top: 30px;
 	}
 	.book__choice{
 		display: flex;
 		justify-content: space-between;
 	}
+	.book__choice2{
+		background-color: #FFB61E;	
+		position: relative;
+	}
+	.book__choice2:after{
+		top: 0; /*말풍선꼭지위치 위아래*/
+		right: 9.99%; /*말풍선위치 좌우*/
+		border: solid transparent;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: transparent transparent transparent #FFB61E ; /*말풍선 꼭지방향*/
+		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
+		margin-right: -28%; /*말풍선 상세위치 조정*/
+		z-index: 50;
+	}
+	.book__choice3{
+		background-color: #FFA400;	
+		position: relative;
+	}
+	.book__choice3:after{
+		top: 0; /*말풍선꼭지위치 위아래*/
+		right: 9.99%; /*말풍선위치 좌우*/
+		border: solid transparent;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: transparent transparent transparent #FFA400 ; /*말풍선 꼭지방향*/
+		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
+		margin-right: -28%; /*말풍선 상세위치 조정*/
+		z-index: 50;
+	}
+	.book__choice4{
+		background-color: #F9690E;	
+		position: relative;
+	}
+	.book__choice4:after{
+		top: 0; /*말풍선꼭지위치 위아래*/
+		right: 9.99%; /*말풍선위치 좌우*/
+		border: solid transparent;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: transparent transparent transparent #F9690E ; /*말풍선 꼭지방향*/
+		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
+		margin-right: -28%; /*말풍선 상세위치 조정*/
+		z-index: 50;
+	}
 	.book__choice li{
 		list-style-type: none;
 		padding:20px 130px;
-	}
-	.book__choice2, .book__choice3, .book__choice4{
-		background-color: #ddd;
 	}
 	 .book__choice1 a, .book__choice2 a, .book__choice3 a, .book__choice4 a{
 		pointer-events: none;

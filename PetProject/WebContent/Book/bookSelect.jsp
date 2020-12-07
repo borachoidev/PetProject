@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
-		margin-top: 50px;
+		margin-top: 30px;
 	}
 	.book__choice{
 		display: flex;
@@ -23,35 +23,24 @@
 		padding:20px 130px;
 	}
 	.book__choice2{
-		background-color: #ddd;	
+		background-color: #FFB61E;	
 		position: relative;
 	}
 	.book__choice2:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
-		right: 9.3%; /*말풍선위치 좌우*/
+		right: 9.99%; /*말풍선위치 좌우*/
 		border: solid transparent;
 		content: "";
 		height: 0;
 		width: 0;
 		position: absolute;
 		pointer-events: none;
-		border-color: transparent transparent transparent #F7CA18 ; /*말풍선 꼭지방향*/
-		border-width: 32px; /*말풍선 꼭지 사이즈*/
-		margin-right: -29.5%; /*말풍선 상세위치 조정*/
+		border-color: transparent transparent transparent #FFB61E ; /*말풍선 꼭지방향*/
+		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
+		margin-right: -28%; /*말풍선 상세위치 조정*/
+		z-index: 50;
 	}
-	.book__choice1:after{
-		top: 0; /*말풍선꼭지위치 위아래*/
-		right: 9.3%; /*말풍선위치 좌우*/
-		border: solid transparent;
-		content: "";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-		border-color: transparent transparent transparent #F7CA18 ; /*말풍선 꼭지방향*/
-		border-width: 32px; /*말풍선 꼭지 사이즈*/
-		margin-right: -29.5%; /*말풍선 상세위치 조정*/
-	}
+	
 	.book__choice3 a, .book__choice4 a{
 		pointer-events: none;
 	} 
@@ -66,7 +55,7 @@
 		border: none;
 	}
 	.calendar__table th{
-		background-image: linear-gradient(to right, #B2CCFF 0%, #B2CCFF 19%, #D9E5FF 60%, #D9E5FF 100%);
+		background-image: linear-gradient(to right, #FFB61E 0%, #FFB61E 19%, #FFDF24 60%, #FFDF24 100%);
 		width: 50px;
 		height: 50px;
 		text-align: center;
@@ -123,42 +112,46 @@
 	
 	<div class="book__map__cal" style="border: 3px solid purple;">
 		<!-- 지도열리는 div -->
-		<div id="book__map" style="width:500px;height:570px; border-radius: 20px; border: 1px solid red;" ></div>
-		<div id="book__selectbox" style="border: 20px solid blue; width: 63%; height: 400px;">
-			<div class="book__calendar" style="border: 10px solid green;">
-				<div class="calendarWan">
-					   <span onclick="before_month();"> 이전 </span>
-					   <span id="select_year" >2020</span>년
-					   <span id="select_month" >12</span>월
-					   <span onclick="after_month();"> 다음 </span>
-					   <div id="calendarForm"></div>
+		<div id="book__map" style="width:500px;height:560px; border-radius: 20px; border: 1px solid red;" ></div>
+		<div id="book__bigselectbox" style="border: 15px solid tomato;">
+			<div id="book__selectbox" style="border: 20px solid blue;  height: 400px;">
+				<div class="book__calendar" style="border: 10px solid green;">
+					<div class="calendarWan">
+						   <span onclick="before_month();" style="cursor: pointer; padding: 5px;"> 이전 </span>
+						   <span id="select_year" >2020</span>년
+						   <span id="select_month" >12</span>월
+						   <span onclick="after_month();" style="cursor: pointer; padding: 5px;"> 다음 </span>
+						   <div id="calendarForm"></div>
+					</div>
+				</div>
+				<div class="book__box3" style="border: 10px solid black;">
+				   <div  id="lesson11" onclick="getClass1()">1:1 레슨</div>
+				   <div  id="lessongroup" onclick="getClass2()">그룹 레슨</div>
+				   <div  id="hotel" onclick="getClass3()">호텔링</div>
 				</div>
 			</div>
-			<div class="book__box3" style="border: 10px solid black;">
-			   <div  id="lesson11" onclick="getClass1()">1:1 레슨</div>
-			   <div  id="lessongroup" onclick="getClass2()">그룹 레슨</div>
-			   <div  id="hotel" onclick="getClass3()">호텔링</div>
+			<div class="select3" style="width: 100%; border: 1px solid red;">
+				<form action="Book/bookpageaction2.jsp" method="post">
+					<select name = "petcenter">
+						<option value="서초본원">서초본원</option>
+						<option value="강남센터">강남센터</option>
+						<option value="신촌센터">신촌센터</option>
+						<option value="종로센터">종로센터</option>
+						<option value="안양센터">안양센터</option>
+						<option value="부산센터">부산센터</option>
+					</select>
+					<input type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
+					<input type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
+					<input type="text" name="petselect" id="petselect" value="<%=onelesson %>" required="required" readonly="readonly" > 
+					<br>
+					<button type="button" id="back_btn" class="button"><a href="index.jsp?main=Book/bookMain.jsp">Back</a></button>
+					<button type="submit" class="button">예약하기</button>
+					
+				</form>
 			</div>
 		</div>
 	</div>
-	<div class="select3" style="width: 100%; height: 200px; border: 1px solid red;">
-		<form action="Book/bookpageaction2.jsp" method="post">
-			<select name = "petcenter">
-				<option value="서초본원">서초본원</option>
-				<option value="강남센터">강남센터</option>
-				<option value="신촌센터">신촌센터</option>
-				<option value="종로센터">종로센터</option>
-				<option value="안양센터">안양센터</option>
-				<option value="부산센터">부산센터</option>
-			</select>
-			<input type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-			<input type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-			<input type="text" name="petselect" id="petselect" value="<%=onelesson %>" required="required" readonly="readonly"> 
-			
-			<button type="submit" class="button">예약하기</button>
-			<button id="back_btn" class="button"><a href="index.jsp?main=Book/bookMain.jsp">뒤로!!</a></button>
-		</form>
-	</div>
+	
 </div>
 
 

@@ -7,27 +7,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
-		margin-top: 50px;
+		margin-top: 30px;
 	}
 	.book__choice{
 		display: flex;
 		justify-content: space-between;
-	}
-	.book__choice1{
-		position: relative;
-	}
-	.book__choice1:after{
-		top: 0; /*말풍선꼭지위치 위아래*/
-		right: 9.3%; /*말풍선위치 좌우*/
-		border: solid transparent;
-		content: "";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-		border-color: transparent transparent transparent #F7CA18 ; /*말풍선 꼭지방향*/
-		border-width: 32px; /*말풍선 꼭지 사이즈*/
-		margin-right: -29.5%; /*말풍선 상세위치 조정*/
 	}
 	
 	.book__choice li{
