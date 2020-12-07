@@ -32,6 +32,7 @@ margin: 0px 0px 5vh 0;
 }	
 .carousel{
 width:70%;
+height: 40%;
 }
 #totalReview{
 width:100%;
@@ -77,14 +78,14 @@ background-image: url('Image/back4.jpg');
 }
 
 .item {
-	height: 17vh;
+	height: 20vh;
 	width:100%;
 	background-color: white;
  
 }
 .item:nth-child(1){
     background-color: transparent;
-    height: 45vh;
+    height: 50vh;
   }
   
 .program{
@@ -197,6 +198,7 @@ List<ReviewDto> best=db.getBestReview();
 
 <!-- best리뷰 -->
 	<div id="bestReview">
+	   
 		<div id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="false">
 	   		  <!-- 캐러셀 아이템 -->
 	   		<div class="carousel-inner">  
@@ -260,7 +262,7 @@ List<ReviewDto> best=db.getBestReview();
 	    </a>
 	 
 	 </div>
-	   <div><a href='#totalReview' class="review__total-btn ">전체리뷰</a></div>
+	<div><a href='#totalReview' class="review__total-btn ">전체리뷰보러가기</a></div>
 	    
   </div>
 <div class="section2">
