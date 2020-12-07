@@ -27,11 +27,28 @@ margin-top:3em;
 	flex-direction: column;
 	width:50%;
 } 
+
+.del-button{
+background-color: #f28e3c;
+border: none;}
 @media (max-width:800px){
-.member__form {
+	.member__form {
 	width:100%;
 }
+form{
+display: flex;
+margin-left: 10%;
 
+}
+#memberForm{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+
+}
 </style>
 <script type="text/javascript">
       //우편번호 찾기 API
@@ -110,6 +127,7 @@ margin-top:3em;
 	String hp2=dto.getHp().split("-")[1];	
 	String hp3=dto.getHp().split("-")[2];	
 	%>
+<div id="memberForm">
 		<form action="MyPage/memberUpdateAction.jsp" method="post">
 			<div class="memeber__container">
 				<div class="member__form">
@@ -144,6 +162,7 @@ margin-top:3em;
 					<div>
 					<input type="text" name="email1" class="all__form medium" placeholder="이메일주소" required value="<%=email1%>"/> <span>@</span> 
 						<input type="text" class="all__form medium" name="email2" id="email2" placeholder="이메일주소" required value="<%=email2 %>" /> 
+						<br>
 						<select id="email3">
 							<option disabled selected>선택하세요</option>
 							<option value="gmail.com">gmail.com</option>
@@ -215,17 +234,15 @@ margin-top:3em;
 					</div>
 					<!--비밀번호-->
 					<span>비밀번호 * </span>
-					<input type="password" name="pass" id="pass" class="all__form large" placeholder="비밀번호" required /> 
-					<!--
-					비밀번호패턴
-					 pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다."  
-					 -->
-					
+					<input type="password" name="pass" id="pass" class="all__form large" placeholder="비밀번호" required pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다." /> 					
+					<div>
 					<button type="submit" class="button medium">회원정보수정</button>
-					<button type="button" class="button medium" onclick="deleteUser()">회원탈퇴</button>
+					<button type="button" class="del-button medium" onclick="deleteUser()">회원탈퇴</button>
+					</div>
+					
 				</div>
 			</div>
 		</form>
-
+</div>
 </body>
 </html>

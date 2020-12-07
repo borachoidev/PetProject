@@ -9,6 +9,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+.review__content img{
+max-width: 200px;
+
+}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -37,7 +44,7 @@
 		<td colspan="2" valign="top">
 			<b><%=dto.getId()%></b>
 			<br><br>			
-			<pre><%=dto.getContent()%></pre>	
+			<pre class="review__content"><%=dto.getContent()%></pre>	
 		</td>
 	</tr>
 	<tr>
