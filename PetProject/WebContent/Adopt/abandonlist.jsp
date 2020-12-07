@@ -35,6 +35,53 @@
    #btn__add{
    	 display: inline;
    }
+   
+   .adopt__main{
+display: flex;
+flex-direction: column;
+width:100%;
+align-items: center;
+justify-content: center;
+}
+.section1{
+background-image: url('Image/back7.jpg');
+width: 100%;
+background-size: 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.item {
+	height: 20vh;
+	width:100%;
+	background-color: white;
+ 
+}
+.item:nth-child(1){
+    background-color: transparent;
+    height: 50vh;
+    width:100%;
+  }
+  
+.program{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.program__description
+{
+width:60%;
+color:#797979;}  
+
+.program__title h1{
+color:#ffb900;
+}
+
+.program__title h2{
+color:#797979;
+}
 </style>
 <title>Insert title here</title>
 <script>
@@ -99,6 +146,16 @@ int no=totalCount-(currentPage-1)*perPage;
 
 %>
 <body>
+<div class="adopt__main">
+<div class="section1">
+		   <div class="item"><!-- 사진표시를 위한div --></div>
+		   <div class="item program" id="program1">
+			   <div  class="program__title"><h1>ADOPT</h1> <h2>유기견분양</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription1">
+			   사지말고 입양하세요. 반려동물과 함께 한다는 것은 생각보다 많은 책임감이 필요합니다. 유기견 아이들은 한 번 상처를 받은 아이들이기 때문에 사람에 대해 거부감이 있을 수 있으며, 새로운 가족에게 적응하기에 시간이 필요합니다.
+			    </div>
+		</div>    
+</div>
 	<div id="adopt__container">
 		<header>
 			<div id="category">
@@ -177,5 +234,6 @@ int no=totalCount-(currentPage-1)*perPage;
 			</div>
 		</main>
 		</div>
+</div>		
 </body>
 </html>

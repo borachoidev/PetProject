@@ -11,6 +11,52 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+.adopt__main{
+display: flex;
+flex-direction: column;
+width:100%;
+align-items: center;
+justify-content: center;
+}
+.section1{
+background-image: url('Image/back6.jpg');
+width: 100%;
+background-size: 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.item {
+	height: 20vh;
+	width:100%;
+	background-color: white;
+ 
+}
+.item:nth-child(1){
+    background-color: transparent;
+    height: 50vh;
+    width:100%;
+  }
+  
+.program{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.program__description
+{
+width:60%;
+color:#797979;}  
+
+.program__title h1{
+color:#ffb900;
+}
+
+.program__title h2{
+color:#797979;
+}
 
    img.photo{
       width: 200px;
@@ -91,6 +137,16 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 
 %>
 <body>
+<div class="adopt__main">
+<div class="section1">
+		   <div class="item"><!-- 사진표시를 위한div --></div>
+		   <div class="item program" id="program1">
+			   <div  class="program__title"><h1>ADOPT</h1> <h2>가정분양</h2></div>
+			  	<div class="program__description animate__animated " id="programDescription1">
+			   펫앤미에서 새 식구를 만나보세요.
+			    </div>
+		</div>    
+</div>
 	<div id="adop__container">
 		<header>
 			<div id="category">
@@ -187,5 +243,6 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 			</div>
 		</main>
 		</div>
+</div>		
 </body>
 </html>

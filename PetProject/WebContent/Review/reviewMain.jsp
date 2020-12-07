@@ -109,10 +109,6 @@ color:#ffb900;
 color:#797979;
 }
 
-.program__description {
-
-}
-
 .review__total-btn{
 	padding: 0.5em 1em;
 	margin: 0.4em 0.15em;
