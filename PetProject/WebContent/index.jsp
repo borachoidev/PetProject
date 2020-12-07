@@ -31,10 +31,22 @@
 <link rel="icon" href="Image/favicon.png">
 <!--general stylesheet-->
 <style type="text/css">
+@font-face {
+    font-family: 'GoyangIlsan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangIlsan.woff') format('woff');
+     font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GoyangDeogyang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
 	padding: 0px;
 	margin: 0px;
-	font-family: 'Noto Sans KR';
+	font-family: 'GoyangIlsan';
 }
 
 a {
@@ -53,7 +65,9 @@ a {
 	align-items: center;
 	margin-bottom: 7%;
 }
-
+h1,h2,h3,h4,h5{
+   font-family:'GoyangDeogyang';
+}
 /* 기본 링크 스타일 */
 a:link, a:visited, a:hover, a:focus, a:active { 
 text-decoration:none;
