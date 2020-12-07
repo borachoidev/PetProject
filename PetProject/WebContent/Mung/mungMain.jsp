@@ -782,7 +782,7 @@ function insertComm(comm_num,content,dog_num) {
 				</svg>
 			</a>
 <%
-		if(loginOk!=null && accId!="no") {
+		if(loginOk!=null && !accId.equals("no")) {
 %>				
 			
 			<a id="mung__accListBtn" data-toggle="modal" data-target="#mung__accList">
@@ -1043,7 +1043,7 @@ function insertComm(comm_num,content,dog_num) {
 		        </div>		
 <%
 				/* 로그인한 경우에만 좋아요 및 댓글작성 가능 */
-				if(loginOk!=null && accId!="no") {
+				if(loginOk!=null && !accId.equals("no")) {
 %>			        
 		        	<!-- 게시글 좋아요/작성일 -->
 		        	<div class="mung__modal_likes">

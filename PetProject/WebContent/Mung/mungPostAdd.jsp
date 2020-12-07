@@ -357,6 +357,9 @@ function readUrl(input,idx,file) {
 	
 %>
 <body>
+<%
+		if(loginOk!=null && !accId.equals("no")) {
+%>				
 <div id="mumg__container">
 	<!-- 멍스타그램 네비바 -->
 	<ul id="mung__nav">
@@ -376,9 +379,6 @@ function readUrl(input,idx,file) {
 				  <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
 				</svg>
 			</a>
-<%
-		if(loginOk!=null && accId!="no") {
-%>				
 			
 			<a id="mung__accListBtn" data-toggle="modal" data-target="#mung__accList">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -411,9 +411,6 @@ function readUrl(input,idx,file) {
 			<a href="index.jsp?main=Mung/mungAccount.jsp">
 				<img class="mung__profile-sm" src="AccSave/<%=accDto.getPhoto()%>">
 			</a>
-<%
-		}
-%>
 		</li>
 	</ul>
 	
@@ -479,5 +476,14 @@ function readUrl(input,idx,file) {
 		</form>
 	</div>
 </div>
+<%
+		}else {
+%>
+<script type="text/javascript">
+	location.href="index.jsp?main=Mung/mungMain.jsp";
+</script>
+<%			
+		}
+%>
 </body>
 </html>
