@@ -18,43 +18,45 @@
 </head>
 <body>
 <div id="mapcontainer">
-<div class="search">
-	<input type="text" id="roadAddress" placeholder="도로명주소 검색" readonly>&nbsp;
-	<button id="search_btn" type="button" onclick="execDaumPostcode()" class="btn_search button">검색</button>
-</div>
-<div class="map_wrap">
-	<ul id="category" class="category list-group list-group-horizontal">
-        <li id="hospital" class="list-group-item" data-order="1"> 
-        	<i class='fas fa-hospital' style='font-size:1.5rem'></i><br>
-            <b>동물병원</b>
-        </li>  
-        <li id="cafe" class="list-group-item" data-order="2"> 
-        	<i class='fas fa-coffee' style='font-size:1.5rem;'></i><br>
-            <b>애견카페</b>
-        </li>  
-        <li id="park" class="list-group-item" data-order="3">
-        	<i class='fas fa-dog' style='font-size:1.5rem;'></i><br>
-            <b>공원</b>
-        </li>      
-    </ul>
-	<div class="map" id="map"></div>
-	<div class="custom_typecontrol radius_border">
-        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
-        <span id="btnSkyview" class="unselected_btn" onclick="setMapType('skyview')">스카이뷰</span>
-    </div>
-    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-    <div class="custom_zoomcontrol radius_border"> 
-        <span onclick="zoomIn()"><i class='fas fa-plus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>  
-        <span onclick="zoomOut()"><i class='fas fa-minus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
-    </div>
-    <div class="hAddr">
-        <span class="title">지도중심기준 행정동 주소정보</span>
-        <span id="centerAddr"></span>
-    </div>
-    <div class="radius_border current_pos" onclick="panTo()">
-    	<span><i class='fas fa-crosshairs' style='position: relative; top: 5px; color: #777777; font-size:24px'></i></span>
-    </div>
-</div>
+	<div class="search">
+		<input type="text" id="roadAddress" placeholder="도로명주소 검색" readonly>&nbsp;
+		<button id="search_btn" type="button" onclick="execDaumPostcode()" class="btn_search button">검색</button>
+	</div>
+	<div class="map_wrap">
+		<ul id="category" class="category list-group list-group-horizontal">
+	        <li id="hospital" class="list-group-item" data-order="1"> 
+	        	<i class='fas fa-hospital' style='font-size:1.5rem'></i><br>
+	            <b>동물병원</b>
+	        </li>  
+	        <li id="cafe" class="list-group-item" data-order="2"> 
+	        	<i class='fas fa-coffee' style='font-size:1.5rem;'></i><br>
+	            <b>애견카페</b>
+	        </li>  
+	        <li id="park" class="list-group-item" data-order="3">
+	        	<i class='fas fa-dog' style='font-size:1.5rem;'></i><br>
+	            <b>공원</b>
+	        </li>      
+	    </ul>
+	    <div class="map_layer">
+		    <div class="map" id="map"></div>
+			<div class="custom_typecontrol radius_border">
+		        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
+		        <span id="btnSkyview" class="unselected_btn" onclick="setMapType('skyview')">스카이뷰</span>
+		    </div>
+		    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+		    <div class="custom_zoomcontrol radius_border"> 
+		        <span onclick="zoomIn()"><i class='fas fa-plus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>  
+		        <span onclick="zoomOut()"><i class='fas fa-minus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
+		    </div>
+		    <div class="hAddr">
+		        <span class="title">지도중심기준 행정동 주소정보</span>
+		        <span id="centerAddr"></span>
+		    </div>
+		    <div class="radius_border current_pos" onclick="panTo()">
+		    	<span><i class='fas fa-crosshairs' style='position: relative; top: 5px; left:5px; color: #777777; font-size:24px'></i></span>
+		    </div>
+	    </div>
+	</div>
 </div>
 <script>
 	var yPos = 33.45990031884484;
