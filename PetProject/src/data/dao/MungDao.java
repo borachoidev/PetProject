@@ -527,7 +527,13 @@ public class MungDao {
 			pstmt.setString(1, dog_num);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				totLikes=Integer.parseInt(rs.getString(1));
+				
+				if(rs.getString(1)==null){
+					totLikes=0;
+				}else {
+					totLikes=Integer.parseInt(rs.getString(1));
+				}
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
