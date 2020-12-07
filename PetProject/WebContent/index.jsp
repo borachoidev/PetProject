@@ -51,9 +51,9 @@ a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	
+	margin-bottom: 7%;
 }
+
 /* 기본 링크 스타일 */
 a:link, a:visited, a:hover, a:focus, a:active { 
 text-decoration:none;
@@ -85,6 +85,7 @@ System.out.println(id+log+add);
 	</div>
 	<div class="layout__main">
 		<jsp:include page="<%=mainPage%>" />
+		
 	</div>
 </body>
 </html>

@@ -16,6 +16,9 @@ justify-content: center;
 align-items: center;
 
 }
+.layout__main{
+margin-bottom:0px; 
+}
 .section1, .section2 {
     background-position: center center;
     background-size: 100%;
@@ -297,6 +300,8 @@ $('#myTab a').click(function (e) {
 	
 
 </div>
+<jsp:include page="../Layout/footer.jsp"/>
 </div>
+	
 </body>
 </html>
