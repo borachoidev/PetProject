@@ -32,11 +32,12 @@ body {
 .logo {
   background: #FFCD12;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 27px;
   font-weight: bold;
   padding: 10px 0px 0px 10px;
   height: 45px;
 }
+
 .main-section {
   height: 100%;
 }
@@ -64,7 +65,7 @@ a {
 .card-content {
   color: #32325d;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   
 }
 .author {
@@ -91,19 +92,26 @@ a {
 
 <script type="text/javascript">
 </script>
+
+<%
+
+String id=(String)session.getAttribute("myId");
+%>
 <title>펫앤미 - 관리자 페이지</title>
 </head>
   <body>
+  
     <div class="wrapper">
       <div class="side-menu">
         <div class="logo">
-        	관리자페이지
+        	<b>관리자페이지</b>
         </div>
-       
+        
+        
       </div>
       <div class="main-content">
-     
         <div class="main-section">
+        <div><br><br><br><br><br></div>
           <div class="card">
             <div class="status"></div>
             <div class="card-content">회원관리
@@ -125,7 +133,6 @@ a {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+     
 </body>
 </html>
