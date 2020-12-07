@@ -9,11 +9,14 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- stylesheet -->
 <style type="text/css">
-#signUpForm,form{
+#signUpForm{
 display:flex;
 justify-content: center;
 align-items: center;
+margin-top: 20px;
+
 }
+
 .memeber__container {
 margin-top:3em;
 	display: flex;
@@ -32,6 +35,13 @@ margin-top:3em;
 @media (max-width:800px){
 .member__form {
 	width:100%;
+
+}
+form{
+display: flex;
+margin-left: 10%;
+}
+
 }
 
 </style>
@@ -141,7 +151,7 @@ margin-top:3em;
             $(".pass-check")
               .css("color", "#FF7E79")
               .html(
-                "6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다."
+                "6자리 이상, 하나 이상의 숫자 및 <br>소문자를 모두 포함해야합니다."
               );
           }
         }
@@ -181,10 +191,7 @@ margin-top:3em;
 					<!--비밀번호-->
 					<span>비밀번호 * </span>
 					<input type="password" name="pass" id="pass"
-						class="all__form large" placeholder="비밀번호" required /> <!--
-					비밀번호패턴
-					 pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다."  
-					 -->
+						class="all__form large" placeholder="비밀번호" required  pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다." /> 
 					 <span class="pass-check"></span>
 					<span> 비밀번호 확인 </span>
 					 <input type="password"
