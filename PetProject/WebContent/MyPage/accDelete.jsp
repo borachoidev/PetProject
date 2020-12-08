@@ -17,7 +17,7 @@
 	dao.deleteAcc(dog_num);
 	
 	// 삭제한 강아지가 대표강아지이면 남은강아지 중에 한마리를 대표강아지로 선정
-	if(dao.getDefault(myId).equals("empty")){
+	if(dao.getDefault(myId).equals("")){
 		
 		int dogNum = dao.getFirstDog(user_num);
 		System.out.println("dogNum:"+dogNum);
