@@ -306,8 +306,7 @@ public class BookDao {
 			}
 			return list;
 		}
-	//**여러개 북넘버가 나와서 소용이 없음 그러니 hash map 에서 찾아와야함
-	//북넘버를 받아서 같은 강아지나 유저여도 그에따른 고유 북넘버를 찾아온다
+	
 	//필요없는코드
 	public String getBook(String user_num) {
 		
