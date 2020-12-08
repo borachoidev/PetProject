@@ -16,7 +16,7 @@
    try{
       multi=new MultipartRequest(request,uploadPath,uploadSize,
             "utf-8",new DefaultFileRenamePolicy());
-      String adopt_name=multi.getParameter("adopt_name") + myId;
+      String adopt_name=multi.getParameter("adopt_name") + " ("+myId+")";
       String age=multi.getParameter("age");
       String breed=multi.getParameter("breed");
       String gender=multi.getParameter("gender");

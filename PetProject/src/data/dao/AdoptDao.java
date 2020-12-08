@@ -303,7 +303,7 @@ public class AdoptDao {
 	
 	public void updateAdopt(AdoptDto dto)
 	{
-		String sql="update adopt set age=?, gender=?, breed=?, vaccine=?, photo=?, adopt_name=?, user_num=?, content=? where adopt_num=?";
+		String sql="update adopt set age=?, gender=?, breed=?, vaccine=?, photo=?, user_num=?, content=? where adopt_num=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -316,10 +316,10 @@ public class AdoptDao {
 			pstmt.setString(3, dto.getBreed());
 			pstmt.setString(4, dto.getVaccine());
 			pstmt.setString(5, dto.getPhoto());
-			pstmt.setString(6, dto.getAdopt_name());
-			pstmt.setString(7, dto.getUser_num());
-			pstmt.setString(8, dto.getContent());
-			pstmt.setString(9, dto.getAdopt_num());
+		
+			pstmt.setString(6, dto.getUser_num());
+			pstmt.setString(7, dto.getContent());
+			pstmt.setString(8, dto.getAdopt_num());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
