@@ -31,6 +31,7 @@
 </head>
 <%
 String myId=(String)session.getAttribute("myId"); 
+String loginOk=(String)session.getAttribute("loginOk");
 String id=request.getParameter("id");
 String pass=request.getParameter("pass");
 
@@ -38,9 +39,15 @@ String pass=request.getParameter("pass");
 UserDao dao=new UserDao();
 String user_num=dao.getNum(myId);
 
+/* 사용자 레벨 */
+UserDao udao=new UserDao();
+boolean user_level=udao.getUserLevel(myId);
 %>
 
 <body>
+<%
+	if(loginOk!=null && user_level==true) {
+%>
    <div class="main">
    <h2>가정분양 강아지 등록</h2>
    <form action="Adopt/addaction.jsp" method="post"
@@ -124,5 +131,14 @@ String user_num=dao.getNum(myId);
 
    </form>
 </div>
+<%
+	}else {
+%>
+<script type="text/javascript">
+		location.href="index.jsp?main=Adopt/adoptlist.jsp";
+</script>
+<%		
+	}
+%>
 </body>
 </html>

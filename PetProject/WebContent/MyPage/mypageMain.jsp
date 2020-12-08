@@ -96,7 +96,7 @@
   <div class="myPage__box row">
      <div class="col myPage__info-box">
         <img src="Image/favicon.png">
-      <a href="index.jsp?main=MyPage/memberUpdate.jsp"><button class="myPage__info-btn">내 정보 관리</button></a>
+      <a href="index.jsp?main=MyPage/myInfoUpdate.jsp"><button class="myPage__info-btn">내 정보 관리</button></a>
         <a href="index.jsp?main=MyPage/accUpdateList.jsp"><button class="myPage__info-btn">반려견 정보 관리</button></a>
      </div>
      <div class="col myPage__my-menu">

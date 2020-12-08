@@ -50,6 +50,7 @@ $(function(){
 </head>
 <%
 String myId=(String)session.getAttribute("myId"); 
+String loginOk=(String)session.getAttribute("loginOk");
 String id=request.getParameter("id");
 String pass=request.getParameter("pass");
 String adopt_num=request.getParameter("adopt_num");
@@ -59,9 +60,16 @@ String user_num=dao.getNum(myId);
 
 AdoptDao adao=new AdoptDao();
 AdoptDto dto=adao.getData(adopt_num);
+
+/* 사용자 레벨 */
+UserDao udao=new UserDao();
+boolean user_level=udao.getUserLevel(myId);
 %>
 
 <body>
+<%
+	if(loginOk!=null && user_level==true) {
+%>
    <div class="main">
    <h2>분양 정보 수정</h2>
    <form action="Adopt/updateaction.jsp" method="post"
@@ -148,5 +156,14 @@ AdoptDto dto=adao.getData(adopt_num);
 
    </form>
 </div>
+<%
+	}else {
+%>
+<script type="text/javascript">
+		location.href="index.jsp?main=Adopt/adoptlist.jsp";
+</script>
+<%		
+	}
+%>
 </body>
 </html>
