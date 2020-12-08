@@ -45,9 +45,9 @@
 		    </div>
 		    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
 		    <div class="custom_zoomcontrol radius_border"> 
-		        <span onclick="zoomIn()"><i class='fas fa-plus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>  
-		        <span onclick="zoomOut()"><i class='fas fa-minus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
-		        <span><i class='current_pos fas fa-crosshairs' onclick="panTo()" style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
+		        <span onclick="zoomIn()"><i class='fas fa-plus'></i></span>  
+		        <span onclick="zoomOut()"><i class='fas fa-minus'></i></span>
+		        <span onclick="panTo()"><i class='current_pos fas fa-crosshairs'></i></span>
 		    </div>
 		    <div class="hAddr">
 		        <span class="title">지도중심기준 행정동 주소정보</span>
