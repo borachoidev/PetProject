@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
+		margin-top: 15px;
 	}
 	.book__choice{
 		display: flex;
@@ -25,6 +26,7 @@
 		background-color: #FFB61E;	
 		position: relative;
 		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+		pointer-events: none;
 	}
 	.book__choice2:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -60,7 +62,6 @@
 	}
 	.calendar__table th{
 		background-image: linear-gradient(to right, #FFEF85 0%, #FFEF85 19%, #FFFFA9 60%, #FFFFA9 100%);
-		background-color : tomato;
 		width: 50px;
 		height: 50px;
 		text-align: center;
@@ -73,8 +74,7 @@
 		width: 50px;
 		height: 50px;
 		text-align: center;
-		font-size: 20px;
-		box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.10);
+		box-shadow: 1px 1px 1px rgba(0,0,0,0.16), 1px 1px 1px rgba(0,0,0,0.10);
 		border-radius: 100px;
 		border: none;
 		font-size: 0.9em;
@@ -168,6 +168,12 @@
 		background-color: #FFFFA9;
 		cursor: pointer;
 	}
+	.book__bookbtn, .book__backbtn{
+		transition:0.5s;
+	}
+	.book__bookbtn:hover, .book__backbtn:hover {
+		background-color: tomato; 
+	}
 	
 	
 </style>
@@ -208,7 +214,7 @@
 			<form action="Book/bookpageaction2.jsp" method="post">
 				<input class="all__form" type="text" placeholder="예약정보 선택하기"  readonly="readonly"
 				style="width: 140px; margin-bottom: 40px; background-image: linear-gradient(to right, #FFEF85 0%, #FFEF85 19%, #FFFFA9 60%, #FFFFA9 100%);
-				border: none; box-shadow: 3px 2px 2px rgba(0,0,0,0.25);"><br>
+				border: none;"><br>
 				<select name = "petcenter">
 					<option value="서초본원">서초본원</option>
 					<option value="강남센터">강남센터</option>
@@ -222,8 +228,8 @@
 				<input class="all__form" type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해 주세요  (종료일)"  required="required"><br>
 				<input class="all__form" type="text" name="petselect" id="petselect" value="<%=onelesson %>" required="required" readonly="readonly" > 
 				<br>
-				<button type="button" id="back_btn" class="button" onclick="btnBack()">Back</button>
-				<button type="submit" class="button">예약하기</button>
+				<button type="button" id="back_btn" class="button book__backbtn" onclick="btnBack()">&lt 뒤로가기</button>
+				<button type="submit" class="button book__bookbtn">예약하기</button>
 				
 			</form>
 		</div>

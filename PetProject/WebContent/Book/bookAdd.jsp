@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
+		margin-top: 15px;
 	}
 	.book__choice{
 		display: flex;
@@ -22,6 +23,7 @@
 		background-color: #FFB61E;	
 		position: relative;
 		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+		pointer-events: none;
 	}
 	.book__choice2:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -125,13 +127,12 @@
 		justify-content: space-around;
 	}
 	.bookAdd__photobox{
-		background-image: url("AccSave/petone2.jpg");
+		background-image: url("Image/petone2.jpg");
 		width: 300px;
 		height: 150px;
 		background-size: cover;
 		background-repeat: no-repeat;
 		border-radius: 40px;
-		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 		opacity: 0.8;
 		text-align: center;
 		line-height: 150px;
@@ -149,12 +150,16 @@
 	}
 	.book__box2__breed{
 		text-align: center;
-		border-radius: 40px;
-		box-shadow: 0 3px 3px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.23);
-		width: 50%;
+		/* box-shadow: 0 3px 3px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.23); */
 		margin: auto;
 		margin-top: 30px;
 		padding: 5px;
+	}
+	.book__bookbtn, .book__backbtn{
+		transition:0.5s;
+	}
+	.book__bookbtn:hover, .book__backbtn:hover {
+		background-color: tomato; 
 	}
 	
 </style>
@@ -271,8 +276,8 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 							
 						%>
 							<div style="font-weight: bold; margin-bottom: 35px;">예약자정보</div>
-							예약자 : <input class="all__form" name="user_name" type="text" value="<%=map.get("user_name") %>"><br>
-							핸드폰 : <input class="all__form" name="hp" type="text" value="<%=map.get("hp") %>"><br>
+							예약자 : <input class="all__form" name="user_name" type="text" value="<%=map.get("user_name") %>" readonly="readonly"><br>
+							핸드폰 : <input class="all__form" name="hp" type="text" value="<%=map.get("hp") %>" readonly="readonly"><br>
 							
 							<!-- 예약자 번호: --> <input type="hidden" name="user_num" value="<%=map.get("user_num") %>"><br>
 							<!-- 강아지 번호: --> <input type="hidden" id="dog_num" name="dog_num" value="<%=map.get("dog_num")%>"><br>
@@ -281,8 +286,8 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 					
 					%>
 						<div class="bookadd__btnbox">
-							<button type="button" id="back_btn" class="button" onclick="btnBack()">Back</button>
-							<button type="submit" class="button">예약하기</button>
+							<button type="button" id="back_btn" class="button book__backbtn" onclick="btnBack()">&lt 뒤로가기</button>
+							<button type="submit" class="button book__bookbtn">예약하기</button>
 						</div>
 					</div>
 			
@@ -325,8 +330,8 @@ List<AccountDto> alist = bdao.getPuppy(user_num); */
 							var n =$(this);
 							/* alert(n.find("acc_name").text()); */
 							s+= "<div class='book__photo'><img src='AccSave/"+n.find('photo').text()+"'></div>";
-							s+= "<div class='book__box2__breed'>"+n.find("breed").text()+"<br>"+n.find("age").text()+"</div>";
-							/* s+= "<div class='book__box2__age'>"+n.find("age").text()+"</div>"; */
+							s+= "<h4 class='book__box2__breed'>"+n.find("breed").text()+"</h4>";
+							s+= "<h4 class='book__box2__age'>"+n.find("age").text()+"</h4>";
 						});
 						s+="</div>";
 						$("#book__myPuppy").html(s);

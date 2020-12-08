@@ -27,7 +27,7 @@ String user_num=udao.getNum(id);
 
 BookDao bdao=new BookDao();
 List<HashMap<String,String>> plist = bdao.getPastBook(user_num);
-String book_num=bdao.getBook(user_num);
+String book_num=request.getParameter("book_num");
 %>
 <div>
 <fieldset style="width: 800px;">

@@ -16,9 +16,27 @@
 <title>Insert title here</title>
 <style>
 	div.review__container{
-		margin-top: 10%;
+		margin-top: 1.5%;
+		width:100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		
 	}
+	
+.paging{
+display: flex;
+flex-direction:row;
+justify-content: flex-end; 
+width:70%;
 
+}
+.review__tb caption{
+caption-side: top;}
+.review__tb{
+width:70%;
+}
 
 </style>
 </head>
@@ -34,7 +52,7 @@ String user_num=udao.getNum(myId);
 AdoptDao dao=new AdoptDao();
 
 %>
-	<div id="">
+
 	<%
 		int totalCount=dao.getMyCount(user_num); //총 글의 갯수
 		int perPage=10; //한페이지당 보여지는 글의 갯수
@@ -80,10 +98,11 @@ AdoptDao dao=new AdoptDao();
 	
 	
 	 <br><br>
-	 <caption><b>내가 쓴 분양 게시판 글</b></caption>
-	 	<table class="table table-striped">
+
+	 	<table class="table review__tb">
+	 	 <caption><b>내가 쓴 분양 게시판 글</b></caption>
 	 		<tr style= "text-align:center; line-height: 10px; ">
-	 		 	<td>번호</td>
+	 		 	<td style="vertical-align: center;">번호</td>
 	 		 	<td>내 용</td>
 	 		 	<td>작성일</td>
 	 		 	<td></td> 		 	
@@ -99,16 +118,16 @@ AdoptDao dao=new AdoptDao();
 	 	<%for(AdoptDto dto:list)
 	 	{%>
 			<tr style= "text-align:center;">
-				<td>
-					<%=dto.getAdopt_num()%></a>
+				<td style="vertical-align: middle;">
+					<%=dto.getAdopt_num()%>
 				</td>	
-				<td>
+				<td style="vertical-align: middle;">
 
 					<%=dto.getBreed()%>,<%=dto.getAge() %>
-				<td>
+				<td style="vertical-align: middle;">
 					<%=sdf.format(dto.getWriteday())%>
 				</td>
-				<td>
+				<td style="vertical-align: middle;">
 					<button class="button"
 					 onclick="location.href='index.jsp?main=Adopt/detailpage.jsp?adopt_num=<%=dto.getAdopt_num()%>&user_num=<%=user_num%>'">글로 이동</button>
 				</td>
@@ -118,10 +137,12 @@ AdoptDao dao=new AdoptDao();
 	 %>
 	
 	    </table>
-	     <div style="float:right; display: block;"><b>총 <span style="color: #ffb900;"><%=totalCount%></span> 개의 글</b></div>
+	    
+	    <div class="paging">
+	    
 	  
 	    <!-- 페이징처리 -->
-	     <div style="width: 700px;" class="text-center">
+	     <div class="text-center"  style= "width: 50%;text-align:center;">
 		 <ul class="pagination">
 		 <!-- 이전(첫블럭이 아니면 보이게하기) -->
 		<%
@@ -138,8 +159,8 @@ AdoptDao dao=new AdoptDao();
 		 {%>
 			<li>
 			<a 
-			style="color:<%=currentPage==i?"#ffb900":"#ddd"%>"
-			href="index.jsp?main=MyPage/reviewList.jsp?pageNum=<%=i%>"><%=i%></a>
+			style="color:<%=currentPage==i?"#F9690E":"#FFA400"%>"
+			href="index.jsp?main=MyPage/reviewList.jsp?pageNum=<%=i%>">&nbsp;<%=i%></a>
 			</li> 
 		 <%}
 		 %>	
@@ -155,7 +176,9 @@ AdoptDao dao=new AdoptDao();
 		 %>	 
 		 </ul>	
 		</div>
-	</div>	
+		 <div><b>총 <span style="color: #ffb900;"><%=totalCount%></span> 개의 글</b></div>
+		</div>
+
 
 </div>
 
