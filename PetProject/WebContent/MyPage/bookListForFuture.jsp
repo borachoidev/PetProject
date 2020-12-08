@@ -23,7 +23,7 @@
 %>
 <body>
 <div style=" width: 1200px; margin-top: 50px;">
-<<<<<<< HEAD
+
 	<h3>예약 현황</h3>
 	<table class="table table-striped bookList__table">
 		<tr align="center">
@@ -68,7 +68,7 @@
 		
 		%>
 	</table>
-=======
+
    <h3>예약 현황</h3>
    <table class="table table-striped bookList__table">
       <tr align="center">
@@ -113,7 +113,6 @@
       
       %>
    </table>
->>>>>>> 1cc06c092398e64dc968e4554a88a87c1cb91a1e
 
 </div>
 <script type="text/javascript">
