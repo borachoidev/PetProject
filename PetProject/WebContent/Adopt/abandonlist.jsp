@@ -12,10 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-	#category span:hover{
-		background:#F7CA18;
-		cursor: pointer;
+	img.photo:hover{
+		opacity: 0.5;
 	}
+	
    img.photo{
       width: 200px;
       height: 230px;
