@@ -182,8 +182,8 @@ int no=totalCount-(currentPage-1)*perPage;
 			      {
 			         String photo=dto.getPopfile().split(",")[0]; 
 				     String year=dto.getNoticeSdt().substring(0,4);
-				     String month=dto.getNoticeSdt().substring(5,7);
-				     String day=dto.getNoticeSdt().substring(7);
+				     String month=dto.getNoticeSdt().substring(4,6);
+				     String day=dto.getNoticeSdt().substring(6);
 			      %> 
 			         <td>
 			         <a desertionNo="<%=dto.getDesertionNo()%>"

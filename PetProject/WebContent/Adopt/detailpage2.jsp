@@ -76,6 +76,10 @@ AbandonDto dto = dao.getData(desertionNo);
 		         		<td class="first__td"> 견종 </td>
 		         		<td class="second__td"> <%=dto.getKindcd().replace("[개]","")%> </td>
 		         </tr>
+		          <tr>
+		         		<td class="first__td"> 모색</td>
+		         		<td class="second__td"> <%=dto.getColorcd() %></td>
+		         </tr>
 		         <tr>		
 	         	<td class="first__td">성별</td>
 				<td class="second__td"><%
@@ -90,13 +94,22 @@ AbandonDto dto = dao.getData(desertionNo);
 		         		<td class="second__td"> <%=dto.getAge() %> </td>  
 		         </tr>
 		         <tr>		
-		         		<td class="first__td"> 보호자 연락처 </td>
-		         		<td class="second__td"> <%=dto.getOfficetel() %> </td>
-		         </tr>
-		         <tr>		
 		         		<td class="first__td" style="vertical-align: middle;"> 특이사항 </td>
 		         		<td class="second__td"> <%=dto.getSpecialmark() %> </td>
 		         </tr>
+		         <tr>		
+		         		<td class="first__td"> 보호소</td>
+		         		<td class="second__td"> <%=dto.getCareNm() %> </td>
+		         </tr>
+		         <tr>		
+		         		<td class="first__td">연락처 </td>
+		         		<td class="second__td"> <%=dto.getOfficetel() %> </td>
+		         </tr>
+		         <tr>		
+		         		<td class="first__td">보호소 주소 </td>
+		         		<td class="second__td"> <%=dto.getCareaddr() %> </td>
+		         </tr>
+		      
 			</table>
          </div>
 	   	</main>	
