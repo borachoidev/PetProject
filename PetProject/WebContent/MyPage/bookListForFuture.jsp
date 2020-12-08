@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>예약현황</title>
+<style type="text/css">
+	.bookList__table td{
+		vertical-align: middle;
+	}
+</style>
 </head>
 <%
 	String myId = (String)session.getAttribute("myId");
@@ -19,7 +24,7 @@
 <body>
 <div style=" width: 1200px; margin-top: 50px;">
 	<h3>예약 현황</h3>
-	<table class="table table-striped">
+	<table class="table table-striped bookList__table">
 		<tr align="center">
 			<th>예약 번호</th>
 			<th>이름</th>
@@ -48,7 +53,7 @@
 				<td><%=map.get("endday") %></td>
 				<td>
 					<input type="hidden" value="<%=map.get("book_num") %>" class="book__num">
-					<button type="button" class="book__delete btn btn-danger btn-sm">예약 취소</button>
+					<button type="button" class="book__delete button">예약 취소</button>
 				</td>
 			</tr>
 		
