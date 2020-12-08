@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
-		margin-top: 30px;
 	}
 	.book__choice{
 		display: flex;
@@ -16,6 +15,7 @@
 	.book__choice2{
 		background-color: #FFB61E;	
 		position: relative;
+		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 	}
 	.book__choice2:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -34,6 +34,7 @@
 	.book__choice3{
 		background-color: #FFA400;	
 		position: relative;
+		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 	}
 	.book__choice3:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -46,12 +47,13 @@
 		pointer-events: none;
 		border-color: transparent transparent transparent #FFA400 ; /*말풍선 꼭지방향*/
 		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
-		margin-right: -28%; /*말풍선 상세위치 조정*/
+		margin-right: -27%; /*말풍선 상세위치 조정*/
 		z-index: 50;
 	}
 	.book__choice4{
 		background-color: #F9690E;	
 		position: relative;
+		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 	}
 	.book__choice4:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -64,7 +66,7 @@
 		pointer-events: none;
 		border-color: transparent transparent transparent #F9690E ; /*말풍선 꼭지방향*/
 		border-width: 31.8px; /*말풍선 꼭지 사이즈*/
-		margin-right: -28%; /*말풍선 상세위치 조정*/
+		margin-right: -29.5%; /*말풍선 상세위치 조정*/
 		z-index: 50;
 	}
 	.book__choice li{
@@ -76,8 +78,19 @@
 	} 
 	.bookinfo__mainbox{
 		width:100%; 
-		height: 500px;
+		height: 600px;
 		text-align: center;
+		background-image: url("AccSave/puppy14.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-radius: 20px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	}
+	.bookinfo__mainbox h1{
+		line-height: 250px;
+		color: white;
+  		font-size: 3.5em;
+  		text-shadow: 1px 2px 5px #5D5D5D;
 	}
 	
 </style>
@@ -102,8 +115,8 @@
 
 	<div class="bookinfo__mainbox">
 		<h1>예약이 완료되었습니다.</h1>
-		<div class="bookinfo__success">
-			<h4>예약정보</h4>
+		<%-- <div class="bookinfo__success">
+			<h5>예약정보</h5>
 			<div>
 				<div>예약자명 :<%=user_name %></div>
 				<div>H.P :<%=hp %></div>
@@ -114,7 +127,7 @@
 				<div>선택강좌 :<%=petselect %></div>
 				
 			</div>
-		</div>
+		</div> --%>
 	</div>
 
 </div>

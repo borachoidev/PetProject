@@ -12,7 +12,6 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
-		margin-top: 30px;
 	}
 	.book__choice{
 		display: flex;
@@ -25,6 +24,7 @@
 	.book__choice2{
 		background-color: #FFB61E;	
 		position: relative;
+		box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 	}
 	.book__choice2:after{
 		top: 0; /*말풍선꼭지위치 위아래*/
@@ -48,6 +48,10 @@
 		display: flex;
 		justify-content: space-between;
 	}
+	#book__map{
+		border-radius: 40px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	}
 	#calview{
 	}
 	.calendar__table{
@@ -55,7 +59,8 @@
 		border: none;
 	}
 	.calendar__table th{
-		background-image: linear-gradient(to right, #FFB61E 0%, #FFB61E 19%, #FFDF24 60%, #FFDF24 100%);
+		background-image: linear-gradient(to right, #FFEF85 0%, #FFEF85 19%, #FFFFA9 60%, #FFFFA9 100%);
+		background-color : tomato;
 		width: 50px;
 		height: 50px;
 		text-align: center;
@@ -77,27 +82,94 @@
 	.book__box3{
 	}
 	#lesson11{
-		width: 200px;
-		height: 100px;
-		border: 1px solid red;
+		width: 300px;
+		height: 125px;
+		background-image: url("AccSave/petone2.jpg");
+		background-size: cover;
+		background-repeat: repeat;
+		margin-bottom: 10px;
+		border-radius: 20px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		text-align: center;
+		line-height: 125px;
+		font-size: 1.5em;
+		color: white;
+  		text-shadow: 2px 2px 4px #000000;
+  		font-weight: bold;
+	}
+	#lesson11:hover, #lessongroup:hover, #hotel:hover{
+		opacity: 1;
 	}
 	#lessongroup{
-		width: 200px;
-		height: 100px;
-		border: 1px solid red;
+		width: 300px;
+		height: 125px;
+		background-image: url("AccSave/petgroup.jpg");
+		background-size: cover;
+		background-repeat: repeat;
+		margin-bottom: 10px;
+		opacity: 0.7;
+		transition:0.8s;
+		cursor: pointer;
+		border-radius: 20px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		text-align: center;
+		line-height: 125px;
+		font-size: 1.5em;
+		color: white;
+  		text-shadow: 2px 2px 4px #000000;
+  		font-weight: bold;
 	}
 	#hotel{
-		width: 200px;
-		height: 100px;
-		border: 1px solid red;
+		width: 300px;
+		height: 125px;
+		background-image: url("AccSave/puppy20.jpg");
+		background-size: cover;
+		background-repeat: repeat;
+		opacity: 0.7;
+		transition:0.8s;
+		cursor: pointer;
+		border-radius: 20px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		text-align: center;
+		line-height: 125px;
+		font-size: 1.5em;
+		color: white;
+  		text-shadow: 2px 2px 4px #000000;
+  		font-weight: bold;
 	}
 	#back_btn a {
 		color: white;
 	}
-	#book__selectbox{
+	#book__calendarbox{
 		display: flex;
-		justify-content: space-between;
 	}
+	.book__calendar{
+		border-radius: 40px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		padding: 30px;
+		padding-top:50px;
+		
+	}
+	.book__select{
+		border-radius: 40px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		padding: 20px;
+		padding-top: 45px;
+	}
+	.book__select input, .book__select select{
+		margin-bottom: 20px;
+	}{
+		margin-bottom: 20px;
+	}
+	.book__dayhover{
+		transition:0.5s;
+	}
+	.book__dayhover:hover {
+		background-color: #FFFFA9;
+		cursor: pointer;
+	}
+	
+	
 </style>
 </head>
 <%
@@ -110,45 +182,50 @@
 <div class="book__mainlayout">
 	<jsp:include page="bookmenu.jsp"/>
 	
-	<div class="book__map__cal" style="border: 3px solid purple;">
+	<div class="book__map__cal" style="margin-top: 50px;">
 		<!-- 지도열리는 div -->
-		<div id="book__map" style="width:500px;height:560px; border-radius: 20px; border: 1px solid red;" ></div>
-		<div id="book__bigselectbox" style="border: 15px solid tomato;">
-			<div id="book__selectbox" style="border: 20px solid blue;  height: 400px;">
-				<div class="book__calendar" style="border: 10px solid green;">
-					<div class="calendarWan">
-						   <span onclick="before_month();" style="cursor: pointer; padding: 5px;"> 이전 </span>
-						   <span id="select_year" >2020</span>년
-						   <span id="select_month" >12</span>월
-						   <span onclick="after_month();" style="cursor: pointer; padding: 5px;"> 다음 </span>
-						   <div id="calendarForm"></div>
-					</div>
-				</div>
-				<div class="book__box3" style="border: 10px solid black;">
-				   <div  id="lesson11" onclick="getClass1()">1:1 레슨</div>
-				   <div  id="lessongroup" onclick="getClass2()">그룹 레슨</div>
-				   <div  id="hotel" onclick="getClass3()">호텔링</div>
-				</div>
+		<div id="book__map" style="width:450px; height:500px;"></div>
+		<div id="book__calendarbox">
+			<div class="book__calendar">
+				<div style="margin-bottom: 30px;">
+				  <span onclick="before_month();" style="cursor: pointer; padding: 10px;"> ◁ </span>
+				  <span id="select_year" >2020</span>년
+				  <span id="select_month" >12</span>월
+			      <span onclick="after_month();" style="cursor: pointer; padding: 10px;"> ▷ </span>	
+			    </div>   			
+			      <div id="calendarForm" style=""></div>
+			     
 			</div>
-			<div class="select3" style="width: 100%; border: 1px solid red;">
-				<form action="Book/bookpageaction2.jsp" method="post">
-					<select name = "petcenter">
-						<option value="서초본원">서초본원</option>
-						<option value="강남센터">강남센터</option>
-						<option value="신촌센터">신촌센터</option>
-						<option value="종로센터">종로센터</option>
-						<option value="안양센터">안양센터</option>
-						<option value="부산센터">부산센터</option>
-					</select>
-					<input type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-					<input type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해주세요"  required="required">
-					<input type="text" name="petselect" id="petselect" value="<%=onelesson %>" required="required" readonly="readonly" > 
-					<br>
-					<button type="button" id="back_btn" class="button"><a href="index.jsp?main=Book/bookMain.jsp">Back</a></button>
-					<button type="submit" class="button">예약하기</button>
-					
-				</form>
-			</div>
+			<%-- <div class="book__box3">
+			   <div id="lesson11" onclick="getClass1()"><%=onelesson %></div> 
+			    <div id="lessongroup" onclick="getClass2()">그룹 레슨</div>
+			   <div id="hotel" onclick="getClass3()">호텔링</div> 
+			</div> --%>
+		</div>
+		
+		
+		<div class="book__select" style="width:450px;">
+			<form action="Book/bookpageaction2.jsp" method="post">
+				<input class="all__form" type="text" placeholder="예약정보 선택하기"  readonly="readonly"
+				style="width: 140px; margin-bottom: 40px; background-image: linear-gradient(to right, #FFEF85 0%, #FFEF85 19%, #FFFFA9 60%, #FFFFA9 100%);
+				border: none; box-shadow: 3px 2px 2px rgba(0,0,0,0.25);"><br>
+				<select name = "petcenter">
+					<option value="서초본원">서초본원</option>
+					<option value="강남센터">강남센터</option>
+					<option value="신촌센터">신촌센터</option>
+					<option value="종로센터">종로센터</option>
+					<option value="안양센터">안양센터</option>
+					<option value="부산센터">부산센터</option>
+				</select>
+				<br>
+				<input class="all__form" type="text" name ="startday" id="startday" placeholder="달력에서 날짜를 클릭해 주세요  (시작일)"  required="required"><br>
+				<input class="all__form" type="text" name ="endday" id="endDay" placeholder="달력에서 날짜를 클릭해 주세요  (종료일)"  required="required"><br>
+				<input class="all__form" type="text" name="petselect" id="petselect" value="<%=onelesson %>" required="required" readonly="readonly" > 
+				<br>
+				<button type="button" id="back_btn" class="button" onclick="btnBack()">Back</button>
+				<button type="submit" class="button">예약하기</button>
+				
+			</form>
 		</div>
 	</div>
 	
@@ -250,7 +327,7 @@
          if(date.getDate()!=1&&date.getDay()==0){
             s+='</tr><tr>';
          }
-         s+='<td onclick="getValue(this)">'+date.getDate()+'</td>';
+         s+='<td onclick="getValue(this)"  class="book__dayhover">'+date.getDate()+'</td>';
          date.setDate(date.getDate()+1);
       }
       var days = date.getDay();
@@ -310,7 +387,9 @@
       mumu = document.getElementById("hotel").innerHTML;
       document.getElementById("petselect").value = mumu;
    }
-   
+   function btnBack(){
+	   history.back();
+   }
 </script>
 </body>
 </html>
