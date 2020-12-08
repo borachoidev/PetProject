@@ -191,7 +191,7 @@
 <body>
 <div id="adopt__detail">
 	<header>
-		<h2>분양 정보</h2>			 
+		<h2>분양 정보 </h2>			 
 		<span class="likes"id="btn_likes"
 		 style="width: 50px; font-size: 1.2em;" adopt_num="<%=adopt_num%>">
 		 	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill adopt__likes-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

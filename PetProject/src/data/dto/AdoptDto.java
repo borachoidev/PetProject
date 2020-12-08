@@ -15,7 +15,7 @@ public class AdoptDto {
 	private Timestamp writeday;
 	private String adopt_name;
 	private String comm_num;
-	public String getComm_num() {
+	public String getComm_num()  {
 		return comm_num;
 	}
 	public void setComm_num(String comm_num) {
