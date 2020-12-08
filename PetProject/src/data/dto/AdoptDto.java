@@ -13,7 +13,15 @@ public class AdoptDto {
 	private int likes;
 	private Timestamp writeday;
 	private String adopt_name;
+	private String comm_num;
+	public String getComm_num()  {
+		return comm_num;
+	}
+	public void setComm_num(String comm_num) {
+		this.comm_num = comm_num;
+	}
 	private String user_num;
+
 	public String getAdopt_name() {
 		return adopt_name;
 	}
