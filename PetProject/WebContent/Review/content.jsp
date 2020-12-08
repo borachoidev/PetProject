@@ -15,6 +15,11 @@ max-width: 200px;
 
 }
 
+#review__container {
+	width: 60vw;
+	margin-top: 5%;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -29,19 +34,20 @@ max-width: 200px;
 	ReviewDto dto=db.getData(num);
 	System.out.println(dto.getId());
 	
-%>	
+%>
+<div id="review__container">
 <table class="table">
 	<tr>
 		<td width="350">
 			<b><%=dto.getTitle()%></b>
 		</td>
-		<td>
-			<span style="color: #ccc;font-size: .7em;">
+		<td align="right">
+			<span style="color: #ccc;font-size: .9em;">
 			<%=dto.getWriteday() %></span>
 		</td>
 	</tr>
 	<tr height="350">
-		<td colspan="2" valign="top">
+		<td colspan="2" valign="top" style="padding:2%;">
 			<b><%=dto.getId()%></b>
 			<br><br>			
 			<pre class="review__content"><%=dto.getContent()%></pre>	
@@ -60,6 +66,7 @@ max-width: 200px;
 		</td>
 	</tr>	
 </table>
+</div>	
 </body>
 </html>
 
