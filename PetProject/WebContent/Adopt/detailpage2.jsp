@@ -9,23 +9,50 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	main{
+	#abandon__detail {
+		margin-top: 5%;
+	}
+
+	#adopt__container{
 		display: flex;
 		flex-direction: row;
+		justify-content: space-between;
+		width: 70vw;
+	}
 	
+	.adopt__abandon-photo {
+		width: 45%;
+		margin: 2%;
 	}
-	#abandon__table td{
-		text-align:center;
 	
+	.adopt__abandon-photo img {
+		width: 100%;
 	}
-	td.first__td{
-		width: 200px;	
+	
+	.adopt__abadon-tb {
+		width: 45%;
+		margin: 2%;
+		font-size: 1.2em;
 	}
-	td.second__td{
-		width: 600px;	
+	
+	.first__td {
+		text-align: center;
+		white-space: nowrap;
 	}
-
-
+	
+	.first__td,.second__td {
+		padding: 2%;
+	}
+	
+	.adopt__info {
+		padding: 2%;
+	}
+	
+	.abandon__list-btn {
+		align-self: center;
+		width: 20%;
+		margin: 2% 40%;
+	}
 </style>
 </head>
 <%  
@@ -39,44 +66,47 @@ AbandonDto dto = dao.getData(desertionNo);
 		<header>
 			<h2>분양 정보</h2>
 		</header>
-	  	<main>	
-			 <div class="photo" style="text-align: center;">
-	               <img src=<%=dto.getPopfile()%> style="max-width: 300px; max-height: 400px; margin: auto;">
+	  	<main id="adopt__container">	
+			 <div class="adopt__abandon-photo">
+	               <img src=<%=dto.getPopfile()%>>
 			</div>
-	       <div style="text-align: center;">
-			<table class="table table-striped" style="width: 750px;" id="abandon__table">
-	        <tr>
-	         		<td class="first__td"><h3>견종</h3></td>
-	         		<td class="second__td"><h3><%=dto.getKindcd()%></h3></td>
-	         </tr>
-	         <tr>		
-	         	<td class="first__td"><h3>성별</h3></td>
-				<td class="second__td"><h3><%
-	         if(dto.getSexCd().equals("M")){
-	        %>수컷
-	        <%}else{%>암컷
-	        <%}
-	          %></h3></td>
-	         </tr>
-	           <tr>		
-	         		<td class="first__td"><h3>중성화 여부</h3></td>
-	         		<td class="second__td"><h3><%=dto.getNeuteryn()%></h3></td>
-	         </tr>
-	         <tr>		  
-	         		<td class="first__td"><h3>나이</h3></td>
-	         		<td class="second__td"><h3><%=dto.getAge() %></h3></td>  
-	         </tr>
-	         <tr>		
-	         		<td class="first__td"><h3>보호자 연락처</h3></td>
-	         		<td class="second__td"><h3><%=dto.getOfficetel() %></h3></td>
-	         </tr>
-	         <tr>		
-	         		<td class="first__td"><h3>특이사항</h3></td>
-	         		<td class="second__td"><h3><%=dto.getSpecialmark() %></h3></td>
-	         </tr>
-	         </div>
-		</table>
-	   	</main>			 
+	       <div class="adopt__abadon-tb">
+				<table class="table table-bordered" id="abandon__table">
+		        <tr>
+		         		<td class="first__td"> 견종 </td>
+		         		<td class="second__td"> <%=dto.getKindcd().replace("[개]","")%> </td>
+		         </tr>
+		         <tr>		
+	         	<td class="first__td">성별</td>
+				<td class="second__td"><%
+			         if(dto.getSexCd().equals("M")){
+			        %>수컷
+			        <%}else{%>암컷
+			        <%}
+			          %><%=dto.getNeuteryn().equals("Y")?"(중성화 완료)":"(중성화 미완료)"%></td>
+		         </tr>
+		         <tr>		  
+		         		<td class="first__td"> 나이 </td>
+		         		<td class="second__td"> <%=dto.getAge() %> </td>  
+		         </tr>
+		         <tr>		
+		         		<td class="first__td"> 보호자 연락처 </td>
+		         		<td class="second__td"> <%=dto.getOfficetel() %> </td>
+		         </tr>
+		         <tr>		
+		         		<td class="first__td" style="vertical-align: middle;"> 특이사항 </td>
+		         		<td class="second__td"> <%=dto.getSpecialmark() %> </td>
+		         </tr>
+			</table>
+         </div>
+	   	</main>	
+	   	<div class="adopt__info">
+		   	<h5>입양절차</h5>
+		   	<span>
+		   	펫앤미에서는 매일 보호중인 아이들을 소개합니다. 입양관련사항에 대해서는 해당 보호소 담당자에게 문의해주세요.
+		   	</span>
+	   	</div>	
+	   	<button class="button medium abandon__list-btn" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">목록으로</button>		 
 	</div>
 </body>
 </html>

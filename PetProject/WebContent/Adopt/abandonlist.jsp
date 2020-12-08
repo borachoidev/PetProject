@@ -189,7 +189,7 @@ int no=totalCount-(currentPage-1)*perPage;
 			         <a desertionNo="<%=dto.getDesertionNo()%>"
 			            style="cursor:pointer;" class="godetail">
 			            <img src="<%=photo%>" class="photo">
-			            <br><%=dto.getKindcd()%> <%=dto.getAge()%>     
+			            <br> <%=dto.getKindcd().replace("[개]","")%> <%=dto.getAge()%>     
 			            <br><span class="adopt__day"><%=year+"."+month+"."+day%></span>       
 			         </a>
 			         </td>
