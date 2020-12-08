@@ -178,7 +178,7 @@
    String vaccine=dto.getVaccine();
    String content=dto.getContent();
    String adopt_name=dto.getAdopt_name();
-   String  comm_num=dto.getComm_num();
+   String comm_num=dto.getComm_num();
    int likes=dto.getLikes();
    
 
