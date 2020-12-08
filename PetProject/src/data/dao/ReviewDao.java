@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import data.dto.ReviewDto;
+import data.dto.UserDto;
 import mysql.db.MysqlConnect;
 
 public class ReviewDao {
@@ -293,7 +294,7 @@ public class ReviewDao {
 	
 	public String getReview(String user_num) {
 		
-		String review_num="";
+		String num="";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -307,7 +308,7 @@ public class ReviewDao {
 			pstmt.setString(1, user_num);
 			rs=pstmt.executeQuery();
 			if(rs.next())
-				review_num=rs.getString("review_num");
+				num=rs.getString("review_num");
 			
 		} catch (SQLException e)
 		{
@@ -317,11 +318,43 @@ public class ReviewDao {
 			db.dbClose(conn, pstmt,rs);
 		}
 			
-		return review_num;
+		return num;
 		
 	}
 	
-	
+	public List<ReviewDto> getAllReview(){
+		List<ReviewDto> list=new ArrayList<ReviewDto>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from review";
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewDto dto=new ReviewDto();
+				dto.setReview_num(rs.getString("review_num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriteday(rs.getString("writeday"));
+				dto.setId(rs.getString("id"));
+				dto.setBook_num(rs.getString("book_num"));
+				
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt, rs);
+		}
 		
+		return list;
+	}
+	
+	
 }
 

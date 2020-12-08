@@ -20,7 +20,7 @@ public class BookDao {
 	
 	public List<HashMap<String, String>> getPuppyList(String id)
 	{
-		String sql ="select a.dog_num, a.acc_name, a.breed, a.age, a.gender, u.user_name, u.hp, u.user_num from account_tb a, user_tb u where a.user_num = u.user_num and u.id =?";
+		String sql ="select a.dog_num, a.acc_name, a.breed, a.age, a.gender, a.photo, u.user_name, u.hp, u.user_num from account_tb a, user_tb u where a.user_num = u.user_num and u.id =?";
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -42,6 +42,7 @@ public class BookDao {
 				map.put("breed", rs.getString("breed"));
 				map.put("age", rs.getString("age"));
 				map.put("gender", rs.getString("gender"));
+				map.put("photo", rs.getString("photo"));
 				map.put("user_name", rs.getString("user_name"));
 				map.put("hp", rs.getString("hp"));
 				map.put("user_num", rs.getString("user_num"));
@@ -169,7 +170,6 @@ public class BookDao {
 	public void deleteBook(String num){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		String sql ="delete from book where book_num=?";
 		conn = db.getMyConnection();
 		
@@ -337,7 +337,59 @@ public class BookDao {
 		
 	}
 	
+	public int getCurrentCount(String user_num) {
+		int tot=0;
+		Connection conn=null;
+		PreparedStatement pstmt =null;
+		ResultSet rs=null;
+		String sql="select count(*) from account_tb a, book b where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and a.dog_num=b.dog_num and a.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				tot=rs.getInt(1);
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		return tot;
+	}
 	
+	public int getPastCount(String user_num) {
+		int tot=0;
+		Connection conn=null;
+		PreparedStatement pstmt =null;
+		ResultSet rs=null;
+		String sql="select count(*) from account_tb a, book b where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and a.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				tot=rs.getInt(1);
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		return tot;
+	}
 }
 
 

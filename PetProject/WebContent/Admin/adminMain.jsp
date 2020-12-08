@@ -32,18 +32,12 @@ body {
 .logo {
   background: #FFCD12;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 27px;
   font-weight: bold;
   padding: 10px 0px 0px 10px;
   height: 45px;
 }
-.main-section {
-  height: 100%;
-}
-a {
-  text-decoration: none;
-  color: #e1e2fa;
-}
+
 
 .main-section{
   background: #F6F6F6;
@@ -64,7 +58,7 @@ a {
 .card-content {
   color: #32325d;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   
 }
 .author {
@@ -89,43 +83,42 @@ a {
 }
 </style>
 
-<script type="text/javascript">
-</script>
 <title>펫앤미 - 관리자 페이지</title>
 </head>
   <body>
+  
     <div class="wrapper">
       <div class="side-menu">
         <div class="logo">
-        	관리자페이지
+        	<b>관리자페이지</b>
         </div>
-       
       </div>
+      
       <div class="main-content">
-     
         <div class="main-section">
+        <div><br><br><br><br><br></div>
           <div class="card">
             <div class="status"></div>
             <div class="card-content">회원관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/memberList.jsp"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/memberList.jsp"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
           </div>
           <div class="card">
             <div class="status"></div>
             <div class="card-content">예약관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/bookingList.jsp"><i class="fa fa-server" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/bookingList.jsp"><i class="fa fa-server" aria-hidden="true"></i></a>
           </div>
             <div class="card">
             <div class="status"></div>
             <div class="card-content">후기글 관리
             </div>
-            <div class="author"><a href="index.jsp?main=Admin/reviewList.jsp"><i class="fa fa-desktop" aria-hidden="true"></i></div>
+            <a class="author" href="index.jsp?main=Admin/reviewList.jsp"><i class="fa fa-desktop" aria-hidden="true"></i></a>
           </div>
-            </div>
           </div>
+          </div>
+          
         </div>
-      </div>
-    </div>
+     
 </body>
 </html>

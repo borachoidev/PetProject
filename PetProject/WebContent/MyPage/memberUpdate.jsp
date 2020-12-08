@@ -28,6 +28,13 @@ margin-top:3em;
 	width:50%;
 } 
 
+#memberForm{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-top:5%;
+}
+
 .del-button{
 background-color: #f28e3c;
 border: none;}
@@ -40,12 +47,7 @@ display: flex;
 margin-left: 10%;
 
 }
-#memberForm{
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-}
+
 
 
 }
@@ -237,7 +239,7 @@ margin-left: 10%;
 					<input type="password" name="pass" id="pass" class="all__form large" placeholder="비밀번호" required pattern="(?=.*\d)(?=.*[a-z]).{6,}"  title="6자리 이상, 하나 이상의 숫자 및 소문자를 모두 포함해야합니다." /> 					
 					<div>
 					<button type="submit" class="button medium">회원정보수정</button>
-					<button type="button" class="del-button medium" onclick="deleteUser()">회원탈퇴</button>
+					<button type="button" class="medium" onclick="deleteUser()">회원탈퇴</button>
 					</div>
 					
 				</div>

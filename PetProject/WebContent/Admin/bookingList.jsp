@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <title>예약관리</title>
 <style type="text/css">
-	th{
+	.bookingList__table th{
 		font-size: 0.9em;
 	}
-	td{
+	.bookingList__table td{
 		font-size: 0.9em;
 	}
 	
@@ -27,7 +27,7 @@ List<HashMap<String,String>> list = dao.getAllBook();
 
 <div style="width: 1200px; margin-top: 50px;">
 	<h3>예약자 현황</h3>
-	<table class="table table-striped">
+	<table class="bookingList__table table table-striped">
 		<tr align="center">
 			<th>예약 번호</th>
 			<th>ID</th>

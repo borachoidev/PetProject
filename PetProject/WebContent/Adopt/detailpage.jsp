@@ -11,7 +11,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <style type="text/css">
+	i.far:hover{
+		cursor:pointer;
+		
+	}
+	i.far{
+		font-size: 4px;
+	}
 
    #adopt__detail{
    	display: flex;
@@ -21,6 +29,12 @@
    
    #btn_likes{
    cursor: pointer;
+   }
+   .photo__zone{
+   	width: 500px;
+   	height: 368px;
+   	background-size: cover;
+   	background-repeat: no-repeat;
    }
 </style>
 <script type="text/javascript">
@@ -84,8 +98,7 @@
    String comm_num=dto.getComm_num();
    int likes=dto.getLikes();
    
-   
-   
+
 	AdoptDao adao=new AdoptDao();
  	List<AdoptCommentDto> alist=adao.getCommentList(dto.getAdopt_num());
 
@@ -100,72 +113,77 @@
 			 style="width: 50px; font-size: 20px;" adopt_num="<%=adopt_num%>">💛<%=dto.getLikes() %></span>		
 		</header>
 	  	<main>	
-	  	 <table class="detailtable table table-bordered" style="width: 800px;" >
-	      <tr>
-	         <td class="photo" rowspan="6" style="width: 500px;">
-	               <img src="adoptsave/<%=photo%>">         
-	          </td>
-	       </tr>
-	       <tr>   
-	          <td>이름 : <%=dto.getAdopt_name()%></td>   
-	        </tr> 
-	        <tr>
-	         		<td>견종 : <%=dto.getBreed() %></td>
-	         </tr>
-	         <tr>		
-	         		<td>성별 : <%=dto.getGender() %></td>   
-	         </tr>
-	         <tr>		  
-	         		<td>나이 : <%=dto.getAge() %></td>  
-	         </tr>
-	         <tr>		
-	         		<td><%=dto.getVaccine() %></td>
-	         </tr>
-		</table>
-	         <div style="text-align:center; width: 600px;">
+	  	<div style="display: flex; justify-content: center;">
+	  		 <div class="photo__zone" style="background-image: url('adoptsave/<%=photo%>');"></div>
+		  	 <%-- <img src="adoptsave/<%=photo%>">  --%>
+		  	 <div >    
+		  	 <table class="table table-striped" style="font-size: 30px; height: 368px;" >
+		     <%--  <tr>
+		         <td class="photo" rowspan="6" style="width: 500px;">
+		              <img src="adoptsave/<%=photo%>">         
+		          </td>
+		       </tr> --%>
+		       <tr>   
+		          <td>이름 : <%=dto.getAdopt_name()%></td>   
+		        </tr> 
+		        <tr>
+		         		<td>견종 : <%=dto.getBreed() %></td>
+		         </tr>
+		         <tr>		
+		         		<td>성별 : <%=dto.getGender() %></td>   
+		         </tr>
+		         <tr>		  
+		         		<td>나이 : <%=dto.getAge() %></td>  
+		         </tr>
+		         <tr>		
+		         		<td><%=dto.getVaccine() %></td>
+		         </tr>
+			</table>
+			</div>
+		</div>
+	         <div style="text-align:center; width: 600px; font-size: 30px;">
 	         <tr>		
 	         		<td><%=dto.getContent() %></td>
 	         </tr>
 	         </div>
 
-	<table>
-		<ul>
-		
+	
+	<table class="table table-striped" >
 	     <%if(loginOk!=null){//이부분은 로그인 상태에서만 보이게 하기 %>
          
 	   	<%-- <div class="comment">댓글<%=alist.size() %></div> --%>
 	   		<%}%>
-	     <div>
-	     	<div class="commentlist">
+	   		
+	  
+	     
+	     	<div class="commentlist" style="font-size: 1.2em;" >
 	     		<%
 	     		//반복문
 	     		for(AdoptCommentDto adto:alist)
 	     		{
 	     			//댓글 쓴사람 이름
 	     			String writer=adto.getId();
-	     		%>
+	     		%><tr><td>
 	     		<%=writer%>:<%=adto.getContent() %>
 	     		<!-- 댓글단 본인한테만 수정 삭제 아이콘 보이게 하기 -->	
-	     		<%
-	     		if(myId!=null && myId.equals(id))
-	     		{
-	     		%>
-	     			<span class="awriteday">
+	     			<span class="awriteday" style= "float: right; color: gray;">
 	     			<%=adto.getWriteday()%></span>
+	     		<%
+	     		System.out.println(id);
+	     		if(myId!=null && myId.equals(adto.getId()))
+	     		{System.out.println("성공");
+	     		%>
 	     			<span class="delete"
-	     			idx="<%=adto.getIdx()%>">×</span>
+	     			idx="<%=adto.getIdx()%>"><i style='font-size:15px' class='far'>&#xf410;</i></span>
+	     			</td></tr>
 	     		<%	
 	     		}
 	     		%>
 
 	     		<br>
 	     		<%}%>
-	     
-	
-	     	</div> 
-	     </div>
-	 	</ul>
-	</div>
+	     	</div>
+
 	     <form action="Adopt/commentadd.jsp" method="post" class="form-inline" style="text-align:center">
 	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
 	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
@@ -174,16 +192,16 @@
 	      	<div class="form-group">
 	      	<%if(loginOk!=null){ %>
 	      	<span>
-	      		<input type="text" name="content" required="required" placeholder="댓글을 입력해주세요"
-	      		style="width:500px;">
+	      		<input class="all__form" type="text" name="content" required="required" placeholder="댓글을 입력해주세요"
+	      		style="width:600px;">
 	      	</span>	
 	      	<%}
 	      	%>
 	      	<span>
 	      	<%if(loginOk==null){ %>
 	      		<span>
-	      		<input type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
-	      		style="width:500px;" readonly>
+	      		<input class="all__form" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
+	      		style="width:600px;" readonly>
 	      		<%} %>
 	      	</span>	
 	      	<span>
