@@ -59,8 +59,8 @@
    .adopt__detail-tb {
    	font-size: 1.2em;
    	height: 50vh;
-   	width: 50%;
-   	margin-top: 2%;
+   	width: 48%;
+   	margin:2% 0;
    }
    
    .adopt__detail-tb td{
@@ -74,6 +74,12 @@
    	justify-content: space-between;
    }
    
+   .photo__zone {
+   	width: 50%;
+   	margin: 2% 0;
+   	
+   }
+   
   .adopt__tb-title {
   	width: 20%;
   	text-align: center;
@@ -82,7 +88,7 @@
   .adopt__content {
   	text-align: left;
   	font-size: 1.2em;
-  	margin: 10% 0 5% 0;
+  	margin: 5% 0;
   	padding: 2% 5%;
   	width: 100%;
   	white-space: pre-wrap;
@@ -106,7 +112,7 @@
   }
   
   .adopt__del-btn {
-  	background-color: #efefef;
+  	background-color: #ddd;
   	white-space: nowrap;
   }
   
@@ -230,7 +236,23 @@
 	    <div class="adopt__content">
 	    		<%=dto.getContent() %>
 	    </div>		
-	
+		<form action="Adopt/commentadd.jsp" method="post" class="adopt__input-form">
+	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
+	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
+	      	<input type="hidden" name="comm_num" value="<%=dto.getAdopt_num()%>">
+	      	<input type="hidden" name="id" value="<%=myId%>">
+	      	<div class="form-group">
+		      	<div class="adopt__comm-form">
+		      	<%if(loginOk!=null){ %>
+		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 입력해주세요">
+		      	<%}else if(loginOk==null){ %>
+		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
+		      		 readonly>
+		      	<%} %>
+		      		<button type="submit" class="button adopt__save-btn">저장</button>	
+		      	</div>
+	      	</div>  	
+	      </form>
 	
 		<table class="table table-bordered commentlist" >
 		     <%if(loginOk!=null){//이부분은 로그인 상태에서만 보이게 하기 %>
@@ -259,23 +281,6 @@
 		     	</tr>
 		     <%}%>
 		  </table>
-	     <form action="Adopt/commentadd.jsp" method="post" class="adopt__input-form">
-	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
-	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
-	      	<input type="hidden" name="comm_num" value="<%=dto.getAdopt_num()%>">
-	      	<input type="hidden" name="id" value="<%=myId%>">
-	      	<div class="form-group">
-		      	<div class="adopt__comm-form">
-		      	<%if(loginOk!=null){ %>
-		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 입력해주세요">
-		      	<%}else if(loginOk==null){ %>
-		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
-		      		 readonly>
-		      	<%} %>
-		      		<button type="submit" class="button adopt__save-btn">저장</button>	
-		      	</div>
-	      	</div>  	
-	      </form>
 	   	</main>		
 	   		      	
      	<div>

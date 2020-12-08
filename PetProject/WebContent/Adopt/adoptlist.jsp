@@ -255,8 +255,8 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 						%>
 							</ul>	
 						<div id="adopt__add">
-						  <button type="button" class="btn btn-outline-primary"style="width: 110px;"
-						  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">강아지 등록</button>
+						  <button type="button" class="button"
+						  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">분양글 등록</button>
 						   <%String loginOk=(String)session.getAttribute("loginOk");	
 							String myId=(String)session.getAttribute("myId"); 
 							if(loginOk==null){%>
