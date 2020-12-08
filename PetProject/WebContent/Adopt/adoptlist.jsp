@@ -179,8 +179,8 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 		<header>
 			<div id="category">
 			<h1>
-			<button type="button" class="btn btn-outline-light text-dark" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
-			<button type="button" class="btn btn-outline-light text-dark" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
+			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
+			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
 			</h1>
 			</div>
 		</header>
