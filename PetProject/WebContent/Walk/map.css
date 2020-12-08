@@ -132,9 +132,11 @@
 	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
 	.custom_typecontrol .selected_btn:hover {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}   
 	.custom_zoomcontrol {float: right; position: relative; bottom:91%; right: -130px;width: 36px;height:120px;overflow:hidden;z-index:1;background-color:#f5f5f5;} 
-	.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;background:#fff;background:linear-gradient(#fff,  #e6e6e6);}     
-	.custom_zoomcontrol span:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
-	.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}
+	.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;color: #777777; background:#fff;background:linear-gradient(#fff,  #e6e6e6);}
+	.custom_zoomcontrol span i{position: relative; top: 5px; font-size:24px; vertical-align: middle;}     
+	.custom_zoomcontrol span:hover{color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+	.custom_zoomcontrol span:active{color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+	.custom_zoomcontrol span{border-bottom:1px solid #bfbfbf;}
 	
 	.title {font-weight:bold;display:block;}
     .hAddr {position:relative;top:-99%; left:1%; width: 20%; border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;text-align: center;}
