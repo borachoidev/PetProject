@@ -36,7 +36,13 @@
 			<th>종료일</th>
 			<th>예약 관리</th>
 		</tr>
-		
+		<%if(list.size()==0){%>
+		<tr align="center">
+		<td colspan="9" align="center">
+ 				<b>예약이 없습니다!</b>
+ 		</td>
+		</tr>
+		<%}%>
 		<%
 		for(int i = 0; i<list.size(); i++)
 		{
