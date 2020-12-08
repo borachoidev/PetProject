@@ -1,3 +1,4 @@
+<%@page import="data.dao.UserDao"%>
 <%@page import="data.dto.AdoptCommentDto"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.NumberFormat"%>
@@ -102,6 +103,12 @@ color:#797979;
    	padding: 2% 5% 2% 0;
    	font-size: 0.9em;
    }
+   
+   .category {
+   	display: flex;
+   	justify-content: space-between;
+   	flex-direction: row;
+   }
 </style>
 <title>Insert title here</title>
 <script>
@@ -116,6 +123,9 @@ color:#797979;
 </script>
 </head>
 <%
+/* 세션값 */
+String loginOk=(String)session.getAttribute("loginOk");	
+String myId=(String)session.getAttribute("myId"); 
 //dao 선언
 AdoptDao dao=new AdoptDao();
 //세션으로 부터 key, value 가져오기
@@ -163,6 +173,9 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 
 /* AdoptDto adto=dao.getData(adopt_num); */
 
+/* 사용자 레벨 */
+UserDao udao=new UserDao();
+boolean user_level=udao.getUserLevel(myId);
 %>
 <body>
 <div class="adopt__main">
@@ -177,11 +190,21 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 </div>
 	<div id="adop__container">
 		<header>
-			<div id="category">
-			<h1>
-			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
-			<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
-			</h1>
+			<div class="category">
+			<div>
+				<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">가정 분양 게시판</button>
+				<button type="button" class="btn btn-outline-warning" onclick="location.href='index.jsp?main=Adopt/abandonlist.jsp'">유기견 분양 게시판</button>
+			</div>
+<%
+				if(loginOk!=null && user_level==true) {
+%>						
+				<div id="adopt__add">
+				  <button type="button" class="button"
+				  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">분양글 등록</button>
+				</div>
+<%
+				}
+%>
 			</div>
 		</header>
 		<main>
@@ -223,11 +246,11 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 	     		   </tr>
 	    		</table>
 				<!-- 페이징 처리 --> 
-					<div class="footer">
+					<div class="footer" style="display: flex; justify-content: center;">
 						<%
 						if(totalCount>0)
 						{%>
-						<ul class="pagination" style="position: center; width: 500px;" >
+						<ul class="pagination" >
 						<%
 							//이전
 							if(startPage>1)
@@ -252,28 +275,10 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 								<li class="page-item"><a class="page-link" 
 								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">다음</a></li>
 							<%}
-						%>
-							</ul>	
-						<div id="adopt__add">
-						  <button type="button" class="button"
-						  onclick="location.href='index.jsp?main=Adopt/adoptForm.jsp?'">분양글 등록</button>
-						   <%String loginOk=(String)session.getAttribute("loginOk");	
-							String myId=(String)session.getAttribute("myId"); 
-							if(loginOk==null){%>
-							<script>
-							$("#btn_add").hide();
-							</script>
-						<%}else{
-							if(loginOk.equals("success")){%>
-							<script>
-							$("#btn_add").show();
-							</script>
-							<%}
 						}
 						%>
-						</div>
-					<%}
-					%>
+							</ul>	
+
 					</div>
 		
 			</div>
