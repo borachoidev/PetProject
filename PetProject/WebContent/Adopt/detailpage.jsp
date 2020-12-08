@@ -178,7 +178,7 @@
    String vaccine=dto.getVaccine();
    String content=dto.getContent();
    String adopt_name=dto.getAdopt_name();
-   String comm_num=dto.getComm_num();
+   String  comm_num=dto.getComm_num();
    int likes=dto.getLikes();
    
 
@@ -237,7 +237,7 @@
 		<form action="Adopt/commentadd.jsp" method="post" class="adopt__input-form">
 	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
 	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
-	      	<input type="hidden" name="comm_num" value="<%=dto.getAdopt_num()%>">
+	      	<input type="hidden" name=" comm_num" value="<%=dto.getAdopt_num()%>">
 	      	<input type="hidden" name="id" value="<%=myId%>">
 	      	<div class="form-group">
 		      	<div class="adopt__comm-form">
