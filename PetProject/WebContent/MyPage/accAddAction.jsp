@@ -9,6 +9,7 @@
 	//업로드할 저장 폴더의 실제 서버에서의 위치구하기
 	
 	String realPath=getServletContext().getRealPath("/AccSave");
+	String id=(String)session.getAttribute("myId");
 	System.out.println(realPath);
 	int uploadSize=1024*1024*100;
 	
@@ -47,11 +48,17 @@
 
 		//메서드 호출
 		dao.insertAcc(dto);
-
+		//강아지 세션등록
+		String accId=dao.getDefault(id);
+		if(accId==null||accId.equals(""))
+		{
+			accId="no";
+		}
+		session.setAttribute("accId", accId);
 		//페이지로 이동
 		response.sendRedirect("../index.jsp?main=MyPage/accUpdateList.jsp");
-		
-		
+
+
 	}catch(Exception e){
 		System.out.println("업로드 오류:"+e.getMessage());
 	}

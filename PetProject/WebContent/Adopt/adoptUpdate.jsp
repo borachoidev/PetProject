@@ -9,6 +9,26 @@
 <meta charset="UTF-8">
 <title>분양 게시판</title>
 <style type="text/css">
+	td.table_row_name{
+		width: 120px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	
+	div.main{
+		width: 50vw;
+		margin-left: 25vw;
+		margin-right: 25vw;
+		margin-top: 5vh;
+	}
+	
+	textarea.content{
+		width: 95%; height: 150px; resize: none;
+	}
+	
+	input#check{
+		cursor: pointer;
+	}
    
 </style>
 <script type="text/javascript">
@@ -50,27 +70,27 @@ boolean user_level=udao.getUserLevel(myId);
 <%
 	if(loginOk!=null && user_level==true) {
 %>
-   <div class="">
+   <div class="main">
+   <h2>분양 정보 수정</h2>
    <form action="Adopt/updateaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
       <input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
-      <table class="" style="width: 600px;">
-         <tr>
-            <td>
-               <span>작성자</span>
-               <input type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" style="width: 75px;"required="required" disabled>
-            </td>
+      <table class="adoptFrom table table-bordered">
+          <tr>
+               <td class="table_row_name">작성자</td>
+               <td>
+               <input class="all__form" type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" required="required" >
          </tr>
          <tr>
-            <td>
-               <span>견종</span>
-               <input type="text" name="breed" value="<%=dto.getBreed()%>" style="width: 75px;" required="required">
+             <td class="table_row_name">견종</td>
+             <td>
+               <input class="all__form" type="text" name="breed" value="<%=dto.getBreed()%>"required="required">
             </td>
          </tr>
           <tr>
-            <td>
-            	<span>나이</span>
-            <select id="adopt__update__age" name="age" required="required" age="<%=dto.getAge()%>">
+            <td class="table_row_name">나이</td>
+            	<td>
+            <select name="age" required="required" class="all__form" age="<%=dto.getAge()%>">
             <option value="0~6개월">0~6개월미만</option>
             <option value="6개월~1년">6개월~1년미만</option>
             <option value="1년~2년">1년~2년미만</option>
@@ -84,9 +104,9 @@ boolean user_level=udao.getUserLevel(myId);
             </select></td>
          </tr>
          <tr>
+            <td class="table_row_name">성별</td>
             <td>
-               <span>성별</span>
-            <select id="adopt__update__gender" name="gender" required="required" gender="<%=dto.getGender() %>">
+            <select id="adopt__update__gender" class="all__form" name="gender" required="required" gender="<%=dto.getGender() %>">
             <option value="수컷">수컷</option>
             <option value="암컷">암컷</option>
             <option value="수컷(중성화)">수컷(중성화)</option>
@@ -94,9 +114,9 @@ boolean user_level=udao.getUserLevel(myId);
             </select></td>
          </tr>
             <tr>
-            <td>
-               <span>예방접종</span>
-               <input type="checkbox" id="check" vaccine="<%=dto.getVaccine() %>">
+            <td class="table_row_name">예방접종여부</td>
+			<td>
+               <input type="checkbox" id="check" style="vercical-align: middle;" vaccine="<%=dto.getVaccine() %>">
                <input type="hidden" name="vaccine" id="vaccine" value="예방접종 X" />
                   <script type="text/javascript">
       $("#check").click(function(){
@@ -110,17 +130,15 @@ boolean user_level=udao.getUserLevel(myId);
             </td>
          </tr>
          <tr>
+            <td class="table_row_name">사진등록</td>
             <td>
-               <div class="form-group">
-                  <span>사진등록</span>
-                  <input type="file" name="photo" 
-                  required="required">
-               </div>
+                  <input type="file" name="photo" required="required" class="all__form">
             </td>
          </tr>
          <tr>
+            <td class="table_row_name">내용</td>
             <td>
-               <textarea name="content" required="required" style="width: 600px; height: 150px;"><%=dto.getContent()%></textarea>
+               <textarea class="content" name="content" required="required" ><%=dto.getContent()%></textarea>
             </td>
          </tr>   
          <tr>
@@ -130,7 +148,7 @@ boolean user_level=udao.getUserLevel(myId);
          </tr>
          <tr>
             <td colspan="2" align="center">
-               <button type="submit" class="btn btn-info"
+               <button type="submit" class="button"
                style="width: 100px;">수정</button>
             </td>
          </tr>   

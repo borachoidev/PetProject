@@ -16,7 +16,7 @@ public class AccountDao {
 	
 	//default 강아지 찾기
 	public String getDefault(String id) {
-		String accName="";
+		String accName="empty";
 		Connection conn=null;
 		PreparedStatement pstmt= null;
 		ResultSet rs=null;
@@ -32,13 +32,10 @@ public class AccountDao {
 			if(rs.next()) {
 				accName=rs.getString(1);
 			}
-					
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	
 		return accName;
 	}
 	
@@ -341,4 +338,47 @@ public class AccountDao {
 		return dto;
 	}
 	
+	//유저강아지 정보 1마리만 가져오기
+	public int getFirstDog(int user_num) {
+		int dogNum=0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select dog_num from account_tb where user_num=? order by dog_num asc";
+		conn = db.getMyConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dogNum = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		System.out.println(dogNum);
+		return dogNum;
+	}
+	
+	public void setDefault(int dogNum) {
+		// dog Num 강아지의 sel_acc값을 1로업데이트
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update account_tb set sel_acc=1 where dog_num=?";
+		conn = db.getMyConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dogNum);
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt);
+		}
+	}
 }

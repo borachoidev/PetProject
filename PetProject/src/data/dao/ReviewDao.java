@@ -261,40 +261,7 @@ public class ReviewDao {
 			db.dbClose(conn, pstmt);
 		}
 	}
-	//등록된 리뷰가 있는지 체크
-	public int isReviewCheck(String user_num)
-	{
-		int rcnt=0;
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-		String sql="select count(*) from review left join book on review.book_num = book.book_num where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?";
-				
-				//"select count(*) from review left join book on review.book_num = book.book_num where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?";
-		conn=db.getMyConnection();
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, user_num);
-			
-			rs=pstmt.executeQuery();
-			if(rs.next())
-				rcnt=rs.getInt(1);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			db.dbClose(conn, pstmt,rs);
-		}
-		
-		return rcnt;
-		
-	}
-	//**마이페이지에서 내 리뷰값 읽을때 -> 몇번인지찾아봤자  소용이 없음 왜냐하면 여러리스트가 나오기때문에
-	//북넘버로 받아서 리뷰넘버를 찾는다!
+
 	public String getReview(String book_num) {
 		
 		String review_num="";
@@ -371,6 +338,7 @@ public class ReviewDao {
 
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, book_num);
 			rs=pstmt.executeQuery();
 			if(rs.next())
 				rcnum=rs.getInt(1);
