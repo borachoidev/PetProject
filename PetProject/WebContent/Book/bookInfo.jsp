@@ -81,7 +81,7 @@
 		width:100%; 
 		height: 600px;
 		text-align: center;
-		background-image: url("AccSave/puppy14.jpg");
+		background-image: url("Image/puppy14.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		border-radius: 20px;
