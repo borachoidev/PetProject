@@ -311,15 +311,15 @@ public class AdoptDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
-			pstmt.setString(1, dto.getPhoto());
-			pstmt.setString(2, dto.getContent());
-			pstmt.setString(3, dto.getAdopt_num());
-			pstmt.setString(4, dto.getAge());
-			pstmt.setString(5, dto.getGender());
-			pstmt.setString(6, dto.getBreed());
-			pstmt.setString(7, dto.getVaccine());
-			pstmt.setString(8, dto.getAdopt_name());
-			pstmt.setString(9, dto.getUser_num());
+			pstmt.setString(1, dto.getAge());
+			pstmt.setString(2, dto.getGender());
+			pstmt.setString(3, dto.getBreed());
+			pstmt.setString(4, dto.getVaccine());
+			pstmt.setString(5, dto.getAdopt_name());
+			pstmt.setString(6, dto.getUser_num());
+			pstmt.setString(7, dto.getPhoto());
+			pstmt.setString(8, dto.getContent());
+			pstmt.setString(9, dto.getAdopt_num());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -350,6 +350,76 @@ public class AdoptDao {
 		}
 		
 	}
+	
+	public int getMyCount(String user_num) {
+		int n = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select count(*) from adopt where user_num=?";
+		conn = db.getMyConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				n = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+
+		return n;
+	}
+
+		
+	public List<AdoptDto> getMydogs(String user_num,int startNum, int endNum)
+	{
+	
+		List<AdoptDto>list=new ArrayList<AdoptDto>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql ="select * from adopt where user_num=? limit ?,?";
+		conn=db.getMyConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, endNum);
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				AdoptDto dto=new AdoptDto();
+				dto.setContent(rs.getString("content"));
+				dto.setAdopt_num(rs.getString("adopt_num"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setBreed(rs.getString("breed"));
+				dto.setVaccine(rs.getString("vaccine"));
+				dto.setPhoto(rs.getString("photo"));
+				dto.setAdopt_name(rs.getString("adopt_name"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setLikes(rs.getInt("likes"));
+				list.add(dto);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(conn, pstmt, rs);
+		}
+		return list;
+						
+	}
+	
+	
 	
 			
 }

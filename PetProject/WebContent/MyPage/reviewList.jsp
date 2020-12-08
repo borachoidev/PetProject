@@ -31,15 +31,14 @@ String myId=(String)session.getAttribute("myId");
 UserDao udao=new UserDao();
 String user_num=udao.getNum(myId);
 
-
 AdoptDao dao=new AdoptDao();
 
 %>
 	<div id="">
 	<%
 		int totalCount=dao.getMyCount(user_num); //총 글의 갯수
-		int perPage=5; //한페이지당 보여지는 글의 갯수
-		int perBlock=5; //한블럭당 보여지는 페이지번호의 수
+		int perPage=10; //한페이지당 보여지는 글의 갯수
+		int perBlock=3; //한블럭당 보여지는 페이지번호의 수
 		int currentPage;//현재페이지,만약 널값이면 1로 줌
 		int totalPage; //총 페이지의 갯수
 		int startNum;//한페이지당 보여지는 시작번호
@@ -48,32 +47,34 @@ AdoptDao dao=new AdoptDao();
 		int endPage; //한 블럭당 보여지는 끝페이지번호
 		int no; //게시글에 붙일 시작번호
 		
-		//현재 페이지
-		if(request.getParameter("pageNum")!=null)
-			currentPage=Integer.parseInt(request.getParameter("pageNum"));
+		String pageNum=request.getParameter("pageNum");
+		if(pageNum==null)
+			currentPage=1;//페이지 번호가 없을경우 무조건 1페이지로 간다
 		else
-			currentPage=1;
-		//총 페이지수
-		totalPage=(totalCount/perPage)+(totalCount%perPage>0?1:0);
-		//각 페이지에 보여질 시작번호와 끝번호 구하기
-		startNum=(currentPage-1)*perPage;
-		endNum=startNum+perPage;
-		//예를 들어 모두 45개의 글이 있을경우
-		  //마지막 페이지는 endnum 이 45 가 되야함
-		  if(endNum>totalCount)
-				endNum=totalCount;
-		
-		//각 블럭에 보여질 시작 페이지번호와 끝 페이지 번호 구하기
-		startPage= (currentPage-1)/perBlock*perBlock+1;
+			currentPage=Integer.parseInt(pageNum);
+		//총 페이지 구하기
+		//나머지가 있을경우에는 1페이지 더 추가
+		totalPage=totalCount/perPage+(totalCount%perPage>0?1:0);
+		//시작페이지와 끝페이지 구하기
+		//예:한페이지당 3개만 볼 경우 현재 페이지가 2라면 sp:1, ep:3
+		//현재 페이지가 7이라면 sp:3, ep:9
+		startPage=(currentPage-1)/perBlock*perBlock+1;
 		endPage=startPage+perBlock-1;
-		//예를 들어 총 34페이지일경우
-		//마지막 블럭은 30-34 만 보여야함
+		//마지막 블럭은 endPage를 totalPage로 해놔야한다
 		if(endPage>totalPage)
-		   endPage=totalPage;
+			endPage=totalPage;
+
+		//각 페이지에서 불러올 글 번호 구하기
+		//예: 1페이지: 1~2, 2페이지:3~4...
+		startNum=(currentPage-1)*perPage;
+		endNum=startNum+perPage-1;
+
+		//마지막 글 번호는 총 글수와 같은 번호여야 한다
+		if(endNum>totalCount)
+			endNum=totalCount;
 		
-		List<AdoptDto> list=dao.getMydogs(user_num);
+		List<AdoptDto> list=dao.getMydogs(user_num,startNum,endNum);
 		//각 글에 보여질 번호구하기(총 100개라면 100부터 출력함)
-		no=totalCount-((currentPage-1)*perPage); 
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy년MM월dd일");
 	 %>
 	
