@@ -112,7 +112,7 @@ int ctot=bdao.getCurrentCount(user_num);
 int ptot=bdao.getPastCount(user_num);
 
 ReviewDao rdao=new ReviewDao();
-int rcnt=rdao.isReviewCheck(user_num);
+
 %>
 
 </head>
@@ -189,24 +189,22 @@ int rcnt=rdao.isReviewCheck(user_num);
 			<%
 			String book_num=request.getParameter("bookNum");
 			int rcnum=rdao.getReviewCount(book_num);
-			if(rcnt==0){
+			if(rcnum==0){
 			%>
 			<td>
-			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
+		
 			<button type="button" class="acc__btn-write button" onclick="location.href='index.jsp?main=Review/reviewForm.jsp?book_num=<%=map.get("book_num")%>'">후기쓰기</button>
 			</td>
-			<%}else if(rcnt>0 && rcnum==1){%>
-			<td>
-			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
-			<td><button type="button" class="acc__btn-show button">내글보기</button>
+			<%}else{%>
+			<td><button type="button" class="acc__btn-show button" >내글보기</button>
 			</td>
-			<%} else if(rcnt>0 && rcnum==0){%>
+			<%} %><%-- else if(rcnt>0 && rcnum==0){%>
 			<td>
 			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
 			<button type="button" class="acc__btn-write button" onclick="location.href='index.jsp?main=Review/reviewForm.jsp'">후기쓰기</button>
 			</td>
 			<%}
-	%>
+	%> --%>
 		</tr>
 		<%}
 	%>

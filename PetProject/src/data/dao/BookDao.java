@@ -187,43 +187,7 @@ public class BookDao {
 		}
 	}
 	
-	public List<BookDto> getAllUserData(String user_num)
-	{
-		List<BookDto> list=new Vector<BookDto>();
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String sql="select * from book where user_num=?";
-		conn=db.getMyConnection();
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, user_num);
-			rs=pstmt.executeQuery();
-			
-			while(rs.next())
-			{
-				BookDto dto=new BookDto();
-				dto.setBook_num(rs.getString("book_num"));
-				dto.setPetcenter(rs.getString("petcenter"));
-				dto.setPetselect(rs.getString("petselect"));
-				dto.setStartday(rs.getString("startday"));
-				dto.setEndday(rs.getString("endday"));
-				dto.setDog_num(rs.getString("dog_num"));
-				
-
-				
-				list.add(dto);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			db.dbClose(conn, pstmt, rs);
-		}
-		
-		return list;
-	}
+	
 	
 	
 	public List<HashMap<String, String>> getCurrentBook(String user_num)
@@ -307,7 +271,7 @@ public class BookDao {
 			return list;
 		}
 	
-	//필요없는코드
+	
 	public String getBook(String user_num) {
 		
 		String book_num="";
