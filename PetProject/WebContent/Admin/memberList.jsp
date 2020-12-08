@@ -20,6 +20,18 @@ list-style-type: none;}
 display: none;
 }
 
+.userlist__tb{
+margin-top:5%;
+width:100%;
+display: flex;
+flex-direction:column;
+justify-content: center;
+align-items: center;
+}
+caption {
+	caption-side: top;
+	color: black;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -70,7 +82,10 @@ $(function(){
 List<UserDto> list=dao.getAllUsers();
 %>
 <body>
+<div class="userlist__tb">
+
 <table class="table userlist">
+<caption><h3>회원목록</h3></caption>
 <%
 for(UserDto a : list){
 if(!a.getId().equals("admin")){%>
@@ -119,6 +134,7 @@ if(!a.getId().equals("admin")){%>
 <% }}
 %>
 </table>
+</div>
 </body>
 </html>
 

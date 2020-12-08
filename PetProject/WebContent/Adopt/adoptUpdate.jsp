@@ -39,13 +39,13 @@ String user_num=dao.getNum(myId);
 
 AdoptDao adao=new AdoptDao();
 AdoptDto dto=adao.getData(adopt_num);
-
 %>
 
 <body>
    <div class="">
    <form action="Adopt/updateaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
+      <input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
       <table class="" style="width: 600px;">
          <tr>
             <td>

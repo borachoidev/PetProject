@@ -261,15 +261,17 @@ public class ReviewDao {
 			db.dbClose(conn, pstmt);
 		}
 	}
-	
+	//등록된 리뷰가 있는지 체크
 	public int isReviewCheck(String user_num)
 	{
-		int cnt=0;
+		int rcnt=0;
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		String sql="select count(*) from review left join book on review.book_num = book.book_num where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?";
+				
+				//"select count(*) from review left join book on review.book_num = book.book_num where str_to_date(endday, '%Y/%m/%d') < now() and user_num=?";
 		conn=db.getMyConnection();
 		
 		try {
@@ -279,7 +281,7 @@ public class ReviewDao {
 			
 			rs=pstmt.executeQuery();
 			if(rs.next())
-				cnt=rs.getInt(1);
+				rcnt=rs.getInt(1);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -288,27 +290,28 @@ public class ReviewDao {
 			db.dbClose(conn, pstmt,rs);
 		}
 		
-		return cnt;
+		return rcnt;
 		
 	}
-	
-	public String getReview(String user_num) {
+	//**마이페이지에서 내 리뷰값 읽을때 -> 몇번인지찾아봤자  소용이 없음 왜냐하면 여러리스트가 나오기때문에
+	//북넘버로 받아서 리뷰넘버를 찾는다!
+	public String getReview(String book_num) {
 		
-		String num="";
+		String review_num="";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 				
-		String sql="select r.review_num from account_tb a, book b, review r where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and b.book_num=r.book_num and a.user_num=?";
+		String sql="select r.review_num from account_tb a, book b, review r where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and b.book_num=r.book_num and r.book_num=?";
 		
 		conn=db.getMyConnection();
 		try
 		{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, user_num);
+			pstmt.setString(1, book_num);
 			rs=pstmt.executeQuery();
 			if(rs.next())
-				num=rs.getString("review_num");
+				review_num=rs.getString("review_num");
 			
 		} catch (SQLException e)
 		{
@@ -318,7 +321,7 @@ public class ReviewDao {
 			db.dbClose(conn, pstmt,rs);
 		}
 			
-		return num;
+		return review_num;
 		
 	}
 	
@@ -354,7 +357,31 @@ public class ReviewDao {
 		
 		return list;
 	}
-	
+	//북넘버를 받아서 해당 북넘버 글이 있는지 확인
+	public int getReviewCount(String book_num)
+	{
+		int rcnum=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select count(r.review_num) from account_tb a, book b, review r where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and b.book_num=r.book_num and r.book_num=?";
+		conn=db.getMyConnection();
+		
+
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				rcnum=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		return rcnum;
+	}
 	
 }
 

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
+		margin-top: 15px;
 	}
 	.book__choice{
 		display: flex;
@@ -80,7 +81,7 @@
 		width:100%; 
 		height: 600px;
 		text-align: center;
-		background-image: url("AccSave/puppy14.jpg");
+		background-image: url("Image/puppy14.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		border-radius: 20px;

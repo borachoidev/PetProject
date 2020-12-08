@@ -11,12 +11,12 @@
    System.out.println(uploadPath);
    //업로드할 이미지의 사이즈
    int uploadSize=1024*1024*2;
-   
+   String myId = (String)session.getAttribute("myId");
    MultipartRequest multi=null;
    try{
       multi=new MultipartRequest(request,uploadPath,uploadSize,
             "utf-8",new DefaultFileRenamePolicy());
-      String adopt_name=multi.getParameter("adopt_name");
+      String adopt_name=multi.getParameter("adopt_name") + myId;
       String age=multi.getParameter("age");
       String breed=multi.getParameter("breed");
       String gender=multi.getParameter("gender");
