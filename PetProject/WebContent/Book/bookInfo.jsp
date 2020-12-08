@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.book__mainlayout{
+		margin-top: 15px;
 	}
 	.book__choice{
 		display: flex;
