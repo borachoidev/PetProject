@@ -22,9 +22,11 @@
 	}
 
    #adopt__detail{
+   	margin-top: 5%;
    	display: flex;
    	justify-content: center;
    	flex-direction: column;
+   	width: 60%;
    }
    
    #btn_likes{
@@ -36,6 +38,87 @@
    	background-size: cover;
    	background-repeat: no-repeat;
    }
+   
+   .adopt__likes-icon {
+   	color: #c62828;
+   }
+   
+   .adopt__comm-input {
+    width: 90%;
+   	margin-right: 2%;
+   	padding-left: 2%;
+   }
+   
+   .adopt__comm-form {
+   	display: flex;
+   	justify-content: flex-start;
+   	width: 100%;
+   	white-space: nowrap;
+   }
+   
+   .adopt__detail-tb {
+   	font-size: 1.2em;
+   	height: 50vh;
+   	width: 48%;
+   	margin:2% 0;
+   }
+   
+   .adopt__detail-tb td{
+	padding: 5%;
+	white-space: nowrap;
+   }
+   
+   .adopt__post {
+   	width: 100%;
+   	display: flex;
+   	justify-content: space-between;
+   }
+   
+   .photo__zone {
+   	width: 50%;
+   	margin: 2% 0;
+   	
+   }
+   
+  .adopt__tb-title {
+  	width: 20%;
+  	text-align: center;
+  }
+  
+  .adopt__content {
+  	text-align: left;
+  	font-size: 1.2em;
+  	margin: 5% 0;
+  	padding: 2% 5%;
+  	width: 100%;
+  	white-space: pre-wrap;
+  	border: 1px solid #efefef;
+  }
+  
+  .adopt__save-btn {
+  	background: none;
+  	color: #ffc107;
+  	font-weight: bold;
+  }
+  
+  .adopt__list-btn {
+  	background-color: #ffc107;
+  	white-space: nowrap;
+  }
+  
+  .adopt__edit-btn {
+    background-color: #ffcc80;
+    white-space: nowrap;
+  }
+  
+  .adopt__del-btn {
+  	background-color: #ddd;
+  	white-space: nowrap;
+  }
+  
+  .adopt__input-form {
+  	width: 100%;
+  }
 </style>
 <script type="text/javascript">
    $(function(){
@@ -79,7 +162,6 @@
    String user_num=request.getParameter("user_num");
    String myId=(String)session.getAttribute("myId");
    String loginOk=(String)session.getAttribute("loginOk");
-   
    AdoptDao dao=new AdoptDao();
    AdoptDto dto=dao.getData(adopt_num);
    
@@ -95,7 +177,6 @@
    String vaccine=dto.getVaccine();
    String content=dto.getContent();
    String adopt_name=dto.getAdopt_name();
-   String comm_num=dto.getComm_num();
    int likes=dto.getLikes();
    
 
@@ -106,129 +187,115 @@
 %> 
 
 <body>
-	<div id="adopt__detail">
-		<header>
-			<h2>분양 정보</h2>			 
-			<span class="likes"id="btn_likes"
-			 style="width: 50px; font-size: 20px;" adopt_num="<%=adopt_num%>">💛<%=dto.getLikes() %></span>		
-		</header>
-	  	<main>	
-	  	<div style="display: flex; justify-content: center;">
+<div id="adopt__detail">
+	<header>
+		<h2>분양 정보</h2>			 
+		<span class="likes"id="btn_likes"
+		 style="width: 50px; font-size: 1.2em;" adopt_num="<%=adopt_num%>">
+		 	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill adopt__likes-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+			</svg>
+			좋아요&nbsp;<b><%=dto.getLikes() %></b>개
+		 </span>		
+	</header>
+  	<main>	
+	  	<div class="adopt__post">
 	  		 <div class="photo__zone" style="background-image: url('adoptsave/<%=photo%>');"></div>
 		  	 <%-- <img src="adoptsave/<%=photo%>">  --%>
-		  	 <div >    
-		  	 <table class="table table-striped" style="font-size: 30px; height: 368px;" >
-		     <%--  <tr>
-		         <td class="photo" rowspan="6" style="width: 500px;">
-		              <img src="adoptsave/<%=photo%>">         
-		          </td>
-		       </tr> --%>
-		       <tr>   
-		          <td>이름 : <%=dto.getAdopt_name()%></td>   
-		        </tr> 
-		        <tr>
-		         		<td>견종 : <%=dto.getBreed() %></td>
-		         </tr>
-		         <tr>		
-		         		<td>성별 : <%=dto.getGender() %></td>   
-		         </tr>
-		         <tr>		  
-		         		<td>나이 : <%=dto.getAge() %></td>  
-		         </tr>
-		         <tr>		
-		         		<td><%=dto.getVaccine() %></td>
-		         </tr>
-			</table>
+		  	 <div class="adopt__detail-tb">    
+			  	 <table class="table table-bordered">
+			     <%--  <tr>
+			         <td class="photo" rowspan="6" style="width: 500px;">
+			              <img src="adoptsave/<%=photo%>">         
+			          </td>
+			       </tr> --%>
+			        <tr>   
+			          <td class="adopt__tb-title">작성자 </td>   
+			          <td><%=dto.getAdopt_name()%></td>   
+			        </tr> 
+			        <tr>
+			         	<td class="adopt__tb-title">견종</td>
+			         	<td><%=dto.getBreed() %></td>
+			         </tr>
+			         <tr>		
+			         	<td class="adopt__tb-title">성별 </td>   
+			         	<td><%=dto.getGender() %></td>   
+			         </tr>
+			         <tr>		  
+		         		<td class="adopt__tb-title">나이</td>  
+		         		<td><%=dto.getAge() %></td>  
+			         </tr>
+			         <tr>		
+		         		<td colspan="2"><%=dto.getVaccine() %></td>
+			         </tr>
+				</table>
 			</div>
 		</div>
-	         <div style="text-align:center; width: 600px; font-size: 30px;">
-	         <tr>		
-	         		<td><%=dto.getContent() %></td>
-	         </tr>
-	         </div>
-
-	
-	<table class="table table-striped" >
-	     <%if(loginOk!=null){//이부분은 로그인 상태에서만 보이게 하기 %>
-         
-	   	<%-- <div class="comment">댓글<%=alist.size() %></div> --%>
-	   		<%}%>
-	   		
-	  
-	     
-	     	<div class="commentlist" style="font-size: 1.2em;" >
-	     		<%
-	     		//반복문
-	     		for(AdoptCommentDto adto:alist)
-	     		{
-	     			//댓글 쓴사람 이름
-	     			String writer=adto.getId();
-	     		%><tr><td>
-	     		<%=writer%>:<%=adto.getContent() %>
-	     		<!-- 댓글단 본인한테만 수정 삭제 아이콘 보이게 하기 -->	
-	     			<span class="awriteday" style= "float: right; color: gray;">
-	     			<%=adto.getWriteday()%></span>
-	     		<%
-	     		System.out.println(id);
-	     		if(myId!=null && myId.equals(adto.getId()))
-	     		{System.out.println("성공");
-	     		%>
-	     			<span class="delete"
-	     			idx="<%=adto.getIdx()%>"><i style='font-size:15px' class='far'>&#xf410;</i></span>
-	     			</td></tr>
-	     		<%	
-	     		}
-	     		%>
-
-	     		<br>
-	     		<%}%>
-	     	</div>
-
-	     <form action="Adopt/commentadd.jsp" method="post" class="form-inline" style="text-align:center">
+	    <div class="adopt__content"> <%=dto.getContent() %></div>		
+		<form action="Adopt/commentadd.jsp" method="post" class="adopt__input-form">
 	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
 	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
-	      	<input type="hidden" name="comm_num" value="<%=dto.getAdopt_num()%>">
 	      	<input type="hidden" name="id" value="<%=myId%>">
 	      	<div class="form-group">
-	      	<%if(loginOk!=null){ %>
-	      	<span>
-	      		<input class="all__form" type="text" name="content" required="required" placeholder="댓글을 입력해주세요"
-	      		style="width:600px;">
-	      	</span>	
-	      	<%}
-	      	%>
-	      	<span>
-	      	<%if(loginOk==null){ %>
-	      		<span>
-	      		<input class="all__form" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
-	      		style="width:600px;" readonly>
-	      		<%} %>
-	      	</span>	
-	      	<span>
-	      		<button type="submit">저장</button>	
-	      	</span>
+		      	<div class="adopt__comm-form">
+		      	<%if(loginOk!=null){ %>
+		      		<input class="all__form adopt__comm-input" id="adopt__addComm" type="text" name="content" required="required" placeholder="댓글을 입력해주세요">
+		      	<%}else if(loginOk==null){ %>
+		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
+		      		 readonly>
+		      	<%} %>
+		      		<button type="submit" class="button adopt__save-btn">저장</button>	
+		      	</div>
 	      	</div>  	
 	      </form>
-	     
-	     </table>
+	
+		<table class="table table-bordered commentlist" >
+		     <%if(loginOk!=null){//이부분은 로그인 상태에서만 보이게 하기 %>
+	         
+		   	<%-- <div class="comment">댓글<%=alist.size() %></div> --%>
+		   		<%}
+		     		//반복문
+		     		for(AdoptCommentDto adto:alist)
+		     		{
+		     			//댓글 쓴사람 이름
+		     			String writer=adto.getId();
+		     		%>
+	     		<tr>
+	    			<td>
+	    				<b><%=writer%></b>&nbsp;:&nbsp;<%=adto.getContent() %>
+		     		<!-- 댓글단 본인한테만 수정 삭제 아이콘 보이게 하기 -->	
+		     			<span class="awriteday" style= "float: right; color: gray;"><%=adto.getWriteday()%></span>
+		     		<%
+		     			if(myId!=null && myId.equals(adto.getId())) {
+		     		%>
+		     				<span class="delete" idx="<%=adto.getIdx()%>"><i style='font-size:15px' class='far'>&#xf410;</i></span>
+		     		<%	
+		     			}
+		     		%>
+		     		</td>
+		     	</tr>
+		     <%}%>
+		  </table>
 	   	</main>		
 	   		      	
-	     	 <div>
-	      	 <%
-	     	  if(myId!=null && myId.equals(id)){
-	    		%>   	   
-	     	     <button type="button"
-			       class="btn btn-outline-danger" id="btn-del"
-			       style="width: 100px;"
-			       onclick="location.href='Adopt/deleteaction.jsp?adopt_num=<%=dto.getAdopt_num()%>'">글 삭제</button> 
-			     <button type="button"
-			       class="btn btn-outline-warning" id="btn-update"
-			       style="width: 100px;"
-			       onclick="location.href='index.jsp?main=Adopt/adoptUpdate.jsp?adopt_num=<%=dto.getAdopt_num()%>'">글 수정</button> 
-			          
-	      	  <%}	 
-		  	  %>                            
-	   		 </div>	 
+     	<div>
+		     <button type="button"
+		       class="button adopt__list-btn" id="btn-update"
+		       onclick="location.href='index.jsp?main=Adopt/adoptlist.jsp'">목록 보기</button> 
+      	 <%
+     	  if(myId!=null && myId.equals(id)) {
+    	%>   	   
+		     <button type="button"
+		       class="button adopt__edit-btn" id="btn-update"
+		       onclick="location.href='index.jsp?main=Adopt/adoptUpdate.jsp?adopt_num=<%=dto.getAdopt_num()%>'">수정</button> 
+     	     <button type="button"
+		       class="button adopt__del-btn" id="btn-del"
+		       onclick="location.href='Adopt/deleteaction.jsp?adopt_num=<%=dto.getAdopt_num()%>'">삭제</button> 
+		          
+      	  <%
+     	  }	 
+	  	  %>                            
+   	    </div>	 
 	</div>
 </body>
 </html>

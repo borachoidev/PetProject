@@ -9,26 +9,17 @@ public class AdoptDto {
 	private String gender;
 	private String breed;
 	private String vaccine;
-	private String commt;
 	private String photo;
 	private int likes;
 	private Timestamp writeday;
 	private String adopt_name;
-	private String comm_num;
-	public String getComm_num() {
-		return comm_num;
-	}
-	public void setComm_num(String comm_num) {
-		this.comm_num = comm_num;
-	}
+	private String user_num;
 	public String getAdopt_name() {
 		return adopt_name;
 	}
 	public void setAdopt_name(String adopt_name) {
 		this.adopt_name = adopt_name;
 	}
-	private String user_name;
-	private String user_num;
 	public String getUser_num() {
 		return user_num;
 	}
@@ -71,12 +62,6 @@ public class AdoptDto {
 	public void setVaccine(String vaccine) {
 		this.vaccine = vaccine;
 	}
-	public String getCommt() {
-		return commt;
-	}
-	public void setCommt(String commt) {
-		this.commt = commt;
-	}
 	public String getPhoto() {
 		return photo;
 	}
@@ -94,12 +79,6 @@ public class AdoptDto {
 	}
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
-	}
-	public String getUser_name() {
-		return user_name;
-	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
 	}
 
 }

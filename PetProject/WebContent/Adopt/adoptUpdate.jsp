@@ -11,6 +11,22 @@
 <style type="text/css">
    
 </style>
+<script type="text/javascript">
+$(function(){
+	var gender=$("#adopt__update__gender").attr("gender");
+	console.log(gender);
+	$("#adopt__update__gender option[value='"+gender+"']").prop("selected",true);
+	
+	var vaccine=$("#check").attr("vaccine");
+	if(vaccine.match("완료")) {
+		$("input:checkbox[id='check']").prop("checked",true);
+	}
+	
+	var age=$("#adopt__update__age").attr("age");
+	$("#adopt__update__age option[value='"+age+"']").prop("selected",true);
+});
+	
+</script>
 </head>
 <%
 String myId=(String)session.getAttribute("myId"); 
@@ -23,18 +39,18 @@ String user_num=dao.getNum(myId);
 
 AdoptDao adao=new AdoptDao();
 AdoptDto dto=adao.getData(adopt_num);
-
 %>
 
 <body>
    <div class="">
    <form action="Adopt/updateaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
+      <input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
       <table class="" style="width: 600px;">
          <tr>
             <td>
-               <span>이름</span>
-               <input type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" style="width: 75px;"required="required">
+               <span>작성자</span>
+               <input type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" style="width: 75px;"required="required" disabled>
             </td>
          </tr>
          <tr>
@@ -46,8 +62,7 @@ AdoptDto dto=adao.getData(adopt_num);
           <tr>
             <td>
             	<span>나이</span>
-            <select name="age" required="required">
-         	<option disabled selected value>나이를 선택해 주세요</option>
+            <select id="adopt__update__age" name="age" required="required" age="<%=dto.getAge()%>">
             <option value="0~6개월">0~6개월미만</option>
             <option value="6개월~1년">6개월~1년미만</option>
             <option value="1년~2년">1년~2년미만</option>
@@ -63,8 +78,7 @@ AdoptDto dto=adao.getData(adopt_num);
          <tr>
             <td>
                <span>성별</span>
-            <select name="gender" required="required">
-            <option disabled selected value>성별을 선택해 주세요</option>   
+            <select id="adopt__update__gender" name="gender" required="required" gender="<%=dto.getGender() %>">
             <option value="수컷">수컷</option>
             <option value="암컷">암컷</option>
             <option value="수컷(중성화)">수컷(중성화)</option>
@@ -74,8 +88,8 @@ AdoptDto dto=adao.getData(adopt_num);
             <tr>
             <td>
                <span>예방접종</span>
-               <input type="checkbox" id="check">
-               <input type="hidden" name="vaccine" id="vaccine" value="0" />
+               <input type="checkbox" id="check" vaccine="<%=dto.getVaccine() %>">
+               <input type="hidden" name="vaccine" id="vaccine" value="예방접종 X" />
                   <script type="text/javascript">
       $("#check").click(function(){
     	 if($(this).prop("checked")){
@@ -98,8 +112,7 @@ AdoptDto dto=adao.getData(adopt_num);
          </tr>
          <tr>
             <td>
-               <textarea name="content" required="required" value="<%=dto.getContent()%>"
-               style="width: 600px; height: 150px;"></textarea>
+               <textarea name="content" required="required" style="width: 600px; height: 150px;"><%=dto.getContent()%></textarea>
             </td>
          </tr>   
          <tr>
