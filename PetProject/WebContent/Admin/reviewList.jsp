@@ -93,8 +93,6 @@ td:last-child {
 </style>
 
 
-
-
 <%
 
 String id=(String)session.getAttribute("myId");
@@ -110,16 +108,19 @@ List<ReviewDto> list=rdao.getAllReview();
 </head>
 <body>
 <div id="acc__review-list">
+<br><br>
 	<h4><b>후기글 목록</b></h4>
-	<table class="table table-bordered" style="width:900px;">
+	<table class="table table-bordered" style="width:1000px;">
 	<tr bgcolor="#ffc400">
-		<td style="width:100px;" align="center">리뷰넘버</td>
-		<td style="width:100px;" align="center">제목</td>
-		<td style="width:100px;" align="center">내용</td>
-		<td style="width:120px;" align="center">쓴날짜</td>
+		<td style="width:80px;" align="center">리뷰넘버</td>
+		<td style="width:80px;" align="center">예약번호</td>
 		<td style="width:120px;" align="center">아이디</td>
-		<td style="width:120px;" align="center">예약번호</td>
-		<td style="width:60px;" align="center">삭제</td>
+		<td style="width:120px;" align="center">제목</td>
+		<td style="width:220px;" align="center">내용</td>
+		<td style="width:120px;" align="center">쓴날짜</td>
+		
+		
+		<td style="width:50px;" align="center">삭제</td>
 	</tr>
 	
 	
@@ -128,13 +129,17 @@ List<ReviewDto> list=rdao.getAllReview();
 	for(ReviewDto dto:list)
 	{%>
 	<tr bgcolor="white">
-	<td style="width:100px;" align="center" name="review_num"><%=dto.getReview_num()%></td>
-	<td style="width:100px;" align="center" name="ReTitle"><%=dto.getTitle()%></td>
-	<td style="width:100px;" align="center" name="ReContent"><%=dto.getContent()%></td>
-	<td style="width:120px;" align="center" name="ReWriteday"><%=dto.getWriteday()%></td>
+	<td style="width:80px;" align="center" name="review_num"><%=dto.getReview_num()%></td>
+	<td style="width:80px;" align="center" name="ReBook_Num"><%=dto.getBook_num()%></td>
 	<td style="width:120px;" align="center" name="ReId"><%=dto.getId()%></td>
-	<td style="width:60px;" align="center" name="ReBook_Num"><%=dto.getBook_num()%></td>
-	<td><button type="button" review_num="<%=dto.getReview_num()%>" class="Review__delete-btn button">삭제</button></td>
+	<td style="width:120px;" align="center" name="ReTitle"><%=dto.getTitle()%></td>
+	<td style="width:220px;" align="center" name="ReContent"><div style="overflow:hidden;width:220px"><%=dto.getContent()%><div></div></td>
+	<td style="width:120px;" align="center" name="ReWriteday"><%=dto.getWriteday()%></td>
+	
+	
+	<td>
+	<input type="hidden" value="<%=dto.getReview_num()%>" class="review_num">
+	<button type="button" class="Review__delete-btn button">삭제</button></td>
 	</tr>
 	<%
 	}
@@ -143,12 +148,11 @@ List<ReviewDto> list=rdao.getAllReview();
 
 </div>
 <script type="text/javascript">
-
-$(".Review__delete-btn").click(function () {
-	var review_num=$(this).attr(review_num);
-	var check = confirm("후기를 삭제 하시겠습니까?");
+$(document).on("click",".Review__delete-btn",function(){
+	var num=$(this).siblings().val();
+	var check = confirm("이 글을 삭제 하시겠습니까?");
 	if(check){
-		location.href="MyPage/deleteReviewAction.jsp?num="+review_num;
+		location.href="Admin/deleteReviewAction.jsp?num="+num;
 	}else{
 		location.href="index.jsp?main=Admin/reviewList.jsp";
 	}

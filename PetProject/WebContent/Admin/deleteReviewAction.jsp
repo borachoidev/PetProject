@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%
 
-String num= request.getParameter("review_num");
+String num= request.getParameter("num");
 
 ReviewDao dao=new ReviewDao();
 dao.deleteReview(num);
