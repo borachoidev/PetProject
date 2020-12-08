@@ -402,7 +402,6 @@ public class UserDao {
 		public void updateUserLevel(String user_num,String lvl) {
 			Connection conn=null;
 			PreparedStatement pstmt=null;
-			ResultSet rs=null;
 			String sql="update user_tb set lvl=? where user_num=?";
 			conn=db.getMyConnection();
 			
@@ -419,6 +418,32 @@ public class UserDao {
 				db.dbClose(conn, pstmt);
 			}
 		}
+		
+		public boolean getUserLevel(String myId) {
+			boolean adopt_user=false;
+			String sql="select lvl from user_tb where id=?";
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getMyConnection();
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, myId);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					if(rs.getInt("lvl")==1) {
+						adopt_user=true;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				db.dbClose(conn, pstmt, rs);
+			}
+			return adopt_user;
+		}
+		
 }
 
 
