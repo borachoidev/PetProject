@@ -39,7 +39,7 @@ table {
 thead tr:first-child {
   background: #ed1c40;
   color: #fff;
-  border: none;
+
 }
 
 
@@ -56,9 +56,7 @@ tbody tr:hover {
   cursor: default;
 }
 
-tbody tr:last-child td {
-  border: none;
-}
+
 
 tbody td {
   border-bottom: 1px solid #ddd;
@@ -110,16 +108,11 @@ String user_num=udao.getNum(id);
 BookDao bdao=new BookDao();
 List<HashMap<String,String>> clist = bdao.getCurrentBook(user_num);
 List<HashMap<String,String>> plist = bdao.getPastBook(user_num);
-String book_num=bdao.getBook(user_num);
 int ctot=bdao.getCurrentCount(user_num);
 int ptot=bdao.getPastCount(user_num);
 
 ReviewDao rdao=new ReviewDao();
-int cnt=rdao.isReviewCheck(user_num);
-
-
-	
-	
+int rcnt=rdao.isReviewCheck(user_num);
 %>
 
 </head>
@@ -174,7 +167,7 @@ int cnt=rdao.isReviewCheck(user_num);
 		<td style="width:80px;" align="center">후기</td>
 	</tr>
 	<%
-	if(ctot==0){%>
+	if(ptot==0){%>
 	<tr bgcolor="white">
  				<td colspan="6" align="center">
  				<b>완료된 훈련이 없습니다!</b>
@@ -182,32 +175,45 @@ int cnt=rdao.isReviewCheck(user_num);
  			</tr>
  		<%} %>
 	<%
+	
 	for(HashMap<String,String> map:plist)
 		{%>
 		<tr bgcolor="white">
 		<input type="hidden" name="user_num" value="<%=map.get("user_num")%>">
-		<td style="width:100px;" align="center" name="book_num"><%=map.get("book_num")%></td>
+		<td style="width:100px;" align="center" name="bookNum"><%=map.get("book_num")%></td>
 		<td style="width:100px;" align="center" name="accName"><%=map.get("acc_name")%></td>
 		<td style="width:80px;" align="center" name="bookCenter"><%=map.get("petcenter")%></td>
 		<td style="width:100px;" align="center" name="bookSelect"><%=map.get("petselect")%></td>
 		<td style="width:100px;" align="center" name="bookStartDay"><%=map.get("startday")%></td>
 		<td style="width:100px;" align="center" name="bookEndDay"><%=map.get("endday")%></td>
 			<%
-			if(cnt==0){
+			String book_num=request.getParameter("bookNum");
+			int rcnum=rdao.getReviewCount(book_num);
+			if(rcnt==0){
 			%>
 			<td>
+			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
+			<button type="button" class="acc__btn-write button" onclick="location.href='index.jsp?main=Review/reviewForm.jsp?book_num=<%=map.get("book_num")%>'">후기쓰기</button>
+			</td>
+			<%}else if(rcnt>0 && rcnum==1){%>
+			<td>
+			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
+			<td><button type="button" class="acc__btn-show button">내글보기</button>
+			</td>
+			<%} else if(rcnt>0 && rcnum==0){%>
+			<td>
+			<input type="hidden" name="book_num" value="<%=map.get("book_num")%>">
 			<button type="button" class="acc__btn-write button" onclick="location.href='index.jsp?main=Review/reviewForm.jsp'">후기쓰기</button>
 			</td>
-			<%}else{%>
-			<td><button type="button" class="acc__btn-show button" onclick="location.href='MyPage/reviewRead.jsp'">내글보기</button>
-			</td>
-			<%}%>
-			</tr>
+			<%}
+	%>
+		</tr>
 		<%}
 	%>
 	</table>
 </div>
+<script type="text/javascript">
 
-
+</script>
 </body>
 </html>
