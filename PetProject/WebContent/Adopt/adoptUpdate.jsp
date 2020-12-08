@@ -79,7 +79,7 @@ boolean user_level=udao.getUserLevel(myId);
           <tr>
                <td class="table_row_name">작성자</td>
                <td>
-               <input class="all__form" type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" required="required" >
+               <input class="all__form" type="text" name="adopt_name"  value="<%=dto.getAdopt_name()%>" required="required" disabled>
          </tr>
          <tr>
              <td class="table_row_name">견종</td>
