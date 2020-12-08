@@ -85,10 +85,13 @@ td:last-child {
 
  .acc__btn-write {
  	background-color: #ff8e00;
+ 	white-space: nowrap;
+ 	color: black;
  }
  
  .acc__btn-show {
  	background-color: #EAEAEA;
+ 	
  }
   
 }
