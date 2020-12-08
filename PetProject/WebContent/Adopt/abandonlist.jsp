@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="data.dto.AdoptCommentDto"%>
 <%@page import="java.text.NumberFormat"%>
@@ -19,6 +20,7 @@
    img.photo{
       width: 200px;
       height: 230px;
+      margin-bottom: 5px;
    }
  
    #adopt__container {
@@ -81,6 +83,11 @@ color:#ffb900;
 
 .program__title h2{
 color:#797979;
+}
+
+.adopt__day {
+	font-size: 0.9em;
+	color: gray;
 }
 </style>
 <title>Insert title here</title>
@@ -170,19 +177,20 @@ int no=totalCount-(currentPage-1)*perPage;
 	   			<table class="adopttable table table-bordered" style="width: 800px;">   
 			      <tr>
 			      <%
-			      SimpleDateFormat sdf=new SimpleDateFormat("yyyy년MM월dd일");
-			      NumberFormat nf=NumberFormat.getCurrencyInstance();
 			      int e=0;
 			      for(AbandonDto dto:list)
 			      {
 			         String photo=dto.getPopfile().split(",")[0]; 
+				     String year=dto.getNoticeSdt().substring(0,4);
+				     String month=dto.getNoticeSdt().substring(5,7);
+				     String day=dto.getNoticeSdt().substring(7);
 			      %> 
 			         <td>
 			         <a desertionNo="<%=dto.getDesertionNo()%>"
 			            style="cursor:pointer;" class="godetail">
 			            <img src="<%=photo%>" class="photo">
 			            <br><%=dto.getKindcd()%> <%=dto.getAge()%>     
-			            <br><%=dto.getNoticeSdt()%>       
+			            <br><span class="adopt__day"><%=year+"."+month+"."+day%></span>       
 			         </a>
 			         </td>
 			         <%
