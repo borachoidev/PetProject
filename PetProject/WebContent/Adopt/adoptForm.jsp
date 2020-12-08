@@ -45,7 +45,7 @@ String user_num=dao.getNum(myId);
    <h2>가정분양 강아지 등록</h2>
    <form action="Adopt/addaction.jsp" method="post"
       enctype="multipart/form-data" class="form-inline">
-      <table class="adoptFrom table table-bordered">
+      <table class="table table-bordered">
          <tr>
          	<td class="table_row_name">작성자</td>
             <td>
