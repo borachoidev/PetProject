@@ -172,7 +172,7 @@ ReviewDao rdao=new ReviewDao();
 	<%
 	if(ptot==0){%>
 	<tr bgcolor="white">
- 				<td colspan="6" align="center">
+ 				<td colspan="7" align="center">
  				<b>완료된 훈련이 없습니다!</b>
  				</td>
  			</tr>
