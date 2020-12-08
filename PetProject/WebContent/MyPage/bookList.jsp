@@ -111,6 +111,8 @@ BookDao bdao=new BookDao();
 List<HashMap<String,String>> clist = bdao.getCurrentBook(user_num);
 List<HashMap<String,String>> plist = bdao.getPastBook(user_num);
 String book_num=bdao.getBook(user_num);
+int ctot=bdao.getCurrentCount(user_num);
+int ptot=bdao.getPastCount(user_num);
 
 ReviewDao rdao=new ReviewDao();
 int cnt=rdao.isReviewCheck(user_num);
@@ -134,12 +136,17 @@ int cnt=rdao.isReviewCheck(user_num);
 		<td style="width:120px;" align="center">시작일</td>
 		<td style="width:120px;" align="center">종료일</td>
 	</tr>
-	
-	
 	<%
-	
-	for(HashMap<String,String> map:clist)
+	if(ctot==0){%>
+	<tr bgcolor="white">
+ 				<td colspan="6" align="center">
+ 				<b>진행중인 훈련이 없습니다!</b>
+ 				</td>
+ 			</tr>
+ 		<%} %>
+	<%for(HashMap<String,String> map:clist)
 		{%>
+		
 		<tr bgcolor="white">
 		<td style="width:60px;" align="center" name="book_num"><%=map.get("book_num")%></td>
 		<td style="width:100px;" align="center" name="accName"><%=map.get("acc_name")%></td>
@@ -166,7 +173,14 @@ int cnt=rdao.isReviewCheck(user_num);
 		<td style="width:100px;" align="center">종료일</td>
 		<td style="width:80px;" align="center">후기</td>
 	</tr>
-	
+	<%
+	if(ctot==0){%>
+	<tr bgcolor="white">
+ 				<td colspan="6" align="center">
+ 				<b>완료된 훈련이 없습니다!</b>
+ 				</td>
+ 			</tr>
+ 		<%} %>
 	<%
 	for(HashMap<String,String> map:plist)
 		{%>

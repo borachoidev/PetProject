@@ -102,7 +102,7 @@ String user_num=udao.getNum(id);
 
 ReviewDao rdao=new ReviewDao();
 List<ReviewDto> list=rdao.getAllReview();
-	
+int tot=rdao.getTotalCount();
 %>
 
 </head>
@@ -122,8 +122,14 @@ List<ReviewDto> list=rdao.getAllReview();
 		
 		<td style="width:50px;" align="center">삭제</td>
 	</tr>
-	
-	
+	<%
+	if(tot==0){%>
+	<tr bgcolor="white">
+ 				<td colspan="6" align="center">
+ 				<b>등록된 후기가 없습니다!</b>
+ 				</td>
+ 			</tr>
+ 		<%} %>
 	<%
 	
 	for(ReviewDto dto:list)

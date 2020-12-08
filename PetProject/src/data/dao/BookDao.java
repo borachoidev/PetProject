@@ -337,7 +337,59 @@ public class BookDao {
 		
 	}
 	
+	public int getCurrentCount(String user_num) {
+		int tot=0;
+		Connection conn=null;
+		PreparedStatement pstmt =null;
+		ResultSet rs=null;
+		String sql="select count(*) from account_tb a, book b where str_to_date(startday, '%Y/%m/%d') <= now() and str_to_date(endday,'%Y/%m/%d') > now() and a.dog_num=b.dog_num and a.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				tot=rs.getInt(1);
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		return tot;
+	}
 	
+	public int getPastCount(String user_num) {
+		int tot=0;
+		Connection conn=null;
+		PreparedStatement pstmt =null;
+		ResultSet rs=null;
+		String sql="select count(*) from account_tb a, book b where str_to_date(endday, '%Y/%m/%d') < now() and a.dog_num=b.dog_num and a.user_num=?";
+		
+		conn=db.getMyConnection();
+		try
+		{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_num);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				tot=rs.getInt(1);
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(conn, pstmt,rs);
+		}
+		return tot;
+	}
 }
 
 
