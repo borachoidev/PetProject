@@ -99,7 +99,12 @@ $(function(){
 	
 	AccountDao adao=new AccountDao();
 	List<AccountDto> alist=adao.getAllAccounts(user_num);
-	
+	String accId=adao.getDefault(id);
+	if(accId==null||accId.equals(""))
+	{
+		accId="no";
+	}
+	session.setAttribute("accId", accId);
 	
 %>
 
