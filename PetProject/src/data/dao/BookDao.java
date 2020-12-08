@@ -20,7 +20,7 @@ public class BookDao {
 	
 	public List<HashMap<String, String>> getPuppyList(String id)
 	{
-		String sql ="select a.dog_num, a.acc_name, a.breed, a.age, a.gender, u.user_name, u.hp, u.user_num from account_tb a, user_tb u where a.user_num = u.user_num and u.id =?";
+		String sql ="select a.dog_num, a.acc_name, a.breed, a.age, a.gender, a.photo, u.user_name, u.hp, u.user_num from account_tb a, user_tb u where a.user_num = u.user_num and u.id =?";
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -42,6 +42,7 @@ public class BookDao {
 				map.put("breed", rs.getString("breed"));
 				map.put("age", rs.getString("age"));
 				map.put("gender", rs.getString("gender"));
+				map.put("photo", rs.getString("photo"));
 				map.put("user_name", rs.getString("user_name"));
 				map.put("hp", rs.getString("hp"));
 				map.put("user_num", rs.getString("user_num"));
@@ -128,7 +129,7 @@ public class BookDao {
 	
 	public List<HashMap<String, String>> getUserBook(String id)
 	{
-		String sql = "select u.id, u.user_name, u.hp, a.acc_name, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num and u.id=? order by book_num desc";
+		String sql = "select u.id, u.user_name, u.hp, a.acc_name, b.startday, b.endday, b.petcenter, b.petselect, b.book_num from user_tb u, account_tb a, book b where str_to_date(startday, '%Y/%m/%d') > now() and u.user_num = b.user_num and b.user_num = a.user_num and b.dog_num = a.dog_num and u.id=? order by book_num desc";
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -355,6 +356,7 @@ public class BookDao {
 		}
 		return tot;
 	}
+	
 	
 	
 		
