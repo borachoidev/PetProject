@@ -212,7 +212,7 @@
 			          </td>
 			       </tr> --%>
 			        <tr>   
-			          <td class="adopt__tb-title">이름 </td>   
+			          <td class="adopt__tb-title">작성자 </td>   
 			          <td><%=dto.getAdopt_name()%></td>   
 			        </tr> 
 			        <tr>
@@ -233,9 +233,7 @@
 				</table>
 			</div>
 		</div>
-	    <div class="adopt__content">
-	    		<%=dto.getContent() %>
-	    </div>		
+	    <div class="adopt__content"> <%=dto.getContent() %></div>		
 		<form action="Adopt/commentadd.jsp" method="post" class="adopt__input-form">
 	     	<input type="hidden" name="adopt_num" value="<%=dto.getAdopt_num()%>">
 	     	<input type="hidden" name="user_num"  value="<%=user_num%>">
@@ -244,7 +242,7 @@
 	      	<div class="form-group">
 		      	<div class="adopt__comm-form">
 		      	<%if(loginOk!=null){ %>
-		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 입력해주세요">
+		      		<input class="all__form adopt__comm-input" id="adopt__addComm" type="text" name="content" required="required" placeholder="댓글을 입력해주세요">
 		      	<%}else if(loginOk==null){ %>
 		      		<input class="all__form adopt__comm-input" type="text" name="content" required="required" placeholder="댓글을 남기려면 로그인 먼저 해주세요"
 		      		 readonly>

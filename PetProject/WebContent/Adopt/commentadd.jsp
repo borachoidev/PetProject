@@ -22,7 +22,7 @@
 <%
 	dao.insertComment(dto);
 	
-	String go="../index.jsp?main=Adopt//detailpage.jsp?adopt_num="+adopt_num+"&user_num="+user_num;
+	String go="../index.jsp?main=Adopt//detailpage.jsp?adopt_num="+adopt_num+"&user_num="+user_num+"#adopt__addComm";
 	response.sendRedirect(go);
 
 %>
