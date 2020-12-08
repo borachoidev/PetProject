@@ -19,7 +19,7 @@
 <body>
 <div id="mapcontainer">
 	<div class="search">
-		<input type="text" id="roadAddress" placeholder="도로명주소 검색" readonly>&nbsp;
+		<input type="text" class="txt all__form" id="roadAddress" placeholder="도로명주소 검색" readonly>&nbsp;
 		<button id="search_btn" type="button" onclick="execDaumPostcode()" class="btn_search button">검색</button>
 	</div>
 	<div class="map_wrap">
@@ -47,13 +47,11 @@
 		    <div class="custom_zoomcontrol radius_border"> 
 		        <span onclick="zoomIn()"><i class='fas fa-plus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>  
 		        <span onclick="zoomOut()"><i class='fas fa-minus' style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
+		        <span><i class='current_pos fas fa-crosshairs' onclick="panTo()" style='position: relative; top: 5px; color: #777777; font-size:24px; vertical-align: middle;'></i></span>
 		    </div>
 		    <div class="hAddr">
 		        <span class="title">지도중심기준 행정동 주소정보</span>
 		        <span id="centerAddr"></span>
-		    </div>
-		    <div class="radius_border current_pos" onclick="panTo()">
-		    	<span><i class='fas fa-crosshairs' style='position: relative; top: 5px; left:5px; color: #777777; font-size:24px'></i></span>
 		    </div>
 	    </div>
 	</div>
