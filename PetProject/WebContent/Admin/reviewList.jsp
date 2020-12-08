@@ -35,7 +35,7 @@ table {
 thead tr:first-child {
   background: #ed1c40;
   color: #fff;
-  border: none;
+  
 }
 
 
@@ -52,9 +52,7 @@ tbody tr:hover {
   cursor: default;
 }
 
-tbody tr:last-child td {
-  border: none;
-}
+
 
 tbody td {
   border-bottom: 1px solid #ddd;
