@@ -16,7 +16,7 @@ public class AccountDao {
 	
 	//default 강아지 찾기
 	public String getDefault(String id) {
-		String accName="empty";
+		String accName="";
 		Connection conn=null;
 		PreparedStatement pstmt= null;
 		ResultSet rs=null;
