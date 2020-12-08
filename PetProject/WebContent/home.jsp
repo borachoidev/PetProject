@@ -8,17 +8,39 @@
 <link rel="icon" href="Image/favicon.png">
 <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style type="text/css">
+@font-face {
+    font-family: 'GoyangIlsan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangIlsan.woff') format('woff');
+     font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GoyangDeogyang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+	padding: 0px;
+	margin: 0px;
+	font-family: 'GoyangIlsan';
+}
+
 html, body {
 	margin:0;
 	padding:0;
 	width: 100%; 
 	height: 100%;
 }
-*{
-	margin:0;
-	padding:0;
+h1,h2,h3,h4,h5{
+   font-family:'GoyangDeogyang';
 }
-
+h1{
+font-size: 5rem;
+}
+h3{
+font-size: 2rem;
+}
 #introDescription, #mungDescription{
 cursor: pointer;
 padding:4vw;
@@ -32,6 +54,7 @@ width:100%;
 height:100%;
 }
 #intro{
+padding:15vh 0 0 0;
 overflow:hidden;
 background: url('Image/main1.jpg') no-repeat center ;
 background-size: cover;
@@ -42,6 +65,7 @@ justify-content: center;
 align-items: center;
 }
 #community{
+padding:15vh 0 0 0;
 overflow:hidden;
 background: url('Image/main2.jpg') no-repeat center ;
 background-size: cover;
@@ -95,14 +119,14 @@ window.onload=function() {
 		<div id="introDescription" class="animate__animated">
 			<h3>프리미엄 반려견유치원</h3>
 			<h1>펫앤미</h1>
-			<p>&lt;들어가기&gt;<p>
+			<h4>&lt;들어가기&gt;</h4>
 		</div>
 	</div>	
 	<div id="community">
 		<div id="mungDescription" class="animate__animated">
 			<h3>국내 최대 반려견 커뮤니티</h3>
 			<h1>멍스타그램</h1>
-			<p>&lt;들어가기&gt;<p>
+			<h4>&lt;들어가기&gt;</h4>
 		</div>
 	
 	</div>
