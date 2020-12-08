@@ -57,6 +57,9 @@ color:#ffb900;
 .program__title h2{
 color:#797979;
 }
+	img.photo:hover{
+		opacity: 0.5;
+	}
 
    img.photo{
       width: 200px;
@@ -68,6 +71,7 @@ color:#797979;
       justify-content: center;
       flex-direction: column;
    }
+
   div.footer{
 	  display: flex;
 	  justify-content: flex-end ;
@@ -116,7 +120,7 @@ totalPage=totalCount/perPage+(totalCount%perPage>0?1:0);
 //예:한페이지당 3개만 볼 경우 현재 페이지가 2라면 sp:1, ep:3
 //현재 페이지가 7이라면 sp:3, ep:9
 startPage=(currentPage-1)/perBlock*perBlock+1;
-endPage=startPage+perBlock+1;
+endPage=startPage+perBlock-1;
 //마지막 블럭은 endPage를 totalPage로 해놔야한다
 if(endPage>totalPage)
 	endPage=totalPage;
@@ -124,9 +128,12 @@ if(endPage>totalPage)
 //각 페이지에서 불러올 글 번호 구하기
 //예: 1페이지: 1~2, 2페이지:3~4...
 start=(currentPage-1)*perPage;
+end=start+perPage-1;
 
 //마지막 글 번호는 총 글수와 같은 번호여야 한다
-int no=totalCount-(currentPage-1)*perPage;
+if(end>totalCount)
+	end=totalCount;
+//int no=totalCount-(currentPage-1)*perPage;
 
 //출력할 목록 가져오기
 List<AdoptDto> list=dao.getAlldogs(start, perPage);
@@ -191,13 +198,13 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 						<%
 						if(totalCount>0)
 						{%>
-						<ul class="pagination">
+						<ul class="pagination" style="position: center; width: 500px;" >
 						<%
 							//이전
 							if(startPage>1)
 							{%>
-								<li class="page-item disabled"><a class="page-link" 
-								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=startPage-1%>">Previous</a></li>
+								<li class="page-item"><a class="page-link" 
+								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=startPage-1%>">이전</a></li>
 							<%}
 							for(int i=startPage;i<=endPage;i++)
 							{
@@ -207,14 +214,14 @@ List<AdoptDto> list=dao.getAlldogs(start, perPage);
 								{%>
 									<li class="page-item"><a class="page-link" href="<%=url%>"><%=i%></a></li>
 									<%}else{%>
-										<a href="<%=url%>"><%=i%>&nbsp;</a>
+										<li class="page-item"><a class="page-link" href="<%=url%>"><%=i%>&nbsp;</a></li>
 									<%}
 							}						
 							//다음 
 							if(endPage<totalPage)
 							{%>
 								<li class="page-item"><a class="page-link" 
-								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">Next</a></li>
+								href="index.jsp?main=Adopt/adoptlist.jsp?pageNum=<%=endPage+1%>">다음</a></li>
 							<%}
 						%>
 							</ul>	
