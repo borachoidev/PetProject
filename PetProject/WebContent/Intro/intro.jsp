@@ -282,17 +282,19 @@ var marker4 = new kakao.maps.Marker({
 marker4.setMap(map4);
 
 
-$('#myTab a').click(function (e) {
-  e.preventDefault()
+$('.nav-item a').click(function (e) {
+  e.preventDefault();
   $(this).tab('show');
+  console.log("reaload2");
   setTimeout(function(){
+	  console.log("reaload");
 	  map2.relayout();
 	  map2.setCenter(new daum.maps.LatLng(37.499472, 127.029247));
-	  map3.relayout();
+	  map3.relayout(); 
 	  map3.setCenter(new daum.maps.LatLng(37.552647, 126.937730));
-	  map4.relayout();
-	  map4.setCenter(new daum.maps.LatLng(37.570280, 126.986455));
-	}, 0);  
+	  map4.relayout(); 
+	  map4.setCenter(new daum.maps.LatLng(37.570280, 126.986455));  
+	}, 500);  
 });
 
 
